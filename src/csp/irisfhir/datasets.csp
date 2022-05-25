@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>Medical Datasets</title>
+	<meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+	<link rel="icon" href="resources/img/icon.ico" type="image/x-icon" />
+
+	<!-- Fonts and icons -->
+	<script src="resources/js/webfont.min.js"></script>
+	<script type="text/javascript">
+		WebFont.load({
+			google: {
+				"families": ["Lato:300,400,700,900"]
+			},
+			custom: {
+				"families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular",
+					"Font Awesome 5 Brands", "simple-line-icons"
+				],
+				urls: ['resources/css/fonts.min.css']
+			},
+			active: function () {
+				sessionStorage.fonts = true;
+			}
+		});
+		
+
+	</script>
+
+	<!-- CSS Files -->
+	<link rel="stylesheet" type="text/css" href="resources/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="resources/css/atlantis.min.css">
+	<link rel="stylesheet" type="text/css" href="resources/css/datatables.min.css">
+	<link rel="stylesheet" type="text/css" href="resources/css/buttons.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="resources/css/jquery.dataTables.min.css">
+	
+	<script src="resources/js/jquery.min.js"></script>
+	<script src="resources/js/datatables.min.js"></script>
+	<script src="resources/js/dataTables.buttons.min.js"></script>
+	<script src="resources/js/jszip.min.js"></script>
+	<script src="resources/js/pdfmake.min.js"></script>
+	<script src="resources/js/vfs_fonts.js"></script>
+	<script src="resources/js/buttons.html5.min.js"></script>
+	
+	<script type="text/javascript">
+	
+	$(document).ready(function() {
+    $('#basic-datatables').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5'
+        ]
+    } );
+} );
+
+    </script>
+		<style>
+		.hidden {
+			display: none;
+		}
+		.sessionLink {
+			cursor: pointer;
+			font-weight: bold;
+			color: #1A68D6 !important; 
+		}
+		#divMessagesDataGrid {
+			height: 500px;
+    		width: 100%;
+		}		
+	</style>
+</head>
+
+<body>
+<csp:class encoded=1 super="%CSP.Page,dc.FhirClient">
+  	<div class="wrapper">
+		<div class="main-header">
+			<!-- Logo Header -->
+			<div class="logo-header" data-background-color="blue">
+				
+				<a href="#" class="logo">
+					<img src="resources/img/logo.jpg" alt="navbar brand" class="navbar-brand">
+				</a>
+				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon">
+						<i class="icon-menu"></i>
+					</span>
+				</button>
+				<button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
+				<div class="nav-toggle">
+					<button class="btn btn-toggle toggle-sidebar">
+						<i class="icon-menu"></i>
+					</button>
+				</div>
+			</div>
+			<!-- End Logo Header -->
+			<!-- NavBar -->
+			<nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
+				
+				<div class="container-fluid">
+					<ul class="nav nav-pills nav-primary">
+						<li class="nav-item">
+							<a class="nav-link active" href="/csp/datasets/index.csp">Dashboard</a>
+						</li>
+							<li class="nav-item">
+							<a class="nav-link active" href="/csp/datasets/datasets.csp">View DataSets</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="/csp/sys/%25CSP.Portal.Home.zen?$NAMESPACE=DATASETS">Management Portal</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="/csp/sys/exp/%25CSP.UI.Portal.SQL.Home.zen?$NAMESPACE=DATASETS">DataSets SQL</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="https://irisdocs.intersystems.com/iris20212/csp/docbook/DocBook.UI.Page.cls?KEY=RSQL_loaddata">Load Data Docs</a>
+						</li>			
+
+						
+					
+					</ul>
+					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">						
+						<li class="nav-item dropdown hidden-caret">
+							<a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+								<i class="fas fa-layer-group"></i>
+							</a>
+							<div class="dropdown-menu quick-actions quick-actions-info animated fadeIn">
+								<div class="quick-actions-header">
+									<span class="title mb-1">Quick Actions</span>
+									<span class="subtitle op-8">Shortcuts</span>
+								</div>
+								<div class="quick-actions-scroll scrollbar-outer">
+									<div class="quick-actions-items">
+										<div class="row m-0">
+											<a class="col-6 col-md-4 p-0" href="/csp/datasets/index.csp">
+												<div class="quick-actions-item">
+													<i class="flaticon-file-1"></i>
+													<span class="text">Dashboard</span>
+												</div>
+											</a>
+											<a class="col-6 col-md-4 p-0" href="/csp/datasets/datasets.csp">
+												<div class="quick-actions-item">
+													<i class="flaticon-pen"></i>
+													<span class="text">View DataSet</span>
+												</div>
+											</a>
+											<a class="col-6 col-md-4 p-0" href="/csp/sys/%25CSP.Portal.Home.zen?$NAMESPACE=DATASETS">
+												<div class="quick-actions-item">
+													<i class="flaticon-database"></i>
+													<span class="text">Management Portal</span>
+												</div>
+											</a>
+											<a class="col-6 col-md-4 p-0" href="/csp/sys/exp/%25CSP.UI.Portal.SQL.Home.zen?$NAMESPACE=DATASETS">
+												<div class="quick-actions-item">
+													<i class="flaticon-pen"></i>
+													<span class="text">DataSets SQL</span>
+												</div>
+											</a>
+											<a class="col-6 col-md-4 p-0" href="https://irisdocs.intersystems.com/iris20212/csp/docbook/DocBook.UI.Page.cls?KEY=RSQL_loaddata">
+												<div class="quick-actions-item">
+													<i class="flaticon-pen"></i>
+													<span class="text">LOAD DATA (SQL)</span>
+												</div>
+											</a>
+											
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						
+					</ul>
+				</div>
+			</nav>
+			<!-- End Navbar -->
+		</div>
+		<!-- Sidebar -->
+		<div class="sidebar sidebar-style-2">			
+			<div class="sidebar-wrapper scrollbar scrollbar-inner">
+				<div class="sidebar-content">					
+				  <ul class="nav nav-primary">									
+						<li class="nav-item">							
+							<script language="Cache" runat="Server">
+								SET sts = $SYSTEM.SQL.Schema.TableExists("dc_data_synthetic.patients")
+							</script>
+							<csp:if condition="sts=1">
+								<a data-toggle="collapse" href="#base">
+									<i style="color:#007bff" class="fas fa-layer-group dscolor>Thest </p>"></i>
+									<p style="color:#007bff" class="dscolor">Synthetic Medical Data</p>
+									<span class="caret"></span>
+								</a>
+								<csp:else condition="sts'=1">
+								<a data-toggle="collapse disabled" href="">
+									<i class="fas fa-layer-group dscolor>Thest </p>"></i>
+									<p class="dscolor">Synthetic Medical Data</p>
+								</a>
+							</csp:if>
+														
+							<div class="collapse" id="base">
+								<ul class="nav nav-collapse">
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=111">
+											<span class="sub-item">All_prevalences</span>
+											<span class="badge badge-success">#(..GetTotalRecords(111))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=112">
+											<span class="sub-item">Allergies</span>
+											<span class="badge badge-success">#(..GetTotalRecords(112))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=113">
+											<span class="sub-item">Careplans</span>
+											<span class="badge badge-success">#(..GetTotalRecords(113))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=114">
+											<span class="sub-item">Claims</span>
+											<span class="badge badge-success">#(..GetTotalRecords(114))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=115">
+											<span class="sub-item">Conditions</span>
+											<span class="badge badge-success">#(..GetTotalRecords(115))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=116">
+											<span class="sub-item">Encounters</span>
+											<span class="badge badge-success">#(..GetTotalRecords(116))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=117">
+											<span class="sub-item">Immunizations</span>
+											<span class="badge badge-success">#(..GetTotalRecords(117))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=118">
+											<span class="sub-item">Medications</span>
+											<span class="badge badge-success">#(..GetTotalRecords(118))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=119">
+											<span class="sub-item">Observations</span>
+											<span class="badge badge-success">#(..GetTotalRecords(119))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=120">
+											<span class="sub-item">Patients</span>
+											<span class="badge badge-success">#(..GetTotalRecords(120))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=121">
+											<span class="sub-item">Procedures</span>
+											<span class="badge badge-success">#(..GetTotalRecords(121))#</span>
+										</a>
+									</li>				
+								</ul>
+							</div>
+						</li>
+						<li class="nav-item">
+							<script language="Cache" runat="Server">
+								SET sts = $SYSTEM.SQL.Schema.TableExists("dc_data_hcanalytics.AV_Train")
+							</script>
+							<csp:if condition="sts=1">
+								<a data-toggle="collapse" href="#base1">
+									<i style="color:#007bff" class="fas fa-layer-group dscolor>Thest </p>"></i>
+									<p style="color:#007bff" class="dscolor">Health Care Analytics 1</p>
+									<span class="caret"></span>
+								</a>
+								<csp:else condition="sts'=1">
+								<a data-toggle="collapse disabled">
+									<i class="fas fa-layer-group dscolor>Thest </p>"></i>
+									<p class="dscolor">Health Care Analytics 1</p>
+								</a>
+							</csp:if>
+							<div class="collapse" id="base1">
+								<ul class="nav nav-collapse">
+								
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=211">
+											<span class="sub-item">First Health Camp Attended</span>
+											<span class="badge badge-success">#(..GetTotalRecords(211))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=212">
+											<span class="sub-item">Health Camp Detail</span>
+											<span class="badge badge-success">#(..GetTotalRecords(212))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=213">
+											<span class="sub-item">Patient Profile</span>
+											<span class="badge badge-success">#(..GetTotalRecords(213))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=214">
+											<span class="sub-item">Sample Submmission</span>
+											<span class="badge badge-success">#(..GetTotalRecords(214))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=215">
+											<span class="sub-item">Second Health Camp Attendedn</span>
+											<span class="badge badge-success">#(..GetTotalRecords(215))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=216">
+											<span class="sub-item">AV Test</span>
+											<span class="badge badge-success">#(..GetTotalRecords(216))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=217">
+											<span class="sub-item">Third Health Camp Attended</span>
+											<span class="badge badge-success">#(..GetTotalRecords(217))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=218">
+											<span class="sub-item">AV Train</span>
+											<span class="badge badge-success">#(..GetTotalRecords(218))#</span>
+										</a>
+									</li>
+														
+								</ul>
+							</div>
+						</li>
+						<li class="nav-item">
+							<script language="Cache" runat="Server">
+								SET sts = $SYSTEM.SQL.Schema.TableExists("dc_data_globalsuicide.MH_12")
+							</script>
+							<csp:if condition="sts=1">
+								<a data-toggle="collapse" href="#base2">
+									<i style="color:#007bff" class="fas fa-layer-group dscolor>Thest </p>"></i>
+									<p style="color:#007bff" class="dscolor">Global Suicide Data</p>
+									<span class="caret"></span>
+								</a>
+								<csp:else condition="sts'=1">
+								<a data-toggle="collapse disabled">
+									<i class="fas fa-layer-group dscolor>Thest </p>"></i>
+									<p class="dscolor">Global Suicide Data</p>
+								</a>
+							</csp:if>
+							<div class="collapse" id="base2">
+								<ul class="nav nav-collapse">
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=311">
+											<span class="sub-item">Gender Rates</span>
+											<span class="badge badge-success">#(..GetTotalRecords(311))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=312">
+											<span class="sub-item">Male Femalte Ratio of Sucide Rates</span>
+											<span class="badge badge-success">#(..GetTotalRecords(312))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=313">
+											<span class="sub-item">MH_12</span>
+											<span class="badge badge-success">#(..GetTotalRecords(313))#</span>
+										</a>
+									</li>	
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=314">
+											<span class="sub-item">SDGSUICIDE</span>
+											<span class="badge badge-success">#(..GetTotalRecords(314))#</span>
+										</a>
+									</li>	
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=315">
+											<span class="sub-item">Suicide By Age</span>
+											<span class="badge badge-success">#(..GetTotalRecords(315))#0</span>
+										</a>
+									</li>	
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=316">
+											<span class="sub-item">Suicide Death Rates</span>
+											<span class="badge badge-success">#(..GetTotalRecords(316))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=317">
+											<span class="sub-item">Suicide Rates By Country</span>
+											<span class="badge badge-success">#(..GetTotalRecords(317))#</span>
+										</a>
+									</li>					
+								</ul>
+							</div>
+						</li>
+							<li class="nav-item">
+							<script language="Cache" runat="Server">
+								SET sts = $SYSTEM.SQL.Schema.TableExists("dc_data_covidpolls.covid_approval_polls")
+							</script>
+							<csp:if condition="sts=1">
+								<a data-toggle="collapse" href="#base3">
+									<i style="color:#007bff" class="fas fa-layer-group dscolor>Thest </p>"></i>
+									<p style="color:#007bff" class="dscolor">COVID-19 Polls</p>
+									<span class="caret"></span>
+								</a>
+								<csp:else condition="sts'=1">
+								<a data-toggle="collapse disabled">
+									<i class="fas fa-layer-group dscolor>Thest </p>"></i>
+									<p class="dscolor">COVID-19 Polls</p>
+								</a>
+							</csp:if>
+							<div class="collapse" id="base3">
+								<ul class="nav nav-collapse">
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=411">
+											<span class="sub-item">Covid Approval Polls Adjusted</span>
+											<span class="badge badge-success">#(..GetTotalRecords(411))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=412">
+											<span class="sub-item">Covid Approval Polls</span>
+											<span class="badge badge-success">#(..GetTotalRecords(412))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=413">
+											<span class="sub-item">Covid Approval Toplines</span>
+											<span class="badge badge-success">#(..GetTotalRecords(413))#</span>
+										</a>
+									</li>	
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=414">
+											<span class="sub-item">Covid Concern Polls Adjusted</span>
+											<span class="badge badge-success">#(..GetTotalRecords(414))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=415">
+											<span class="sub-item">Covid Concern Polls</span>
+											<span class="badge badge-success">#(..GetTotalRecords(415))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=416">
+											<span class="sub-item">Covid Concern Toplines</span>
+											<span class="badge badge-success">#(..GetTotalRecords(416))#</span>
+										</a>
+									</li>	
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=417">
+											<span class="sub-item">Data Dictionary Covid9 Polls</span>
+											<span class="badge badge-success">#(..GetTotalRecords(417))#</span>
+										</a>
+									</li>				
+								</ul>
+							</div>
+						</li>	
+							<li class="nav-item">
+							<script language="Cache" runat="Server">
+								SET sts = $SYSTEM.SQL.Schema.TableExists("dc_data_cancerrates.uscs_map_death_all")
+							</script>
+							<csp:if condition="sts=1">
+								<a data-toggle="collapse" href="#base4">
+									<i style="color:#007bff" class="fas fa-layer-group dscolor>Thest </p>"></i>
+									<p style="color:#007bff" class="dscolor">Cancer Rates by U.S. State</p>
+									<span class="caret"></span>
+								</a>
+								<csp:else condition="sts'=1">
+								<a data-toggle="collapse disabled">
+									<i class="fas fa-layer-group dscolor>Thest </p>"></i>
+									<p class="dscolor">Cancer Rates by U.S. State</p>
+								</a>
+							</csp:if>
+							<div class="collapse" id="base4">
+								<ul class="nav nav-collapse">
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=511">
+											<span class="sub-item">USCS Map Death All</span>
+											<span class="badge badge-success">#(..GetTotalRecords(511))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=512">
+											<span class="sub-item">USCS Map Incidence All</span>
+											<span class="badge badge-success">#(..GetTotalRecords(512))#</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+							<li class="nav-item">
+							<script language="Cache" runat="Server">
+								SET sts = $SYSTEM.SQL.Schema.TableExists("dc_data_overdosedeaths.Multiple_Cause_of_Death_1999_2014_v1")
+							</script>
+							<csp:if condition="sts=1">
+								<a data-toggle="collapse" href="#base5">
+									<i style="color:#007bff" class="fas fa-layer-group dscolor>Thest </p>"></i>
+									<p style="color:#007bff" class="dscolor">Opioid Overdose Deaths</p>
+									<span class="caret"></span>
+								</a>
+								<csp:else condition="sts'=1">
+								<a data-toggle="collapse disabled">
+									<i class="fas fa-layer-group dscolor>Thest </p>"></i>
+									<p class="dscolor">Opioid Overdose Deaths</p>
+								</a>
+							</csp:if>
+							<div class="collapse" id="base5">
+								<ul class="nav nav-collapse">
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=611">
+											<span class="sub-item">Multiple Cause of Death 1999_2014</span>
+											<span class="badge badge-success">#(..GetTotalRecords(611))#</span>
+										</a>
+									</li>
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=612">
+											<span class="sub-item">Multiple Cause of Death 1999_2014_v1</span>
+											<span class="badge badge-success">#(..GetTotalRecords(612))#</span>
+										</a>
+									</li>								
+								</ul>
+							</div>
+						</li>
+						</li>
+							<li class="nav-item">
+							<script language="Cache" runat="Server">
+								SET sts = $SYSTEM.SQL.Schema.TableExists("dc_data_hdprediction.Heart_Disease_Prediction")
+							</script>
+							<csp:if condition="sts=1">
+								<a data-toggle="collapse" href="#base6">
+									<i style="color:#007bff" class="fas fa-layer-group dscolor>Thest </p>"></i>
+									<p style="color:#007bff" class="dscolor">Heart Disease Prediction</p>
+									<span class="caret"></span>
+								</a>
+								<csp:else condition="sts'=1">
+								<a data-toggle="collapse disabled">
+									<i class="fas fa-layer-group dscolor>Thest </p>"></i>
+									<p class="dscolor">Heart Disease Prediction</p>
+								</a>
+							</csp:if>
+							<div class="collapse" id="base6">
+								<ul class="nav nav-collapse">
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=711">
+											<span class="sub-item">Heart Disease Prediction</span>
+											<span class="badge badge-success">#(..GetTotalRecords(711))#</span>
+										</a>
+									</li>										
+								</ul>
+							</div>
+						</li>
+						</li>
+							<li class="nav-item">
+							<script language="Cache" runat="Server">
+								SET sts = $SYSTEM.SQL.Schema.TableExists("dc_data_medicalservices.medical_services")
+							</script>
+							<csp:if condition="sts=1">
+								<a data-toggle="collapse" href="#base7">
+									<i style="color:#007bff" class="fas fa-layer-group dscolor>Thest </p>"></i>
+									<p style="color:#007bff" class="dscolor">Medical Services</p>
+									<span class="caret"></span>
+								</a>
+								<csp:else condition="sts'=1">
+								<a data-toggle="collapse disabled">
+									<i class="fas fa-layer-group dscolor>Thest </p>"></i>
+									<p class="dscolor">Medical Services</p>
+								</a>
+							</csp:if>
+							<div class="collapse" id="base7">
+								<ul class="nav nav-collapse">
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=811">
+											<span class="sub-item">Medical Services</span>
+											<span class="badge badge-success">#(..GetTotalRecords(811))#</span>
+										</a>
+									</li>										
+								</ul>
+							</div>
+						</li>
+						</li>
+							<li class="nav-item">
+							<script language="Cache" runat="Server">
+								SET sts = $SYSTEM.SQL.Schema.TableExists("dc_data_hospitalratings.Hospital_General_Information")
+							</script>
+							<csp:if condition="sts=1">
+								<a data-toggle="collapse" href="#base8">
+									<i style="color:#007bff" class="fas fa-layer-group dscolor>Thest </p>"></i>
+									<p style="color:#007bff" class="dscolor">Hospital Ratings</p>
+									<span class="caret"></span>
+								</a>
+								<csp:else condition="sts'=1">
+								<a data-toggle="collapse disabled">
+									<i class="fas fa-layer-group dscolor>Thest </p>"></i>
+									<p class="dscolor">Hospital Ratings</p>
+								</a>
+							</csp:if>
+							<div class="collapse" id="base8">
+								<ul class="nav nav-collapse">
+									<li>
+											<a href="/csp/datasets/datasets.csp?id=911">
+											<span class="sub-item">Hospital General Information</span>
+											<span class="badge badge-success">#(..GetTotalRecords(911))#</span>
+										</a>
+									</li>										
+								</ul>
+							</div>
+						</li>
+						</li>
+							<li class="nav-item">
+							<script language="Cache" runat="Server">
+								SET sts = $SYSTEM.SQL.Schema.TableExists("dc_data_hfprediction.heart_failure_clinical_records_dataset")
+							</script>
+							<csp:if condition="sts=1">
+								<a data-toggle="collapse" href="#base9">
+									<i style="color:#007bff" class="fas fa-layer-group dscolor>Thest </p>"></i>
+									<p style="color:#007bff" class="dscolor">Heart Failure Prediction</p>
+									<span class="caret"></span>
+								</a>
+								<csp:else condition="sts'=1">
+								<a data-toggle="collapse disabled">
+									<i class="fas fa-layer-group dscolor>Thest </p>"></i>
+									<p class="dscolor">Heart Failure Prediction</p>
+								</a>
+							</csp:if>
+							<div class="collapse" id="base9">
+								<ul class="nav nav-collapse">
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=1011">
+											<span class="sub-item">Heart Failure clinical Records</span>
+											<span class="badge badge-success">#(..GetTotalRecords(1011))#</span>
+										</a>
+									</li>										
+								</ul>
+							</div>
+						</li>
+						</li>
+							<li class="nav-item">
+							<script language="Cache" runat="Server">
+								SET sts = $SYSTEM.SQL.Schema.TableExists("dc_data_diabetes.Diabetes_Dataset")
+							</script>
+							<csp:if condition="sts=1">
+								<a data-toggle="collapse" href="#base10">
+									<i style="color:#007bff" class="fas fa-layer-group dscolor>Thest </p>"></i>
+									<p style="color:#007bff" class="dscolor">Diabetes Dataset</p>
+									<span class="caret"></span>
+								</a>
+								<csp:else condition="sts'=1">
+								<a data-toggle="collapse disabled">
+									<i class="fas fa-layer-group dscolor>Thest </p>"></i>
+									<p class="dscolor">Diabetes Dataset</p>
+								</a>
+							</csp:if>
+							<div class="collapse" id="base10">
+								<ul class="nav nav-collapse">
+									<li>
+										<a href="/csp/datasets/datasets.csp?id=1111">
+											<span class="sub-item">Diabetes</span>
+											<span class="badge badge-success">#(..GetTotalRecords(1111))#</span>
+										</a>
+									</li>										
+								</ul>
+							</div>
+						</li>
+						</li>
+							<li class="nav-item">
+							<script language="Cache" runat="Server">
+								SET sts = $SYSTEM.SQL.Schema.TableExists("dc_data_kidneydisease.new_model")
+							</script>
+							<csp:if condition="sts=1">
+								<a data-toggle="collapse" href="#base11">
+									<i style="color:#007bff" class="fas fa-layer-group dscolor>Thest </p>"></i>
+									<p style="color:#007bff" class="dscolor">Chronic Kidney Disease</p>
+									<span class="caret"></span>
+								</a>
+								<csp:else condition="sts'=1">
+								<a data-toggle="collapse disabled">
+									<i class="fas fa-layer-group dscolor>Thest </p>"></i>
+									<p class="dscolor">Chronic Kidney Disease</p>
+								</a>
+							</csp:if>
+							<div class="collapse" id="base11">
+								<ul class="nav nav-collapse">
+									<li>
+											<a href="/csp/datasets/datasets.csp?id=1211">
+											<span class="sub-item">New Model</span>
+											<span class="badge badge-success">#(..GetTotalRecords(1211))#</span>
+										</a>
+									</li>										
+								</ul>
+							</div>
+						</li>
+					</ul>	
+				</div>
+			</div>
+		</div>
+		<div class="main-panel">
+			<div class="content">
+				<div class="page-inner">
+					<div class="page-header">
+						
+						<script language="Cache" runat="Server">
+    					    set dsid = "Patient"			
+						</script>						
+					</div>
+			
+						<div class="row">
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-header">
+									<script language="Cache" runat="Server">
+									    set ColNames = ..GetHeaderRow(dsid)
+									</script>
+									<h4 style="color:#007bff" class="card-title"> RESOURCE NAME </h4>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table id="basic-datatables" class="display table table-striped table-hover" >
+											<thead>
+												<tr>
+													#(ColNames)#													
+												</tr>
+											</thead>
+											<tbody>
+											     #(..GetResourceList(dsid))#																						
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+	
+			
+				</div>
+			</div>
+			<footer class="footer">
+				<div class="container-fluid">
+					<div class="copyright ml-auto">
+						<p>2022, Datasets</p>
+					</div>				
+				</div>
+			</footer>
+		</div>
+		
+		
+	</div>
+	<!--   Core JS Files   -->
+	<!-- <script src="resources/plugins/atlantis-lite/assets/js/core/jquery.3.2.1.min.js"></script> -->
+	<script src="resources/js/popper.min.js"></script> 
+	<script src="resources/js/bootstrap.min.js"></script> 
+	<!-- jQuery UI -->
+	<script src="resources/js/jquery-ui.min.js"></script>
+	<script src="resources/js/jquery.ui.touch-punch.min.js"></script>
+	
+	<!-- jQuery Scrollbar -->
+	<script src="resources/js/jquery.scrollbar.min.js"></script>
+	<!-- Datatables -->
+	
+	<!-- Atlantis JS -->
+	<script src="resources/js/atlantis.min.js"></script>
+	
+
+</body>
+</html>
