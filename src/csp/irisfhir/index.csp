@@ -33,36 +33,16 @@
 	<link rel="stylesheet" type="text/css" href="resources/css/atlantis.min.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/adminlte.min.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/datatables.min.css">
-	<style>
-		.hidden {
-			display: none;
-		}
-		.sessionLink {
-			cursor: pointer;
-			font-weight: bold;
-			color: #1A68D6 !important; 
-		}
-		#divMessagesDataGrid {
-			height: 500px;
-    		width: 100%;
-		}
-	</style>
+
 	<script src="resources/js/jquery.min.js"></script>
 	<script src="resources/js/datatables.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-		$('#basic-datatables').DataTable();
-		} );
-		
 
-    
-    </script>
 </head>
 
 <body>
     <csp:class encoded=1 super="%CSP.Page,dc.FhirClient">
     
-     This page was compiled on: <b>##($ZDATETIME($H,3))##</b>
+     DateTime: <b>##($ZDATETIME($H,3))##</b>
  
  <select id="sel" onchange='handleClick();'>
 <script language=SQL name=query>
@@ -75,8 +55,7 @@ FROM dc.FhirServer
 
 </select>
 
-<a href=. onClick="var res =  #server(..ImportDS(1,1))#;alert(res);window.location.reload();return false;" class="btn btn-primary btn-border btn-lg w-75 fw-bold mb-3">Install DataSet</a>
-	<div class="container-fluid">
+<div class="container-fluid">
 
 		
 			<!-- NavBar -->
@@ -166,24 +145,38 @@ FROM dc.FhirServer
 			 <div class="page-inner">
 				
 				<!-- Cards -->
-				 <div class="col-md-12">
-            <!-- Widget: user widget style 2 -->
-            <div class="card card-widget widget-user-2">
-              <!-- Add the bg color to the header using any of the bg-* classes -->
-              <div class="widget-user-header bg-warning">
+			 <div class="col-md-12">
+            	<!-- Widget: user widget style 2 -->
+            	<div class="card card-widget widget-user-2">
+              	<!-- Add the bg color to the header using any of the bg-* classes -->
+              	<div class="widget-user-header bg-warning">
+                	<div class="row">		
                 
+                <div class="col-md-9">
                 <!-- /.widget-user-image -->
                 <h3 class="widget-user-username">InterSystem Services FHIR Services</h3>
                 <h5 class="widget-user-desc">Lead Developer</h5>
-                 	<form class="form-inline my-2 my-lg-0">
-     			 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      			 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    		</form>
+                </div>
+               <div class = "col-md-3">
+             
+    <form class="form-inline my-2 my-lg-0">
+    <span class="navbar-text">FHIR Server </span>
+	<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    </form>
+
+            </div>
+        </div>
+
+
+        
+        
+        
               </div>
           
             
             </div>
-            
+            </div>
+     
 			
 			<div class="row">					
 			<div class="col-lg-3 col-6">
@@ -191,7 +184,7 @@ FROM dc.FhirServer
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>#(..ResourceCount("Patient"))#</h3>
+              <h3>#(..ResourceCount("Patient"))#</h3>
 
                 <p>Patients</p>
               </div>
@@ -206,7 +199,7 @@ FROM dc.FhirServer
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                   <h3>#(..ResourceCount("Observation"))#</h3>
+                 
 
                 <p>Observations</p>
               </div>
@@ -221,7 +214,7 @@ FROM dc.FhirServer
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                  <h3>#(..ResourceCount("Practitioner"))#</h3>
+                
 
                 <p>Practitioners</p>
               </div>
@@ -236,7 +229,7 @@ FROM dc.FhirServer
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>#(..ResourceCount("Encounter"))#</h3>
+             
 
                 <p>Encounters</p>
               </div>
