@@ -1,4 +1,4 @@
-Class dc.FhirClient
+Class dc.FhirClient Extends %SwizzleObject
 {
 
 ClassMethod GetTotalRecords() As %Integer
@@ -11,10 +11,11 @@ ClassMethod GetTotalRecordsd(resource As %String) As %Integer
 	return 5
 }
 
-ClassMethod SetFhirServer(ser As %Integer)
+// Set Current FHIR Server
+
+ClassMethod SetFhirServer(serverid As %Integer)
 {
-	Set ^ActiveFhirServer = ser
-	return "Yes Sir"
+	Set ^ActiveFhirServer = serverid
 }
 
 // 1-Count Resource, Pass "ALL" in case of counting all the resources
@@ -27,7 +28,7 @@ ClassMethod ResourceCount(resource As %String) As %Integer
 	if $isobject(obj)  
 	{  
 	  //Call Embedded Python Function to get Number of Resources
-	  Set irisfhirclient = ##class(%SYS.Python).Import("irisfhir")
+	  Set irisfhirclient = ##class(%SYS.Python).Import("irisfhirclient")
 	  Set count = irisfhirclient.ResourceCount(resource,obj.Url,obj.ApiKey) 
 	  return count
 	}

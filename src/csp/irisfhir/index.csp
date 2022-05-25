@@ -44,17 +44,14 @@
     
      DateTime: <b>##($ZDATETIME($H,3))##</b>
  
- <select id="sel" onchange='handleClick();'>
+
 <script language=SQL name=query>
 SELECT id,ServerName
 FROM dc.FhirServer
 </script>
-<csp:while condition="query.Next()">
-<option value=#(..EscapeHTML(query.GetData(1)))# selected >#(..EscapeHTML(query.GetData(2)))#</option>
-</csp:while>
-
-</select>
-
+<script language="Cache" runat="Server">
+								SET currentserver = ^ActiveFhirServer
+							</script>
 <div class="container-fluid">
 
 		
@@ -161,7 +158,20 @@ FROM dc.FhirServer
              
     <form class="form-inline my-2 my-lg-0">
     <span class="navbar-text">FHIR Server </span>
-	<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+	<select class="form-control" id="sel" onchange='handleClick();'>
+<csp:while condition="query.Next()">
+
+<script language="Cache" runat="Server">
+								SET aa = (..EscapeHTML(query.GetData(1)))
+							</script>
+
+	<csp:if condition= "currentserver = aa">		
+		<option value=#(..EscapeHTML(query.GetData(1)))# selected >#(..EscapeHTML(query.GetData(2)))#</option>
+	<CSP:ELSE>
+		<option value=#(..EscapeHTML(query.GetData(1)))#>#(..EscapeHTML(query.GetData(2)))#</option>
+	</csp:if>		
+</csp:while>
+</select>
     </form>
 
             </div>
@@ -176,6 +186,7 @@ FROM dc.FhirServer
             
             </div>
             </div>
+     
      
 			
 			<div class="row">					
@@ -199,8 +210,7 @@ FROM dc.FhirServer
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                 
-
+               <h3>#(..ResourceCount("Observation"))#</h3>
                 <p>Observations</p>
               </div>
               <div class="icon">
@@ -214,8 +224,8 @@ FROM dc.FhirServer
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                
-
+              
+ <h3>#(..ResourceCount("Practitioner"))#</h3>
                 <p>Practitioners</p>
               </div>
               <div class="icon">
@@ -229,8 +239,8 @@ FROM dc.FhirServer
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-             
-
+            
+				
                 <p>Encounters</p>
               </div>
               <div class="icon">
@@ -524,11 +534,7 @@ FROM dc.FhirServer
 	 function handleClick() {
 		 var ser = document.getElementById("sel");
 		 var res =  #server(..SetFhirServer(ser.value))#;
-		 alert(res)
-		 
-		 
-		 alert(ser.value)
-	    //alert("Favorite weird creature: " + getRadioButtonValue(document.aye.whichThing));
+		 //alert("Favorite weird creature: " + getRadioButtonValue(document.aye.whichThing));
           window.location.reload();
          //event.preventDefault(); // disable normal form submit behavior
          //return false; // prevent further bubbling of event
