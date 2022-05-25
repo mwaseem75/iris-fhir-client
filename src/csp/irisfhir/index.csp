@@ -530,7 +530,7 @@ FROM dc.FhirServer
 		
 	 function handleClick() {
 		 var ser = document.getElementById("sel");
-		 var res =  #server(..SetFhirServer(1))#;
+		 var res =  #server(..SetFhirServer(ser.value))#;
 		 alert(res)
 		 
 		 

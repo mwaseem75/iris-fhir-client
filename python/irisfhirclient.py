@@ -331,7 +331,7 @@ def GetResourceList(resource):
 #  Set sc = obj.%Save()
 
 
-rc = ResourceCount("Observation","https://r4.smarthealthit.org","df")
-print(rc)
+#rc = ResourceCount("Observation","https://r4.smarthealthit.org","df")
+#print(rc)
 #ResourceListPatient("Observation",3,url,api_key)
 
