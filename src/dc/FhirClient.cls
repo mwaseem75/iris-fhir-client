@@ -1,6 +1,44 @@
 Class dc.FhirClient Extends %SwizzleObject
 {
 
+// Create records in FHIRServer and initate Global Variable to hold current server ID
+
+ClassMethod Init() As %Integer
+{
+	if $DATA(^$GLOBAL("^ActiveFhirServer"))= 0 
+	{
+		Set ^ActiveFhirServer = 1
+	}
+	//if server id 1 is not already created then create server with ID 1
+	Set obj = ##class(dc.FhirServer).%OpenId(1)
+	if $isobject(obj) = 0
+	{
+		set obj = ##class(dc.FhirServer).%New()
+		set obj.ServerName = "Server 1"
+		set obj.Url = ""
+		set obj.ApiKey = ""
+		set sts = obj.%Save()
+		if sts '= 1
+		{
+			write "Error while creating server ID1"
+		}
+	} 
+	//if server id 1 is not already created then create server with ID 1
+	Set obj = ##class(dc.FhirServer).%OpenId(2)
+	if $isobject(obj) = 0
+	{
+		set obj = ##class(dc.FhirServer).%New()
+		set obj.ServerName = "Server 1"
+		set obj.Url = ""
+		set obj.ApiKey = ""
+		set sts = obj.%Save()
+		if sts '= 1
+		{
+			write "Error while creating server ID1"
+		}
+	}
+}
+
 ClassMethod GetTotalRecords() As %Integer
 {
 	return 0
@@ -22,14 +60,26 @@ ClassMethod SetFhirServer(serverid As %Integer)
 
 ClassMethod ResourceCount(resource As %String) As %Integer
 {
+	
+	
 	//Get Active Server data based on Global Variable 
 	Set obj = ##class(dc.FhirServer).%OpenId(^ActiveFhirServer)
 	//If Url and ApiKey is defined
 	if $isobject(obj)  
 	{  
 	  //Call Embedded Python Function to get Number of Resources
-	  Set irisfhirclient = ##class(%SYS.Python).Import("irisfhirclient")
-	  Set count = irisfhirclient.ResourceCount(resource,obj.Url,obj.ApiKey) 
+	  
+	  try {
+  //SOAP request code
+ 
+          Set irisfhirclient = ##class(%SYS.Python).Import("irisfhirclient")
+          
+} Catch err {
+	  return 0
+}  
+	
+	  Set count = irisfhirclient.ResourceCount(resource,obj.Url,obj.ApiKey)
+	  
 	  return count
 	}
 	//Active Server data is not defined
@@ -38,6 +88,27 @@ ClassMethod ResourceCount(resource As %String) As %Integer
   		Quit "Not able to get server Info.."
   	}
   	return count
+}
+
+// Used in HTML
+
+ClassMethod GetResourceList(resource As %String) As %Status
+{
+	//Get Active Server data based on Global Variable 
+	Set obj = ##class(dc.FhirServer).%OpenId(^ActiveFhirServer)
+	//If Url and ApiKey is defined
+	if $isobject(obj)  
+	{  
+	  //Call Embedded Python Function to get Number of Resources
+	  Set irisfhirclient = ##class(%SYS.Python).Import("irisfhirclient")
+	  Set data = irisfhirclient.ResourceListHTML(resource,obj.Url,obj.ApiKey) 
+	}
+	//Active Server data is not defined
+  	else
+  	{ 
+  		Quit "Not able to get server Info.."
+  	}
+  	return data
 }
 
 // 2- Get Resource List 

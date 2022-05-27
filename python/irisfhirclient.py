@@ -6,12 +6,14 @@ import requests
 
 #url = "https://r4.smarthealthit.org"
 url = "http://localhost:52773/csp/healthshare/samples/fhir/r4"
+
 #url = "https://fhir.83z8498j30i6.static-test-account.isccloud.io"
 api_key = "CDqtU2GjQUaICOC65Ilgv1LHQIEDr4Vn12nnlmMY"
 client = SyncFHIRClient(url = url, extra_headers={"Content-Type":"application/fhir+json","x-api-key":api_key})
 headers={"Content-Type":"application/fhir+json","x-api-key":api_key}
 resources = ["Patient", "Observation", "Appointment","Procedure","Practitioner"]
 contentType = "application/fhir+json"
+
 # def meanage():
 #     observation = client.resource(
 #     'Observation',
@@ -44,10 +46,17 @@ contentType = "application/fhir+json"
 def ResourceCount(resource,url,api_key):
     #Get Connection
     #cclient = SyncFHIRClient(url = url, extra_headers={"Content-Type":contentType,"x-api-key":api_key})
+    
     headers={"Content-Type":"application/fhir+json","x-api-key":api_key}
+   
     if url[-1]!="/":
         url=url+"/"
-    req = requests.get(url+resource+'/',headers=headers)  
+    try:
+        req = requests.get(url+resource+'/',headers=headers)  
+    except:
+        #in case of exception return 0
+        return 0
+        
     data=req.json()
     count = len(data['entry'])
     #In case of all, iterate throuch array of resources
@@ -219,26 +228,55 @@ def GetTableData(resource,data,opt):
 
 #2-Print patient resource from terminal
 def ResourceList(resource,url,api_key):
-     #Get Connection
+    #Get Connection
     cclient = SyncFHIRClient(url = url, extra_headers={"Content-Type":contentType,"x-api-key":api_key})
-    data = cclient.resources(resource).fetch()
+    try:
+        data = cclient.resources(resource).fetch()
+    except:
+        print("Connection Error")    
+          
     header = GetTableHeader(resource)
     rows = GetTableData(resource,data,1)
     print(tabulate(rows,headers = header))
+    
+    #print(tabulate(table, tablefmt='html'))
 
 #3-Print resource agaisnt Patient
 def ResourceListPatient(resource,patientId,url,api_key):
      #Get Connection
     cclient = SyncFHIRClient(url = url, extra_headers={"Content-Type":contentType,"x-api-key":api_key})
-    data = cclient.resources(resource).search(patient=patientId).fetch()
+    try:
+        data = cclient.resources(resource).search(patient=patientId).fetch()
+    except:
+        print("Connection Error")    
     header = GetTableHeader(resource)
     rows = GetTableData(resource,data,1)
     print(tabulate(rows,headers = header))
 
 #Get Resource HTML Rows data
-def GetResourceList(resource):
-    data = client.resources(resource).fetch()
-    rows = GetTableData(resource,data,2)
+def GetResourceList(resource,url,api_key):
+    #Get Connection
+    cclient = SyncFHIRClient(url = url, extra_headers={"Content-Type":contentType,"x-api-key":api_key})
+    try:
+        data = cclient.resources(resource).fetch()
+    except:
+        print("Connection Error")    
+    
+    rows = GetTableData(resource,data,1)
+    rows = tabulate(rows, tablefmt='html')
+    return rows
+
+#Get Resource HTML Rows data
+def ResourceListHTML(resource,url,api_key):
+    #Get Connection
+    cclient = SyncFHIRClient(url = url, extra_headers={"Content-Type":contentType,"x-api-key":api_key})
+    try:
+        data = cclient.resources(resource).fetch()
+    except:
+        print("Connection Error")    
+    
+    rows = GetTableData(resource,data,1)
+    rows = tabulate(rows, tablefmt='html')
     return rows
 
 
@@ -331,7 +369,20 @@ def GetResourceList(resource):
 #  Set sc = obj.%Save()
 
 
-#rc = ResourceCount("Observation","https://r4.smarthealthit.org","df")
+# try: 
+#     rc = ResourceCount("Observation","https://fhir.83z8498j30i6.static-test-account.isccloud.io","CDqtU2GjQUaICOC65Ilgv1LHQIEDr4Vn12nnlmMY")
+#     print(rc)
+# except:
+#     print("Connection Error")    
 #print(rc)
 #ResourceListPatient("Observation",3,url,api_key)
+
+#ResourceListPatient("Observation","Patient","https://fhir.83z8498j30i6.static-test-account.isccloud.io","CDqtU2GjQUaICOC65Ilgv1LHQIEDr4Vn12nnlmMY")
+#rows = GetResourceList("Patient","http://localhost:52773/csp/healthshare/samples/fhir/r4","sdf")
+#print(rows)
+
+# ResourceList("Patient","http://localhost:52773/csp/healthshare/samples/fhir/r4","87")
+#count number of resources
+#https://r4.smarthealthit.org/Patient?_count=5
+
 

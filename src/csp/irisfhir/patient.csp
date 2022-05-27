@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>IRIS FHIR Client</title>
+    <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+    <link rel="icon" href="resources/img/icon.png" type="image/x-icon" />
+
+    <!-- Fonts and icons -->
+    <script src="resources/js/webfont.min.js"></script>
+    <script type="text/javascript">
+        WebFont.load({
+            google: {
+                "families": ["Lato:300,400,700,900"]
+            },
+            custom: {
+                "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular",
+                    "Font Awesome 5 Brands", "simple-line-icons"
+                ],
+                urls: ['resources/css/fonts.min.css']
+            },
+            active: function () {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" type="text/css" href="resources/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="resources/css/atlantis.min.css">
+    <link rel="stylesheet" type="text/css" href="resources/css/adminlte.min.css">
+    <link rel="stylesheet" type="text/css" href="resources/css/datatables.min.css">
+	<link rel="stylesheet" type="text/css" href="resources/css/buttons.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="resources/css/jquery.dataTables.min.css">
+	
+</head>
+
+<body>
+    <csp:class encoded=1 super="%CSP.Page,dc.FhirClient">
+   <div class="container-fluid">
+            <!-- NavBar -->
+            <nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
+               
+                    <ul class="nav nav-pills nav-primary">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/csp/datasets/index.csp">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/csp/datasets/datasets.csp">View DataSets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active"
+                                href="/csp/sys/%25CSP.Portal.Home.zen?$NAMESPACE=DATASETS">Management Portal</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active"
+                                href="/csp/sys/exp/%25CSP.UI.Portal.SQL.Home.zen?$NAMESPACE=DATASETS">DataSets SQL</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active"
+                                href="https://irisdocs.intersystems.com/iris20212/csp/docbook/DocBook.UI.Page.cls?KEY=RSQL_loaddata">Load
+                                Data Docs</a>
+                        </li>
+                    </ul>
+
+                    <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+                        <li class="nav-item dropdown hidden-caret">
+                            <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+                                <i class="fas fa-layer-group"></i>
+                            </a>
+                            <div class="dropdown-menu quick-actions quick-actions-info animated fadeIn">
+                                <div class="quick-actions-header">
+                                    <span class="title mb-1">Quick Actions</span>
+                                    <span class="subtitle op-8">Shortcuts</span>
+                                </div>
+                                <div class="quick-actions-scroll scrollbar-outer">
+                                    <div class="quick-actions-items">
+                                        <div class="row m-0">
+                                            <a class="col-6 col-md-4 p-0" href="/csp/datasets/index.csp">
+                                                <div class="quick-actions-item">
+                                                    <i class="flaticon-file-1"></i>
+                                                    <span class="text">Dashboard</span>
+                                                </div>
+                                            </a>
+                                            <a class="col-6 col-md-4 p-0" href="/csp/datasets/datasets.csp">
+                                                <div class="quick-actions-item">
+                                                    <i class="flaticon-pen"></i>
+                                                    <span class="text">View DataSet</span>
+                                                </div>
+                                            </a>
+                                            <a class="col-6 col-md-4 p-0"
+                                                href="/csp/sys/%25CSP.Portal.Home.zen?$NAMESPACE=DATASETS">
+                                                <div class="quick-actions-item">
+                                                    <i class="flaticon-database"></i>
+                                                    <span class="text">Management Portal</span>
+                                                </div>
+                                            </a>
+                                            <a class="col-6 col-md-4 p-0"
+                                                href="/csp/sys/exp/%25CSP.UI.Portal.SQL.Home.zen?$NAMESPACE=DATASETS">
+                                                <div class="quick-actions-item">
+                                                    <i class="flaticon-pen"></i>
+                                                    <span class="text">DataSets SQL</span>
+                                                </div>
+                                            </a>
+                                            <a class="col-6 col-md-4 p-0"
+                                                href="https://irisdocs.intersystems.com/iris20212/csp/docbook/DocBook.UI.Page.cls?KEY=RSQL_loaddata">
+                                                <div class="quick-actions-item">
+                                                    <i class="flaticon-pen"></i>
+                                                    <span class="text">LOAD DATA (SQL)</span>
+                                                </div>
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+             
+            </nav>
+            <!-- End Navbar -->
+  
+
+        <!-- Main Panel -->
+      
+                    <!-- Cards -->
+     
+                        <!-- Widget: user widget style 2 -->
+                        <div class="card card-widget widget-user-2">
+                            <!-- Add the bg color to the header using any of the bg-* classes -->
+                            <div class="widget-user-header bg-warning">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <!-- /.widget-user-image -->
+                                        <h3 class="widget-user-username">
+                                            InterSystem Services FHIR Services
+                                        </h3>
+                                        <h5 class="widget-user-desc">Lead Developer</h5>
+                                    </div>
+                                </div>
+                           
+                        </div>
+     
+            <div class="row">
+                <div class="col-lg-4 col-4">
+                    <!-- Customized Card -->
+                    <div class="card">                      
+                        <!-- /.card-header -->
+                            <div class="card-header">                         
+                                 
+                                        <!-- Widget: user widget style 2 -->
+                                        <div class="card card-widget widget-user-2">
+                                            <!-- Add the bg color to the header using any of the bg-* classes -->
+                                            <div class="widget-user-header bg-info">
+                                               
+                                                <!-- /.widget-user-image -->
+                                                <h3 class="widget-user-username">Patient Resources</h3>
+
+                                            </div>
+                                            <div class="card-footer p-0">
+                                                <ul class="nav flex-column">
+													
+                                                    <li class="nav-item">
+													
+                                                        <a  href="#" class="nav-link">
+                                                            Observation - Vitals <span class="float-right badge bg-primary">31</span>
+                                                        </a>
+														
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="#" class="nav-link">
+                                                            Observation - Labs <span class="float-right badge bg-info">5</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="#" class="nav-link">
+                                                            Observation - Others <span
+                                                                class="float-right badge bg-success">12</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="#" class="nav-link">
+                                                            Procedure <span
+                                                                class="float-right badge bg-danger">842</span>
+                                                        </a>
+                                                    </li>
+													<li class="nav-item">
+                                                        <a href="#" class="nav-link">
+                                                            Immunization <span
+                                                                class="float-right badge bg-danger">842</span>
+                                                        </a>
+                                                    </li>
+													<li class="nav-item">
+                                                        <a href="#" class="nav-link">
+                                                            Encounter <span
+                                                                class="float-right badge bg-danger">842</span>
+                                                        </a>
+                                                    </li>
+													<li class="nav-item">
+                                                        <a href="#" class="nav-link">
+                                                            Condition <span
+                                                                class="float-right badge bg-danger">842</span>
+                                                        </a>
+                                                    </li>
+													<li class="nav-item">
+                                                        <a href="#" class="nav-link">
+                                                            Practitioner <span
+                                                                class="float-right badge bg-danger">842</span>
+                                                        </a>
+                                                    </li>
+													<li class="nav-item">
+                                                        <a href="#" class="nav-link">
+                                                            Organization <span
+                                                                class="float-right badge bg-danger">842</span>
+                                                        </a>
+                                                    </li>
+													
+                                                </ul>
+                                            </div>                      
+                            </div>
+                        </div>
+                        <!-- /.table-responsive -->
+                    </div>                  
+                </div>
+				   <div class="col-lg-8 col-8">
+                    <!-- Customized Card -->
+                    <div class="card">                      
+                        <!-- /.card-header -->
+                            <div class="card-header">                         
+                                 
+                                        <!-- Widget: user widget style 2 -->
+                                        <div class="card card-widget widget-user-2">
+                                            <!-- Add the bg color to the header using any of the bg-* classes -->
+                                            <div class="widget-user-header bg-info">
+                                               
+                                                <!-- /.widget-user-image -->
+                                                <h3 class="widget-user-username">Patient Resources</h3>
+
+                                            </div>
+											  <script language="Cache" runat="Server">
+										Set dsid = "Observation"
+									    Set ColNames = ..GetHeaderRow(dsid)
+                                </script>                  
+                                            <div class="card-footer p-0">
+                                               <div class="table-responsive">
+                                <table id="observation-data" class="display table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            #(ColNames)#
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        #(..GetResourceList(dsid))#
+                                    </tbody>
+                                </table>
+                            </div>
+                                            </div>                      
+                            </div>
+                        </div>
+                        <!-- /.table-responsive -->
+                    </div>                  
+                </div>
+            
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+            <!-- PRODUCT LIST -->
+
+        </div>
+    
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="pull-left">
+                    <ul class="nav">
+                        <li class="nav-item">
+
+                            2022, IRIS FHIR Client
+
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+            </div>
+        </footer>
+        </div>
+        </div>
+
+        </div>
+        </div>
+        <!--   Core JS Files   -->
+        <script src="resources/js/jquery.min.js"></script>
+		<script src="resources/js/jquery-ui.min.js"></script>
+		
+		<script src="resources/js/popper.min.js"></script>
+        <script src="resources/js/bootstrap.min.js"></script>
+        <!-- jQuery UI -->
+        
+        <script src="resources/js/jquery.ui.touch-punch.min.js"></script>
+        <!-- jQuery Scrollbar -->
+        <script src="resources/js/jquery.scrollbar.min.js"></script>
+        <!-- Atlantis JS -->
+        <script src="resources/js/atlantis.min.js"></script>
+		<!-- Script Files -->
+		
+		<script src="resources/js/datatables.min.js"></script>
+		<script src="resources/js/dataTables.buttons.min.js"></script>
+		<script src="resources/js/jszip.min.js"></script>
+		<script src="resources/js/pdfmake.min.js"></script>
+		<script src="resources/js/vfs_fonts.js"></script>
+		<script src="resources/js/buttons.html5.min.js"></script>
+		
+        
+		<script type="text/javascript">
+
+            $(document).ready(function () {               
+                $('#observation-data').DataTable({
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copyHtml5',
+                        'excelHtml5',
+                        'csvHtml5',
+                        'pdfHtml5'
+                    ]
+                });
+            });
+
+        </script>
+</body>
+
+
+</html>

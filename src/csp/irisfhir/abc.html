@@ -42,22 +42,7 @@
 <body>
     <csp:class encoded=1 super="%CSP.Page,dc.FhirClient">
     
-     DateTime: <b>##($ZDATETIME($H,3))##</b>
- 
- 
- 
-
-<script language=SQL name=query>
-SELECT id,ServerName
-FROM dc.FhirServer
-</script>
-<script language="Cache" runat="Server">
-	SET currentserver = ^ActiveFhirServer
-</script>
-
-Curent Server: <b>#( currentserver )#</b>
-
-<div class="container-fluid">
+	<div class="container-fluid">
 
 		
 			<!-- NavBar -->
@@ -143,119 +128,33 @@ Curent Server: <b>#( currentserver )#</b>
 		
 		<!-- Main Panel -->
 		<div class="container-fluid">
-			<div class="content">
-			 <div class="page-inner">
-				
-				<!-- Cards -->
-			 <div class="col-md-12">
-            	<!-- Widget: user widget style 2 -->
-            	<div class="card card-widget widget-user-2">
-              	<!-- Add the bg color to the header using any of the bg-* classes -->
-              	<div class="widget-user-header bg-warning">
-                	<div class="row">		
-                
-                <div class="col-md-9">
-                <!-- /.widget-user-image -->
-                <h3 class="widget-user-username">InterSystem Services FHIR Services</h3>
-                <h5 class="widget-user-desc">Lead Developer</h5>
-                </div>
-               <div class = "col-md-3">
-             
-    <form class="form-inline my-2 my-lg-0">
-    <span class="navbar-text">FHIR Server </span>
-	<select class="form-control" id="sel" onchange='handleClick();'>
-<csp:while condition="query.Next()">
-
-<script language="Cache" runat="Server">
-								SET aa = (..EscapeHTML(query.GetData(1)))
-							</script>
-
-	<csp:if condition= "currentserver = aa">		
-		<option value=#(..EscapeHTML(query.GetData(1)))# selected >#(..EscapeHTML(query.GetData(2)))#</option>
-	<CSP:ELSE>
-		<option value=#(..EscapeHTML(query.GetData(1)))#>#(..EscapeHTML(query.GetData(2)))#</option>
-	</csp:if>		
-</csp:while>
-</select>
-    </form>
-
-            </div>
-        </div>
-
-
-        
-        
-        
-              </div>
-          
-            
-            </div>
-            </div>
-     
-     
-			
-			<div class="row">					
-			<div class="col-lg-3 col-6">
-			
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-              <h3>#(..ResourceCount("Patient"))#</h3>
-
-                <p>Patients</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-stalker"></i>
-              </div>
-              <a href="/processes" class="small-box-footer">View Details <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner">
-               <h3>#(..ResourceCount("Observation"))#</h3>
-                <p>Observations</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-erlenmeyer-flask"></i>
-              </div>
-              <a href="/messages" class="small-box-footer">View Details <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-              
- <h3>#(..ResourceCount("Practitioner"))#</h3>
-                <p>Practitioners</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="/securityusers" class="small-box-footer">View Details <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner">
-            
-				<h3>#(..ResourceCount("Practitioner"))#</h3>
-                <p>Encounters</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-android-apps"></i>
-              </div>
-              <a href="/securityapps" class="small-box-footer">View Details <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
+		<div class="content">
+			<div class="page-inner">
+			<!-- Cards -->
+			<div class="col-md-12">
+				<!-- Widget: user widget style 2 -->
+				<div class="card card-widget widget-user-2">
+				<!-- Add the bg color to the header using any of the bg-* classes -->
+				<div class="widget-user-header bg-warning">
+					<div class="row">
+					<div class="col-md-9">
+						<!-- /.widget-user-image -->
+						<h3 class="widget-user-username">
+						InterSystem Services FHIR Services
+						</h3>
+						<h5 class="widget-user-desc">Lead Developer</h5>
+					</div>
+					</div>
+				</div>
+				</div>
+			</div>
+			</div>
 		</div>
-		</div>				
+		</div>
+
+			
+     
+			
 					
 					
 		
@@ -281,25 +180,50 @@ Curent Server: <b>#( currentserver )#</b>
               <!-- /.card-header -->
               <div class="card-body p-0">
                	<div class="card-header">
-									<script language="Cache" runat="Server">
-										set dsid = "Patient"
-									    set ColNames = ..GetHeaderRow(dsid)
-									</script>
-									<h4 style="color:#007bff" class="card-title"> RESOURCE NAME </h4>
-								</div>
-								<div class="card-body">
-									<div class="table-responsive">
-										<table id="patient-data" class="display table table-striped table-hover" >
-											<thead>
-												<tr>
-													#(ColNames)#													
-												</tr>
-											</thead>
-											<tbody>
-											     #(..GetResourceList(dsid))#																						
-											</tbody>
-										</table>
-									</div>
+								 <div class="row">
+          <div class="col-md-4">
+            <!-- Widget: user widget style 2 -->
+            <div class="card card-widget widget-user-2">
+              <!-- Add the bg color to the header using any of the bg-* classes -->
+              <div class="widget-user-header bg-warning">
+                <div class="widget-user-image">
+                  <img class="img-circle elevation-2" src="../dist/img/user7-128x128.jpg" alt="User Avatar">
+                </div>
+                <!-- /.widget-user-image -->
+                <h3 class="widget-user-username">Patient Resources</h3>
+                
+              </div>
+              <div class="card-footer p-0">
+                <ul class="nav flex-column">
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      Projects <span class="float-right badge bg-primary">31</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      Tasks <span class="float-right badge bg-info">5</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      Completed Projects <span class="float-right badge bg-success">12</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      Followers <span class="float-right badge bg-danger">842</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            </div>
+					
+			
+				
+					</div>
+					</div>
 				 </div>
                 <!-- /.table-responsive -->
               </div>
@@ -345,8 +269,8 @@ Curent Server: <b>#( currentserver )#</b>
                   </li>
                   <!-- /.item -->
                   	<script language="Cache" runat="Server">
-										set dsid = "Observation"
-									    set ColNames = ..GetHeaderRow(dsid)
+										Set dsid = "Observation"
+									    Set ColNames = ..GetHeaderRow(dsid)
 									</script>
 									<h4 style="color:#007bff" class="card-title"> RESOURCE NAME </h4>
 								</div>

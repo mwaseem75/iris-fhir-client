@@ -1,4 +1,4 @@
-Class dc.FhirServer
+Class dc.FhirServer Extends %Persistent
 {
 
 Property ServerName As %String;
