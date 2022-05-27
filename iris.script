@@ -1,4 +1,6 @@
 do $System.OBJ.LoadDir("/opt/irisbuild/src","ck",,1)
+do ##class(dc.FhirClient).Init()
+
 
 zn "%SYS"
 Do ##class(Security.Users).UnExpireUserPasswords("*")

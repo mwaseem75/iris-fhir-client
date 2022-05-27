@@ -14,9 +14,10 @@ ClassMethod Init() As %Integer
 	if $isobject(obj) = 0
 	{
 		set obj = ##class(dc.FhirServer).%New()
-		set obj.ServerName = "Server 1"
-		set obj.Url = ""
-		set obj.ApiKey = ""
+		set obj.ServerName = "InterSystem FHIR Accelerator Service"
+		set obj.Endpoint = "https://fhir.83z8498j30i6.static-test-account.isccloud.io"
+		set obj.ApiKey = "CDqtU2GjQUaICOC65Ilgv1LHQIEDr4Vn12nnlmMY"
+		set obj.EndpointOAuth = "https://fhirauth.83z8498j30i6.static-test-account.isccloud.io/oauth2"
 		set sts = obj.%Save()
 		if sts '= 1
 		{
@@ -28,9 +29,9 @@ ClassMethod Init() As %Integer
 	if $isobject(obj) = 0
 	{
 		set obj = ##class(dc.FhirServer).%New()
-		set obj.ServerName = "Server 1"
-		set obj.Url = ""
-		set obj.ApiKey = ""
+		set obj.ServerName = "SmartHealthIT Open FHIR Server"
+		set obj.Endpoint = "https://r4.smarthealthit.org"
+	
 		set sts = obj.%Save()
 		if sts '= 1
 		{
@@ -75,10 +76,13 @@ ClassMethod ResourceCount(resource As %String) As %Integer
           Set irisfhirclient = ##class(%SYS.Python).Import("irisfhirclient")
           
 } Catch err {
+	w "Error" 
+	  w err.Name
 	  return 0
 }  
-	
-	  Set count = irisfhirclient.ResourceCount(resource,obj.Url,obj.ApiKey)
+	  w "Connected Fine"
+	  return 44
+	  Set count = irisfhirclient.ResourceCount(resource,obj.Endpoint,obj.ApiKey)
 	  
 	  return count
 	}
@@ -101,7 +105,7 @@ ClassMethod GetResourceList(resource As %String) As %Status
 	{  
 	  //Call Embedded Python Function to get Number of Resources
 	  Set irisfhirclient = ##class(%SYS.Python).Import("irisfhirclient")
-	  Set data = irisfhirclient.ResourceListHTML(resource,obj.Url,obj.ApiKey) 
+	  Set data = irisfhirclient.ResourceListHTML(resource,obj.Endpoint,obj.ApiKey) 
 	}
 	//Active Server data is not defined
   	else
@@ -122,7 +126,7 @@ ClassMethod ResourceList(resource As %String) As %Status
 	{  
 	  //Call Embedded Python Function to get Number of Resources
 	  Set irisfhirclient = ##class(%SYS.Python).Import("irisfhirclient")
-	  do irisfhirclient.ResourceList(resource,obj.Url,obj.ApiKey) 
+	  do irisfhirclient.ResourceList(resource,obj.Endpoint,obj.ApiKey) 
 	}
 	//Active Server data is not defined
   	else
@@ -143,7 +147,7 @@ ClassMethod ResourceListPatient(resource As %String, patientId As %Integer) As %
 	{  
 	  //Call Embedded Python Function to get Number of Resources
 	  Set irisfhirclient = ##class(%SYS.Python).Import("irisfhirclient")
-	  do irisfhirclient.ResourceListPatient(resource,patientId,obj.Url,obj.ApiKey) 
+	  do irisfhirclient.ResourceListPatient(resource,patientId,obj.Endpoint,obj.ApiKey) 
 	}
 	//Active Server data is not defined
   	else
