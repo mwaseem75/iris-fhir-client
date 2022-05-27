@@ -6,8 +6,8 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports: 
-      - 51772:1972
-      - 51773:52773
+      - 1972
+      - 55037:52773
       - 53773
     volumes:
       - ./:/irisrun/repo

@@ -15,10 +15,7 @@ docker-compose up -d
 
 ## open iris terminal in docker
 ```
-docker-compose exec iris iris session iris 
-w ^ActiveFhirServer
-set sc = ##class(dc.FhirClient).ResourceCount()
-w sc
+docker-compose exec iris iris session iris -U IRISAPP
 ```
 
 ## install docker-compose

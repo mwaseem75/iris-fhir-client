@@ -1,7 +1,5 @@
-#ARG IMAGE=containers.intersystems.com/intersystems/irishealth-community:2021.2.0.651.0
-#ARG IMAGE=intersystemsdc/iris-community:preview
-#FROM $IMAGE
-FROM iris-fhir-client_iris
+ARG IMAGE=intersystemsdc/iris-community
+FROM $IMAGE
 
 USER root   
         
@@ -14,6 +12,9 @@ COPY  python python
 COPY  src src
 COPY module.xml module.xml
 COPY iris.script iris.script
+
+RUN pip3 install fhirpy
+RUN pip3 install tabulate
 
 RUN iris start IRIS \
 	&& iris session IRIS < iris.script \

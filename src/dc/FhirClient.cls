@@ -40,6 +40,14 @@ ClassMethod Init() As %Integer
 	}
 }
 
+ClassMethod test()
+{
+  Set sc = $$$OK
+  Set sm = ##class(%SYS.Python).Import("sample")
+  write sm.hello()
+  Return sc
+}
+
 ClassMethod GetTotalRecords() As %Integer
 {
 	return 0

@@ -14,6 +14,8 @@ headers={"Content-Type":"application/fhir+json","x-api-key":api_key}
 resources = ["Patient", "Observation", "Appointment","Procedure","Practitioner"]
 contentType = "application/fhir+json"
 
+def hello():
+   return "HelloFromPython"
 # def meanage():
 #     observation = client.resource(
 #     'Observation',

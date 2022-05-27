@@ -1,35 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
-  <Document name="iris-fhir-client.ZPM">
+  <Document name="iris-python-template.ZPM">
     <Module>
-      <Name>iris-fhir-client</Name>
-      <Version>1.0.0</Version>
-      <Description>IRIS FHIR Client</Description>
-      <Author>
-        <Person>Muhammad Waseem</Person>
-        <Organization>International Medical Center</Organization>
-        <CopyrightDate>2022</CopyrightDate>
-        <License>MIT</License>        
-      </Author>
+      <Name>iris-python-template</Name>
+      <Version>1.0.2</Version>
+      <Description>The simplest template to run embedded python</Description>
       <Packaging>module</Packaging>
       <SourcesRoot>src</SourcesRoot>
-      <Resource Name="dc.fhirclient.PKG"/>      
-      <FileCopy Name="python/" Target="${mgrdir}python/"/> 
-      <CSPApplication CookiePath="/csp/fhirclient/" 
-        DefaultTimeout="900" 
-        DeployPath="{cspdir}/csp/${namespace}/" 
-        Description="FHIR Client Application" 
-        MatchRoles=":{$dbrole}" 
-        PasswordAuthEnabled="1" 
-        Recurse="1" 
-        ServeFiles="1" 
-        ServeFilesTimeout="3600" 
-        SourcePath="/src/csp" 
-        UnauthenticatedEnabled="0" 
-        Url="/csp/fhirclient" 
-        UseSessionCookie="2"
-      /> 
-     
+      <Resource Name="dc.PKG"/>
+      <FileCopy Name="python/" Target="${mgrdir}python/"/>   
+      
+      <Invoke Class="dc.FhirClient" Method="Init"></Invoke>
+      
     </Module>
   </Document>
 </Export>
