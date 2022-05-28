@@ -122,60 +122,7 @@ def GetTableData(resource,data,opt):
                 rowval.get('gender')           
                 ]
                 rows.append(row)             
-                
-         
-                
-                                                                          
-    elif opt == 2: #Get HTML Data
-        rows = ''
-        if resource == "Patient":
-            for rowval in data:
-                row = "<tr><td>"+rowval.get('id')+"</td><td>"+rowval.get_by_path('name.0.family')+"</td><td>"+rowval.get_by_path('name.0.given.0')+"</td><td>"+rowval.get_by_path('birthDate')+"</td><td>"+rowval.get_by_path('gender')+"</td></tr>"
-                rows= rows + row
-        elif resource == "Observation":
-            for rowval in data:
-                row = "<tr><td>"+rowval.get('id')+"</td>"
-                row = row +"<td>"+ rowval.get_by_path('category.0.coding.0.code') + "</td>"
-                row = row +"<td>"+ rowval.get_by_path('code.coding.0.code') + "</td>"
-                row = row +"<td>"+ str(rowval.get_by_path('valueQuantity.value')) + "</td>"
-                row = row +"<td>"+ str(rowval.get_by_path('valueQuantity.code')) + "</td>"
-                row = row +"<td>"+ rowval.get('effectiveDateTime') + "</td>"
-                row = row +"<td>"+ rowval.get_by_path('subject.reference') + "</td></tr>"        
-                rows = rows + row
-        elif resource == "Procedure":
-            for rowval in data:
-                row = "<tr><td>"+rowval.get('id')+"</td>"
-                row = row +"<td>"+ rowval.get_by_path('code.coding.0.code') + "</td>"
-                row = row +"<td>"+ rowval.get_by_path('code.coding.0.display') + "</td>"
-                row = row +"<td>"+ rowval.get_by_path('performedPeriod.start') + "</td>"
-                row = row +"<td>"+ rowval.get_by_path('performedPeriod.end') + "</td>"
-                row = row +"<td>"+  rowval.get_by_path('status') + "</td></tr>"        
-                rows = rows + row   
-        elif resource == "Immunization":
-            for rowval in data:
-                row = "<tr><td>"+rowval.get('id')+"</td>"
-                row = row +"<td>"+ rowval.get_by_path('vaccineCode.coding.0.code') + "</td>"
-                row = row +"<td>"+ rowval.get_by_path('vaccineCode.coding.0.display') + "</td>"
-                row = row +"<td>"+ rowval.get('occurrenceDateTime') + "</td>"
-                row = row +"<td>"+ rowval.get_by_path('encounter.reference') + "</td>"
-                row = row +"<td>"+  rowval.get_by_path('status') + "</td></tr>"        
-                rows = rows + row    
-        elif resource == "Encounter":
-            for rowval in data:
-                row = "<tr><td>"+rowval.get('id')+"</td>"
-                row = row +"<td>"+ rowval.get_by_path('class.code') + "</td>"
-                row = row +"<td>"+ rowval.get_by_path('period.start') + "</td>"
-                row = row +"<td>"+ rowval.get_by_path('period.end') + "</td>"
-                row = row +"<td>"+ rowval.get_by_path('serviceProvider.reference') + "</td>"
-                row = row +"<td>"+  rowval.get_by_path('status') + "</td></tr>"        
-                rows = rows + row   
-        elif resource == "Organization":
-            for rowval in data:
-                row = "<tr><td>"+rowval.get('id')+"</td>"
-                row = row +"<td>"+ rowval.get_by_path('type.0.coding.0.code') + "</td>"
-                row = row +"<td>"+ rowval.get_by_path('type.0.coding.0.display') + "</td>"
-                row = row +"<td>"+  rowval.get_by_path('name') + "</td></tr>"        
-                rows = rows + row                                                                                          
+                                                                                         
     return rows
 
 
@@ -209,6 +156,9 @@ def GetPatientResources(resource,patientId,url,api_key):
 #Get Resource HTML Rows data
 def GetResourceHTML(resource,url,api_key):
     #Get Connection
+    data = ""
+    if url[-1]!="/":
+        url=url+"/"
     cclient = SyncFHIRClient(url = url, extra_headers={"Content-Type":contentType,"x-api-key":api_key})
     try:
         data = cclient.resources(resource).fetch()
@@ -219,5 +169,31 @@ def GetResourceHTML(resource,url,api_key):
     rows = tabulate(rows, tablefmt='html')
     return rows
 
+def ListResources(url,api_key,opt):
+# #--Counting all the resources ----------------------------------------------------
+    headers = {"Content-Type":contentType,"x-api-key":api_key}
+    if url[-1]!="/":
+        url=url+"/"
+    x = requests.get(url+'metadata',headers=headers)
+    data = x.json()
+    # # # print (len(data['rest'][0]['resource']))
+    if opt == 0: 
+        for item in data['rest'][0]['resource']: 
+            print(item['type'])
+    
+    if opt == 1: 
+        for item in data['rest'][0]['resource']: 
+            # #--Counting all the resources -    
+            x = requests.get(url+item['type']+'/',headers=headers)  
+            # #      #print(x)
+            data2 = x.json()
+            # #      #print(data2)
+            s = json.dumps(data2)
+            if s.find('entry') != -1:
+                print (item['type'] +":"+str(len(data2['entry'])))
+            #       else:   
+            #           print (item['type'] +": 0")
+            # #########################################################################################
 
-
+# id = GetResourceHTML("Patient","https://r4.smarthealthit.org","0")
+# print(id)

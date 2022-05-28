@@ -41,21 +41,16 @@
 
 <body>
     <csp:class encoded=1 super="%CSP.Page,dc.FhirClient">
-    
-     DateTime: <b>##($ZDATETIME($H,3))##</b>
- 
- 
- 
+
 
 <script language=SQL name=query>
 SELECT id,ServerName
 FROM dc.FhirServer
 </script>
 <script language="Cache" runat="Server">
-	SET currentserver = ^ActiveFhirServer
+	Set currentserver = ^ActiveFhirServer
 </script>
 
-Curent Server: <b>#( currentserver )#</b>
 
 <div class="container-fluid">
 
@@ -154,20 +149,20 @@ Curent Server: <b>#( currentserver )#</b>
               	<div class="widget-user-header bg-warning">
                 	<div class="row">		
                 
-                <div class="col-md-9">
+                <div class="col-md-8">
                 <!-- /.widget-user-image -->
                 <h3 class="widget-user-username">InterSystem Services FHIR Services</h3>
                 <h5 class="widget-user-desc">Lead Developer</h5>
                 </div>
-               <div class = "col-md-3">
+               <div class = "col-md-4">
              
     <form class="form-inline my-2 my-lg-0">
     <span class="navbar-text">FHIR Server </span>
 	<select class="form-control" id="sel" onchange='handleClick();'>
-<csp:while condition="query.Next()">
+	<csp:while condition="query.Next()">
 
-<script language="Cache" runat="Server">
-								SET aa = (..EscapeHTML(query.GetData(1)))
+	<script language="Cache" runat="Server">
+								Set aa = (..EscapeHTML(query.GetData(1)))
 							</script>
 
 	<csp:if condition= "currentserver = aa">		
@@ -175,25 +170,18 @@ Curent Server: <b>#( currentserver )#</b>
 	<CSP:ELSE>
 		<option value=#(..EscapeHTML(query.GetData(1)))#>#(..EscapeHTML(query.GetData(2)))#</option>
 	</csp:if>		
-</csp:while>
-</select>
+	</csp:while>
+	</select>
     </form>
 
             </div>
         </div>
-
-
-        
-        
-        
+     
               </div>
-          
-            
+              
             </div>
             </div>
-     
-     
-			
+      		
 			<div class="row">					
 			<div class="col-lg-3 col-6">
 			
@@ -257,36 +245,23 @@ Curent Server: <b>#( currentserver )#</b>
 		</div>
 		</div>				
 					
-					
-		
-					
-					
+						
 			<div class="row">					
 			<div class="col-lg-8 col-8">		
 			<!-- Customized Card -->
 			<!-- TABLE: LATEST ORDERS -->
             <div class="card">
-              <div class="card-header border-transparent">
-                <h3 class="card-title">Latest Orders</h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
+              <div class="card-header border-transparent bg-info">
+                <h3 class="card-title bg-info">Patients</h3>
+           
               </div>
               <!-- /.card-header -->
               <div class="card-body p-0">
                	<div class="card-header">
-									<script language="Cache" runat="Server">
-										set dsid = "Patient"
-									    set ColNames = ..GetHeaderRow(dsid)
+									<script language="Cache" runat="Server">									
+									    Set ColNames = ..GetHeaderRow(1)
 									</script>
-									<h4 style="color:#007bff" class="card-title"> RESOURCE NAME </h4>
-								</div>
+									</div>
 								<div class="card-body">
 									<div class="table-responsive">
 										<table id="patient-data" class="display table table-striped table-hover" >
@@ -296,7 +271,7 @@ Curent Server: <b>#( currentserver )#</b>
 												</tr>
 											</thead>
 											<tbody>
-											     #(..GetResourceHTML(dsid))#																						
+											   
 											</tbody>
 										</table>
 									</div>
@@ -316,53 +291,33 @@ Curent Server: <b>#( currentserver )#</b>
             <!-- PRODUCT LIST -->
             <div class="col-lg-4 col-4">		
             <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Recently Added Products</h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
+              <div class="card-header bg-info">
+                <h3 class="card-title bg-info">Registered FHIR Servers</h3>
+              
               </div>
               <!-- /.card-header -->
               <div class="card-body p-0">
                 <ul class="products-list product-list-in-card pl-2 pr-2">
-                  <li class="item">
-                    <div class="product-img">
-                      <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                    </div>
-                    <div class="product-info">
-                      <a href="javascript:void(0)" class="product-title">Samsung TV
-                        <span class="badge badge-warning float-right">$1800</span></a>
-                      <span class="product-description">
-                        Samsung 32" 1080p 60Hz LED Smart HDTV.
-                      </span>
-                    </div>
-                  </li>
+             
                   <!-- /.item -->
                   	<script language="Cache" runat="Server">
-										set dsid = "Observation"
-									    set ColNames = ..GetHeaderRow(dsid)
-									</script>
-									<h4 style="color:#007bff" class="card-title"> RESOURCE NAME </h4>
-								</div>
-								<div class="card-body">
-									<div class="table-responsive">
-										<table id="observation-data" class="display table table-striped table-hover" >
-											<thead>
-												<tr>
-													#(ColNames)#													
-												</tr>
-											</thead>
-											<tbody>
-											     #(..GetResourceHTML(dsid))#																						
-											</tbody>
-										</table>
-									</div>
+							 Set ColNames = ..GetHeaderRow(2)
+					</script>
+							
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="observation-data" class="display table table-striped table-hover" >
+								<thead>
+									<tr>
+										#(ColNames)#													
+									</tr>
+								</thead>
+								<tbody>
+										#(..GetServerList())#																						
+								</tbody>
+							</table>
+						</div>
 				 </div>
                   <!-- /.item -->
                 </ul>
@@ -446,13 +401,8 @@ Curent Server: <b>#( currentserver )#</b>
         ]
     } );
     $('#observation-data').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5'
-        ]
+        dom: 'Bfrtip'
+        
     } );
 } );
 

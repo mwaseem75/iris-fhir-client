@@ -69,8 +69,6 @@ ClassMethod ServerList() As %Integer
 {
 
 	//Print Servier List
-	
-	
 	SET qry = "SELECT ID, ServerName, Endpoint FROM dc.FhirServer"
 	SET tStatement = ##class(%SQL.Statement).%New()
 	SET qStatus = tStatement.%Prepare(.qry)
@@ -80,7 +78,8 @@ ClassMethod ServerList() As %Integer
                     //DO rset.%Display()
     WRITE "------------------------------------------------------------------",!           
     WRITE "Registered FHIR Servers",!           
-    WRITE "------------------------------------------------------------------",!                          WHILE rsetD.%Next() {
+    WRITE "------------------------------------------------------------------",!  
+    WHILE rsetD.%Next() {
 	                    IF rsetD.%GetData(1)= ^ActiveFhirServer
     { 
         SET STS = "Active"
@@ -102,6 +101,39 @@ ClassMethod ServerList() As %Integer
                                                 
                         }
                  }
+}
+
+// Get Server List. Used in CSP application
+
+ClassMethod GetServerList() As %String
+{
+
+	//Print Servier List
+	SET qry = "SELECT ID, ServerName FROM dc.FhirServer"
+	SET tStatement = ##class(%SQL.Statement).%New()
+	SET qStatus = tStatement.%Prepare(.qry)
+    IF qStatus =1 {
+         SET rsetD = tStatement.%Execute()
+            
+             
+   set dtbl  = ""
+       WHILE rsetD.%Next() {
+	IF rsetD.%GetData(1)= ^ActiveFhirServer
+    { 
+        SET STS = "Active"
+    }    
+    ELSE
+    {
+	     SET STS = "Not Active"
+	    }
+                       
+            set dtbl = dtbl_"<tr><td>"_ rsetD.%GetData(1) _"</td><td>"_ rsetD.%GetData(2) _"</td><td>"_ STS _"</td></tr>"
+                   
+                                                
+                        }
+                        return dtbl
+                 }
+                 return ""
 }
 
 // Set Current FHIR Server
@@ -282,7 +314,17 @@ ClassMethod CreateObservation(resource As %String) [ Language = python ]
 
 ClassMethod GetHeaderRow(id As %Integer) As %String
 {
-    SET hrow = "<th>ID</th><th>Family Name</th><th>Given Name</th><th>DOB</th><th>Gender</th>"
+    if id = 1 
+	{
+		//Patients Header
+		SET hrow = "<th>ID</th><th>Family Name</th><th>Given Name</th><th>DOB</th><th>Gender</th>"
+	}
+	else 
+	{
+		//Patients Header
+		SET hrow = "<th>ID</th><th>Server Name</th><th>Status</th>"
+	}
+
     RETURN hrow
 }
 
