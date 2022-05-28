@@ -1,4 +1,5 @@
 ARG IMAGE=intersystemsdc/iris-community
+#ARG IMAGE=store/intersystems/irishealth-community:2021.2.0.649.0
 FROM $IMAGE
 
 USER root   
@@ -18,4 +19,4 @@ RUN pip3 install tabulate
 
 RUN iris start IRIS \
 	&& iris session IRIS < iris.script \
-    && iris stop IRIS quietly
+    && iris stop IRIS  quietly

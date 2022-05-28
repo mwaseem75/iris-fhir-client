@@ -1,34 +1,23 @@
+
 {
-    "files.associations": {
-    
-        "Dockerfile*": "dockerfile",
-        "iris.script": "objectscript"
-      },
-    "objectscript.conn" :{
-      "ns": "USER",
-      "username": "_SYSTEM",
-      "password": "SYS",
-      "docker-compose": {
-        "service": "iris",
-        "internalPort": 52773
-      },
-      "active": true
+  "files.associations": {
+  
+      "Dockerfile*": "dockerfile",
+      "iris.script": "objectscript"
     },
-    "sqltools.connections": [
-      {
-        "namespace": "USER",
-        "connectionMethod": "Server and Port",
-        "showSystem": false,
-        "previewLimit": 50,
-        "server": "localhost",
-        "port": 32770,
-        "askForPassword": false,
-        "driver": "InterSystems IRIS",
-        "name": "objectscript-docker",
-        "username": "_SYSTEM",
-        "password": "SYS"
-      }
-    ],
-    "python.pythonPath": "/usr/local/bin/python3"
+  "objectscript.conn" :{
+    "ns": "%SYS",
+    "username": "SuperUser",
+    "password": "SYS",
+    "docker-compose": {
+      "service": "iris",
+      "internalPort": 52773
+    },
+    "links": {
+      "FhirClient App": "http://localhost:55037/csp/fhirclient/index.csp"
+    },
+    "active": true,
+    "server": "default~iris"
+  }
 
 }

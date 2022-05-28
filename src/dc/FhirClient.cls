@@ -35,27 +35,9 @@ ClassMethod Init() As %Integer
 		set sts = obj.%Save()
 		if sts '= 1
 		{
-			write "Error while creating server ID1"
+			write "Error while creating server ID2"
 		}
 	}
-}
-
-ClassMethod test()
-{
-  Set sc = $$$OK
-  Set sm = ##class(%SYS.Python).Import("sample")
-  write sm.hello()
-  Return sc
-}
-
-ClassMethod GetTotalRecords() As %Integer
-{
-	return 0
-}
-
-ClassMethod GetTotalRecordsd(resource As %String) As %Integer
-{
-	return 5
 }
 
 // Set Current FHIR Server
@@ -67,31 +49,25 @@ ClassMethod SetFhirServer(serverid As %Integer)
 
 // 1-Count Resource, Pass "ALL" in case of counting all the resources
 
-ClassMethod ResourceCount(resource As %String) As %Integer
+ClassMethod CountResource(resource As %String) As %Integer
 {
-	
-	
 	//Get Active Server data based on Global Variable 
 	Set obj = ##class(dc.FhirServer).%OpenId(^ActiveFhirServer)
 	//If Url and ApiKey is defined
 	if $isobject(obj)  
 	{  
-	  //Call Embedded Python Function to get Number of Resources
-	  
+	    
 	  try {
-  //SOAP request code
- 
+  		  //Importing python file 
           Set irisfhirclient = ##class(%SYS.Python).Import("irisfhirclient")
           
-} Catch err {
-	w "Error" 
-	  w err.Name
-	  return 0
-}  
-	  w "Connected Fine"
-	  return 44
-	  Set count = irisfhirclient.ResourceCount(resource,obj.Endpoint,obj.ApiKey)
-	  
+		} 
+	  Catch err {
+			Write "Error While importing irisfhirclient.py file" 	
+			return 0  	
+				}  
+	  //invoking Method from python file
+	  Set count = irisfhirclient.CountResource(resource,obj.Endpoint,obj.ApiKey)
 	  return count
 	}
 	//Active Server data is not defined
@@ -102,9 +78,9 @@ ClassMethod ResourceCount(resource As %String) As %Integer
   	return count
 }
 
-// Used in HTML
+// Method invoked from CSP Application to get Resource HTML
 
-ClassMethod GetResourceList(resource As %String) As %Status
+ClassMethod GetResourceHTML(resource As %String) As %Status
 {
 	//Get Active Server data based on Global Variable 
 	Set obj = ##class(dc.FhirServer).%OpenId(^ActiveFhirServer)
@@ -113,7 +89,7 @@ ClassMethod GetResourceList(resource As %String) As %Status
 	{  
 	  //Call Embedded Python Function to get Number of Resources
 	  Set irisfhirclient = ##class(%SYS.Python).Import("irisfhirclient")
-	  Set data = irisfhirclient.ResourceListHTML(resource,obj.Endpoint,obj.ApiKey) 
+	  Set data = irisfhirclient.GetResourceHTML(resource,obj.Endpoint,obj.ApiKey) 
 	}
 	//Active Server data is not defined
   	else
@@ -125,7 +101,7 @@ ClassMethod GetResourceList(resource As %String) As %Status
 
 // 2- Get Resource List 
 
-ClassMethod ResourceList(resource As %String) As %Status
+ClassMethod GetResource(resource As %String) As %Status
 {
 	//Get Active Server data based on Global Variable 
 	Set obj = ##class(dc.FhirServer).%OpenId(^ActiveFhirServer)
@@ -134,7 +110,7 @@ ClassMethod ResourceList(resource As %String) As %Status
 	{  
 	  //Call Embedded Python Function to get Number of Resources
 	  Set irisfhirclient = ##class(%SYS.Python).Import("irisfhirclient")
-	  do irisfhirclient.ResourceList(resource,obj.Endpoint,obj.ApiKey) 
+	  do irisfhirclient.GetResource(resource,obj.Endpoint,obj.ApiKey) 
 	}
 	//Active Server data is not defined
   	else
@@ -146,7 +122,7 @@ ClassMethod ResourceList(resource As %String) As %Status
 
 // 2- Get Patint Resources List 
 
-ClassMethod ResourceListPatient(resource As %String, patientId As %Integer) As %Status
+ClassMethod GetPatientResources(resource As %String, patientId As %Integer) As %Status
 {
 	//Get Active Server data based on Global Variable 
 	Set obj = ##class(dc.FhirServer).%OpenId(^ActiveFhirServer)
@@ -155,7 +131,7 @@ ClassMethod ResourceListPatient(resource As %String, patientId As %Integer) As %
 	{  
 	  //Call Embedded Python Function to get Number of Resources
 	  Set irisfhirclient = ##class(%SYS.Python).Import("irisfhirclient")
-	  do irisfhirclient.ResourceListPatient(resource,patientId,obj.Endpoint,obj.ApiKey) 
+	  do irisfhirclient.GetPatientResources(resource,patientId,obj.Endpoint,obj.ApiKey) 
 	}
 	//Active Server data is not defined
   	else
@@ -166,12 +142,6 @@ ClassMethod ResourceListPatient(resource As %String, patientId As %Integer) As %
 }
 
 // Get Resources List
-
-ClassMethod PrintResourceList(resource As %String)
-{
-	Set irisfhirclient = ##class(%SYS.Python).Import("irisfhirclient")
-  	do irisfhirclient.PrintResourceList(resource)
-}
 
 ClassMethod SaveOrg() [ Language = python ]
 {

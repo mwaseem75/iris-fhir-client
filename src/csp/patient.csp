@@ -253,7 +253,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        #(..GetResourceList(dsid))#
+                                        #(..GetResourceHTML(dsid))#
                                     </tbody>
                                 </table>
                             </div>
