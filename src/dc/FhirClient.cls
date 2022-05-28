@@ -1,7 +1,7 @@
 Class dc.FhirClient Extends %SwizzleObject
 {
 
-// Create records in FHIRServer and initate Global Variable to hold current server ID
+// Create records in FHIRServer and initate Global Variable to hold current server ID 
 
 ClassMethod Init() As %Integer
 {
@@ -38,6 +38,70 @@ ClassMethod Init() As %Integer
 			write "Error while creating server ID2"
 		}
 	}
+}
+
+ClassMethod RegisterServer(ServerName As %String, Endpoint As %String, ApiKey As %String = "", EndpointOAuth As %String = "") As %Integer
+{
+	//Create global fhirServer reference variable if not created
+	if $DATA(^$GLOBAL("^ActiveFhirServer"))= 0 
+	{
+		Set ^ActiveFhirServer = 1
+	}
+	//Add New FhirServer
+	set obj = ##class(dc.FhirServer).%New()
+	set obj.ServerName = ServerName
+	set obj.Endpoint = EndPoint
+	set obj.ApiKey = ApiKey
+	set obj.EndpointOAuth = EndpointOAuth
+	set sts = obj.%Save()
+	if sts = 1
+	{
+			write "FHIR Server registered successfully"
+			
+	}
+	else
+	{
+			write "Error while registring FHIR Server"
+	}
+}
+
+ClassMethod ServerList() As %Integer
+{
+
+	//Print Servier List
+	
+	
+	SET qry = "SELECT ID, ServerName, Endpoint FROM dc.FhirServer"
+	SET tStatement = ##class(%SQL.Statement).%New()
+	SET qStatus = tStatement.%Prepare(.qry)
+    IF qStatus =1 {
+             SET rsetD = tStatement.%Execute()
+            
+                    //DO rset.%Display()
+    WRITE "------------------------------------------------------------------",!           
+    WRITE "Registered FHIR Servers",!           
+    WRITE "------------------------------------------------------------------",!                          WHILE rsetD.%Next() {
+	                    IF rsetD.%GetData(1)= ^ActiveFhirServer
+    { 
+        SET STS = "Active"
+    }    
+    ELSE
+    {
+	     SET STS = "Not Active"
+	    }
+             
+              WRITE "ID", ?12,rsetD.%GetData(1),!
+              WRITE "Name", ?12,rsetD.%GetData(2),!
+              WRITE "EndPoint", ?12,rsetD.%GetData(3),!
+              WRITE "ApiKey", ?12,rsetD.%GetData(4),!
+              WRITE "EPOAuth2", ?12,rsetD.%GetData(5),!
+              WRITE "ISActive", ?12,STS,!
+             
+              WRITE "------------------------------------------------------------------",!           
+              
+                                                
+                        }
+                 }
 }
 
 // Set Current FHIR Server
