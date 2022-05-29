@@ -72,6 +72,8 @@ To Register New Server use RegisterServer class method
 ```
 do ##class(dc.FhirClient).RegisterServer("INTERSYSTEMS FHIR Server","http://localhost:52773/csp/healthshare/samples/fhir/r4/","","")
 ```
+![image](https://user-images.githubusercontent.com/18219467/170890315-48ed8172-4c1a-4c22-9794-dad2e6c0d277.png)
+
 
 ###### To Activate Other server, call below method by passing server ID
 ```
@@ -79,25 +81,28 @@ do ##class(dc.FhirClient).SetFhirServer(2)
 ```
 ###### To Retrieve all the resouces for the current server user below command
 ```
-do ##class(dc.FhirClient).SetFhirServer(2)
+do ##class(dc.FhirClient).ListResources()
 ```
+![image](https://user-images.githubusercontent.com/18219467/170890855-891bf5eb-a724-4297-8bcb-821637a146f5.png)
+
+###### To Retrieve all the created Resources along with there count just pass 1 to ListResource() function
 ```
+do ##class(dc.FhirClient).ListResources(1)
+```
+![image](https://user-images.githubusercontent.com/18219467/170890718-1dacba2c-4d2d-4830-8606-be0542230afb.png)
+
+
 ###### To get resource list use below command
 ```
 do ##class(dc.FhirClient).GetResource("Patient")
 ```
+![image](https://user-images.githubusercontent.com/18219467/170890728-7fb7d8a3-4c33-4084-8f54-6ca772b60a41.png)
 
 ```
 do ##class(dc.FhirClient).GetResource("Observation")
 ```
-###### To get resource list for particular patient use below commands
-```
-do ##class(dc.FhirClient).GetResource("Patient")
-```
+![image](https://user-images.githubusercontent.com/18219467/170890999-9548988e-40e7-49c1-ad7f-f95d45f62b50.png)
 
-```
-do ##class(dc.FhirClient).GetResource("Observation")
-```
 
 ## Other information
 Template used in web application is from [Bootstrap 4 Admin Dashboard](https://github.com/themekita/Atlantis-Lite) and it is free to use to develop non-commercial applications.
