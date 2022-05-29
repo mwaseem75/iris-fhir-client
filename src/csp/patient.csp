@@ -39,6 +39,11 @@
 
 <body>
     <csp:class encoded=1 super="%CSP.Page,dc.FhirClient">
+    <script language="Cache" runat="Server">
+    	set patid = $Get(%request.Data("pid",1),0)  
+		set patname = $Get(%request.Data("pname",1),0)          
+	</script>	
+   		
    <div class="container-fluid">
             <!-- NavBar -->
             <nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
@@ -73,9 +78,9 @@
                                     <div class="col-md-9">
                                         <!-- /.widget-user-image -->
                                         <h3 class="widget-user-username">
-                                            InterSystem Services FHIR Services
+                                            #( patname )#
                                         </h3>
-                                        <h5 class="widget-user-desc">Lead Developer</h5>
+                                        <h5 class="widget-user-desc">ID = #( patid )#</h5>
                                     </div>
                                 </div>
                            

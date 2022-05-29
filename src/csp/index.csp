@@ -50,7 +50,10 @@ FROM dc.FhirServer
 <script language="Cache" runat="Server">
 	Set currentserver = ^ActiveFhirServer
 </script>
-
+<script language=SQL name=query2>
+SELECT ServerName,Endpoint
+FROM dc.FhirServer where id = :currentserver
+</script>
 
 <div class="container-fluid">
 
@@ -148,24 +151,25 @@ FROM dc.FhirServer
                 
                 <div class="col-md-8">
                 <!-- /.widget-user-image -->
-                <h3 class="widget-user-username">InterSystem Services FHIR Services</h3>
-                <h5 class="widget-user-desc">Lead Developer</h5>
+				<csp:while condition="query2.Next()">				
+					<h3 class="widget-user-username">#(..EscapeHTML(query2.GetData(1)))#</h3>
+					<h5 class="widget-user-desc">#(..EscapeHTML(query2.GetData(2)))#</h5>
+				</csp:while>
                 </div>
+		
                <div class = "col-md-4">             
 					<form class="form-inline my-2 my-lg-0">
 					<span class="navbar-text" style="padding-right: .5rem;">FHIR Server </span>
 					<select class="form-control" id="sel" onchange='handleClick();'>
 					<csp:while condition="query.Next()">
-
-					<script language="Cache" runat="Server">
-												Set aa = (..EscapeHTML(query.GetData(1)))
-											</script>
-
-					<csp:if condition= "currentserver = aa">		
-						<option value=#(..EscapeHTML(query.GetData(1)))# selected >#(..EscapeHTML(query.GetData(2)))#</option>
-					<CSP:ELSE>
-						<option value=#(..EscapeHTML(query.GetData(1)))#>#(..EscapeHTML(query.GetData(2)))#</option>
-					</csp:if>		
+						<script language="Cache" runat="Server">
+							Set id = (..EscapeHTML(query.GetData(1)))
+						</script>
+						<csp:if condition= "currentserver = id">		
+							<option value=#(..EscapeHTML(query.GetData(1)))# selected >#(..EscapeHTML(query.GetData(2)))#</option>
+						<CSP:ELSE>
+							<option value=#(..EscapeHTML(query.GetData(1)))#>#(..EscapeHTML(query.GetData(2)))#</option>
+						</csp:if>		
 					</csp:while>
 					</select>
 					</form>

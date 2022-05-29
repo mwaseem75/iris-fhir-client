@@ -124,15 +124,15 @@ def GetTableData(resource,data,opt):
                 rows.append(row)             
     if opt == 2: #Get data for HTML
         rows = ""
-        strr = ""
-        str2= ""
+        patid = ""
         if resource == "Patient":
             for rowval in data:
                 rows = rows + "<tr>"
-                strr = "fhirclient\patient.csp?pid="+str(rowval.get('id'))
-                strr = "\csp\\"+ strr     
-                str2 = '<A HREF="'+strr+'"'+'>'+str(rowval.get('id'))+'</A>'
-                rows = rows + "<td>"+str2+"</td><td>"+str(rowval.get_by_path('name.0.family'))+"</td><td>"+str(rowval.get_by_path('name.0.given.0'))+"</td><td>"+str(rowval.get_by_path('birthDate'))+"</td><td>"+str(rowval.get_by_path('gender'))+"</td></tr>"
+                #including <a> tag to pass to patient.csp page
+                patid = "fhirclient\patient.csp?pid="+str(rowval.get('id'))+"&pname="+str(rowval.get_by_path('name.0.family'))+" "+str(rowval.get_by_path('name.0.given.0'))
+                patid = "\csp\\"+ patid     
+                patid = '<A HREF="'+patid+'"'+'>'+str(rowval.get('id'))+'</A>'
+                rows = rows + "<td>"+patid+"</td><td>"+str(rowval.get_by_path('name.0.family'))+"</td><td>"+str(rowval.get_by_path('name.0.given.0'))+"</td><td>"+str(rowval.get_by_path('birthDate'))+"</td><td>"+str(rowval.get_by_path('gender'))+"</td></tr>"
                 
         elif resource == "Observation":
             for rowval in data:
