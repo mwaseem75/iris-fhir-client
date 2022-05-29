@@ -205,7 +205,7 @@ FROM dc.FhirServer where id = :currentserver
               <div class="icon">
                 <i class="ion ion-person-stalker"></i>
               </div>
-              <a href="/processes" class="small-box-footer">View Details <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer">View Details <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -219,7 +219,7 @@ FROM dc.FhirServer where id = :currentserver
               <div class="icon">
                 <i class="ion ion-erlenmeyer-flask"></i>
               </div>
-              <a href="/messages" class="small-box-footer">View Details <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer">View Details <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -234,7 +234,7 @@ FROM dc.FhirServer where id = :currentserver
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <a href="/securityusers" class="small-box-footer">View Details <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer">View Details <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -249,7 +249,7 @@ FROM dc.FhirServer where id = :currentserver
               <div class="icon">
                 <i class="ion ion-android-apps"></i>
               </div>
-              <a href="/securityapps" class="small-box-footer">View Details <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer">View Details <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
 		</div>

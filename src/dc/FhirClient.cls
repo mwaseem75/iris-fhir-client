@@ -40,6 +40,8 @@ ClassMethod Init() As %Integer
 	}
 }
 
+// Resigter server by using FhirServer persistent Class
+
 ClassMethod RegisterServer(ServerName As %String, Endpoint As %String, ApiKey As %String = "", EndpointOAuth As %String = "") As %Integer
 {
 	//Create global fhirServer reference variable if not created
@@ -50,7 +52,7 @@ ClassMethod RegisterServer(ServerName As %String, Endpoint As %String, ApiKey As
 	//Add New FhirServer
 	set obj = ##class(dc.FhirServer).%New()
 	set obj.ServerName = ServerName
-	set obj.Endpoint = EndPoint
+	set obj.Endpoint = Endpoint
 	set obj.ApiKey = ApiKey
 	set obj.EndpointOAuth = EndpointOAuth
 	set sts = obj.%Save()
@@ -64,6 +66,8 @@ ClassMethod RegisterServer(ServerName As %String, Endpoint As %String, ApiKey As
 			write "Error while registring FHIR Server"
 	}
 }
+
+// Get Server List
 
 ClassMethod ServerList() As %Integer
 {
@@ -140,7 +144,17 @@ ClassMethod GetServerList() As %String
 
 ClassMethod SetFhirServer(serverid As %Integer)
 {
-	Set ^ActiveFhirServer = serverid
+	Set obj = ##class(dc.FhirServer).%OpenId(^ActiveFhirServer)
+	//If Server is already register then activate it
+	if $isobject(obj)  
+	{
+		Set ^ActiveFhirServer = serverid
+		Write "Server id "+serverid+" Activated Successfully"
+	}
+	ELSE
+	{
+		Write "FHIR Server with id "+serverid+" Not registered!"
+	}
 }
 
 // Count Resource, Pass "ALL" in case of counting all the resources
