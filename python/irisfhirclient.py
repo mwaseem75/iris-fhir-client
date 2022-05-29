@@ -155,15 +155,9 @@ def GetTableData(resource,data,opt):
                 
         elif resource == "Observation":
             for rowval in data:
-                row = [rowval.get('id'),
-                rowval.get_by_path('category.0.coding.0.code'),
-                rowval.get_by_path('code.coding.0.code'),
-                rowval.get_by_path('valueQuantity.value'),
-                rowval.get_by_path('valueQuantity.code'),
-                rowval.get('effectiveDateTime'),
-                rowval.get_by_path('subject.reference')
-                ,]
-                rows.append(row)    
+                rows = rows + "<tr>"
+                rows = rows + "<td>"+str(rowval.get('id'))+"</td><td>"+str(rowval.get_by_path('category.0.coding.0.code'))+"</td><td>"+str(rowval.get_by_path('code.coding.0.code'))+"</td><td>"+str(rowval.get_by_path('valueQuantity.value'))+"</td><td>"+str(rowval.get_by_path('valueQuantity.code'))+"</td><td>"+str(rowval.get('effectiveDateTime'))+"</td></tr>"
+        
         elif resource == 'Procedure':        
             for rowval in data:
                 row = [rowval.get('id'),
@@ -249,6 +243,17 @@ def GetPatientResources(resource,patientId,url,api_key):
     #Print Resources
     print(tabulate(rows,headers = header))
 
+#3-Print resource agaisnt Patient
+def GetPatientResourcesHTML(resource,patientId,url,api_key):
+     #Get Connection
+    cclient = SyncFHIRClient(url = url, extra_headers={"Content-Type":contentType,"x-api-key":api_key})
+    try:
+        data = cclient.resources(resource).search(patient=patientId).fetch()
+    except:
+        print("Connection Error")    
+    rows = GetTableData(resource,data,2)
+    return rows
+
 #Get Resource HTML Rows data
 def GetResourceHTML(resource,url,api_key):
     data = ""
@@ -296,5 +301,5 @@ def ListResources(url,api_key,opt):
 #print(data)
 
 
-#sc = CountResourcePatient("Encounter","fa064acf-b7f1-4279-83d3-7a94686da7ba","https://r4.smarthealthit.org","")
+#sc =  GetPatientResourcesHTML("Observation","fa064acf-b7f1-4279-83d3-7a94686da7ba","https://r4.smarthealthit.org","")
 #print(sc)

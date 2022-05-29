@@ -34,7 +34,15 @@
     <link rel="stylesheet" type="text/css" href="resources/css/datatables.min.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/buttons.dataTables.min.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/jquery.dataTables.min.css">
-	
+	<style>
+		.bg-info {background-color: #2fa9bd!important}
+		.bg-info2 {background-color: #65c8d9!important}
+		.bg-warning {background-color: #8dbaf3!important}
+		.bg-success {background-color: #3ba954!important}
+		.bg-prac {background-color: #f5d060!important}
+        .bg-ion {color:#1f2d3d!important}
+	</style>
+
 </head>
 
 <body>
@@ -64,23 +72,20 @@
                     </ul>                              
             </nav>
             <!-- End Navbar -->
-  
-
-        <!-- Main Panel -->
-      
-                    <!-- Cards -->
-     
-                        <!-- Widget: user widget style 2 -->
+                          <!-- Widget: user widget style 2 -->
                         <div class="card card-widget widget-user-2">
                             <!-- Add the bg color to the header using any of the bg-* classes -->
                             <div class="widget-user-header bg-warning">
                                 <div class="row">
-                                    <div class="col-md-9">
+                                    <div class="col-md-1" style="text-align:right;">
+				                	<i style="font-size: 5em;" class="ion ion-person bg-ion"></i>
+				                    </div>
+                                    <div class="col-md-8">
                                         <!-- /.widget-user-image -->
-                                        <h3 class="widget-user-username">
+                                        <h3  style="margin-left: 0" class="widget-user-username bg-ion ">
                                             #( patname )#
                                         </h3>
-                                        <h5 class="widget-user-desc">ID = #( patid )#</h5>
+                                        <h5  style="margin-left: 0" class="widget-user-desc bg-ion">ID = #( patid )#</h5>
                                     </div>
                                 </div>
                            
@@ -108,7 +113,7 @@
                                         <li class="nav-item">
                                         
                                             <a  href="#" class="nav-link">
-                                                Observation - Vitals <span class="float-right badge bg-primary"><h3>#(..CountResourcePatient("Observation", patid ))#</h3></span>
+                                                Observation - Vitals <span class="float-right badge bg-primary"><h4>#(..CountResourcePatient("Observation", patid ))#</h4></span>
                                             </a>
                                             
                                         </li>
@@ -126,37 +131,37 @@
                                         <li class="nav-item">
                                             <a href="#" class="nav-link">
                                                 Procedure <span
-                                                    class="float-right badge bg-danger">842</span>
+                                                    class="float-right badge bg-danger"><h4>#(..CountResourcePatient("Procedure", patid ))#</h4></span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="#" class="nav-link">
                                                 Immunization <span
-                                                    class="float-right badge bg-danger">842</span>
+                                                    class="float-right badge bg-danger"><h4>#(..CountResourcePatient("Procedure", patid ))#</h4></span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="#" class="nav-link">
                                                 Encounter <span
-                                                    class="float-right badge bg-danger">842</span>
+                                                    class="float-right badge bg-danger"><h4>#(..CountResourcePatient("Encounter", patid ))#</h4></span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="#" class="nav-link">
                                                 Condition <span
-                                                    class="float-right badge bg-danger">842</span>
+                                                    class="float-right badge bg-danger"><h4>#(..CountResourcePatient("Condition", patid ))#</h4></span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="#" class="nav-link">
                                                 Practitioner <span
-                                                    class="float-right badge bg-danger">842</span>
+                                                    class="float-right badge bg-danger"><h4>#(..CountResourcePatient("Practitioner", patid ))#</h4></span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="#" class="nav-link">
                                                 Organization <span
-                                                    class="float-right badge bg-danger">842</span>
+                                                    class="float-right badge bg-danger"><h4>#(..CountResourcePatient("Organization", patid ))#</h4></span>
                                             </a>
                                         </li>
                                         
@@ -179,12 +184,12 @@
                                             <div class="widget-user-header bg-info">
                                                
                                                 <!-- /.widget-user-image -->
-                                                <h3 class="widget-user-username">Patient Resources</h3>
+                                                <h3 class="widget-user-username">Patient Observations</h3>
 
                                             </div>
 											  <script language="Cache" runat="Server">
-										Set dsid = "Observation"
-									    Set ColNames = ..GetHeaderRow(dsid)
+										
+									    Set ColNames = ..GetHeaderRow(3)
                                 </script>                  
                                             <div class="card-footer p-0">
                                                <div class="table-responsive">
@@ -195,7 +200,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        #(..GetResourceHTML(dsid))#
+                                       #(..GetPatientResourcesHTML("Observation",patid))#	
                                     </tbody>
                                 </table>
                             </div>

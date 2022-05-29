@@ -26,6 +26,7 @@
 		
 
 	</script>
+	
 
 	<!-- CSS Files -->
 	 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -33,6 +34,16 @@
 	<link rel="stylesheet" type="text/css" href="resources/css/atlantis.min.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/adminlte.min.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/datatables.min.css">
+
+		<style>
+		.bg-info {background-color: #2fa9bd!important}
+		.bg-info2 {background-color: #65c8d9!important}
+		.bg-warning {background-color: #8dbaf3!important}
+		.bg-success {background-color: #3ba954!important}
+		.bg-prac {background-color: #f5d060!important}
+        .bg-ion {color:#1f2d3d!important}
+	</style>
+
 
 	<script src="resources/js/jquery.min.js"></script>
 	<script src="resources/js/datatables.min.js"></script>
@@ -147,15 +158,19 @@ FROM dc.FhirServer where id = :currentserver
             	<div class="card card-widget widget-user-2">
               	<!-- Add the bg color to the header using any of the bg-* classes -->
               	<div class="widget-user-header bg-warning">
-                	<div class="row">		
-                
-                <div class="col-md-8">
+                <div class="row">		
+                <div class="col-md-1" style="text-align:right;">
+					<i style="font-size: 5em" class="ion ion-android-apps bg-ion"></i>
+				</div>
+                <div class="col-md-7">
                 <!-- /.widget-user-image -->
+			
 				<csp:while condition="query2.Next()">				
-					<h3 class="widget-user-username">#(..EscapeHTML(query2.GetData(1)))#</h3>
-					<h5 class="widget-user-desc">#(..EscapeHTML(query2.GetData(2)))#</h5>
+					<h3 style="margin-left: 0" class="widget-user-username bg-ion">#(..EscapeHTML(query2.GetData(1)))#</h3>
+					<h5 style="margin-left: 0" class="widget-user-desc bg-ion">#(..EscapeHTML(query2.GetData(2)))#</h5>
 				</csp:while>
-                </div>
+				</div>
+	
 		
                <div class = "col-md-4">             
 					<form class="form-inline my-2 my-lg-0">
@@ -215,7 +230,7 @@ FROM dc.FhirServer where id = :currentserver
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-warning">
+            <div class="small-box bg-prac" >
               <div class="inner">
               
  <h3>#(..CountResource("Practitioner"))#</h3>
@@ -230,7 +245,7 @@ FROM dc.FhirServer where id = :currentserver
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-info">
+            <div class="small-box bg-info2">
               <div class="inner">
             
 				<h3>#(..CountResource("Practitioner"))#</h3>
@@ -304,7 +319,7 @@ FROM dc.FhirServer where id = :currentserver
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
-							<table id="observation-data" class="display table table-striped table-hover" >
+							<table id="servers-data" class="display table table-striped table-hover" >
 								<thead>
 									<tr>
 										#(ColNames)#													
@@ -370,6 +385,7 @@ FROM dc.FhirServer where id = :currentserver
 	
 	<!-- Atlantis JS -->
 	<script src="resources/js/atlantis.min.js"></script>
+
 <script language="javascript">
 		
 	 function handleClick() {
@@ -386,17 +402,9 @@ FROM dc.FhirServer where id = :currentserver
 	
 	$(document).ready(function() {
     $('#patient-data').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5'
-        ]
-    } );
-    $('#observation-data').DataTable( {
-        dom: 'Bfrtip'
-        
+      } );
+    $('#servers-data').DataTable( {
+      
     } );
 } );
 

@@ -270,6 +270,25 @@ ClassMethod GetPatientResources(resource As %String, patientId As %Integer) As %
   	Quit $$$OK
 }
 
+ClassMethod GetPatientResourcesHTML(resource As %String, patientId As %Integer) As %Status
+{
+	//Get Active Server data based on Global Variable 
+	Set obj = ##class(dc.FhirServer).%OpenId(^ActiveFhirServer)
+	//If Url and ApiKey is defined
+	if $isobject(obj)  
+	{  
+	  //Call Embedded Python Function to get Number of Resources
+	  Set irisfhirclient = ##class(%SYS.Python).Import("irisfhirclient")
+	  set data = irisfhirclient.GetPatientResourcesHTML(resource,patientId,obj.Endpoint,obj.ApiKey) 
+	}
+	//Active Server data is not defined
+  	else
+  	{ 
+  		Quit "Not able to get server Info.."
+  	}
+  	return data
+}
+
 // Get Resources List
 
 ClassMethod SaveOrg() [ Language = python ]
@@ -352,18 +371,18 @@ ClassMethod GetHeaderRow(id As %Integer) As %String
 		//Patients Header
 		SET hrow = "<th>ID</th><th>Family Name</th><th>Given Name</th><th>DOB</th><th>Gender</th>"
 	}
-	else 
+	elseif id = 2
 	{
 		//Server Header
 		SET hrow = "<th>ID</th><th>Server Name</th><th>Status</th>"
 	}
+	elseif id = 3
+	{
+		//Observation
+	
+		SET hrow = "<th>ID</th><th>Category</th><th>Codes</th><th>UOM</th><th>Date</th>"
+	}
 
-    RETURN hrow
-}
-
-ClassMethod GetTableData(id As %Integer) As %String
-{
-    SET hrow = "<td>ID</td><td>Family Name</td><td>Given Name</td><td>DOB</td><td>Gender</td>"
     RETURN hrow
 }
 
