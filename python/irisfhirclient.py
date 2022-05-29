@@ -279,10 +279,7 @@ def ListResources(url,api_key,opt):
     x = requests.get(url+'metadata',headers=headers)
     data = x.json()
     # # # print (len(data['rest'][0]['resource']))
-    if opt == 0: 
-        for item in data['rest'][0]['resource']: 
-            print(item['type'])
-    
+      
     if opt == 1: 
         for item in data['rest'][0]['resource']: 
             # #--Counting all the resources -    
@@ -293,3 +290,6 @@ def ListResources(url,api_key,opt):
             s = json.dumps(data2)
             if s.find('entry') != -1:
                 print (item['type'] +":"+str(len(data2['entry'])))
+    else:
+        for item in data['rest'][0]['resource']: 
+            print(item['type'])

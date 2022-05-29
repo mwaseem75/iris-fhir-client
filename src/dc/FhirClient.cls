@@ -263,6 +263,25 @@ ClassMethod GetResource(resource As %String) As %Status
   	Quit $$$OK
 }
 
+ClassMethod ListResources(opt As %Integer = 0) As %Status
+{
+	//Get Active Server data based on Global Variable 
+	Set obj = ##class(dc.FhirServer).%OpenId(^ActiveFhirServer)
+	//If Url and ApiKey is defined
+	if $isobject(obj)  
+	{  
+	  //Call Embedded Python Function to get Number of Resources
+	  Set irisfhirclient = ##class(%SYS.Python).Import("irisfhirclient")
+	  do irisfhirclient.ListResources(obj.Endpoint,obj.ApiKey,opt) 
+	}
+	//Active Server data is not defined
+  	else
+  	{ 
+  		Quit "Not able to get server Info.."
+  	}
+  	Quit $$$OK
+}
+
 //  Get Patint Resources List 
 
 ClassMethod GetPatientResources(resource As %String, patientId As %Integer) As %Status
