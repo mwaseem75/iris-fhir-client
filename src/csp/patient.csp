@@ -113,55 +113,45 @@
                                         <li class="nav-item">
                                         
                                             <a  href="#" class="nav-link">
-                                                Observation - Vitals <span class="float-right badge bg-primary"><h4>#(..CountResourcePatient("Observation", patid ))#</h4></span>
+                                                Observations <span class="float-right badge bg-primary"><h6>#(..CountResourcePatient("Observation", patid ))#</h6></span>
                                             </a>
                                             
                                         </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                Observation - Labs <span class="float-right badge bg-info">5</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                Observation - Others <span
-                                                    class="float-right badge bg-success">12</span>
-                                            </a>
-                                        </li>
+                                       
                                         <li class="nav-item">
                                             <a href="#" class="nav-link">
                                                 Procedure <span
-                                                    class="float-right badge bg-danger"><h4>#(..CountResourcePatient("Procedure", patid ))#</h4></span>
+                                                    class="float-right badge bg-primary"><h6>#(..CountResourcePatient("Procedure", patid ))#</h6></span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="#" class="nav-link">
                                                 Immunization <span
-                                                    class="float-right badge bg-danger"><h4>#(..CountResourcePatient("Procedure", patid ))#</h4></span>
+                                                    class="float-right badge bg-primary"><h6>#(..CountResourcePatient("Procedure", patid ))#</h6></span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="#" class="nav-link">
                                                 Encounter <span
-                                                    class="float-right badge bg-danger"><h4>#(..CountResourcePatient("Encounter", patid ))#</h4></span>
+                                                    class="float-right badge bg-primary"><h6>#(..CountResourcePatient("Encounter", patid ))#</h6></span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="#" class="nav-link">
                                                 Condition <span
-                                                    class="float-right badge bg-danger"><h4>#(..CountResourcePatient("Condition", patid ))#</h4></span>
+                                                    class="float-right badge bg-primary"><h6>#(..CountResourcePatient("Condition", patid ))#</h6></span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="#" class="nav-link">
                                                 Practitioner <span
-                                                    class="float-right badge bg-danger"><h4>#(..CountResourcePatient("Practitioner", patid ))#</h4></span>
+                                                    class="float-right badge bg-primary"><h6>#(..CountResourcePatient("Practitioner", patid ))#</h6></span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="#" class="nav-link">
                                                 Organization <span
-                                                    class="float-right badge bg-danger"><h4>#(..CountResourcePatient("Organization", patid ))#</h4></span>
+                                                    class="float-right badge bg-primary"><h6>#(..CountResourcePatient("Organization", patid ))#</h6></span>
                                             </a>
                                         </li>
                                         

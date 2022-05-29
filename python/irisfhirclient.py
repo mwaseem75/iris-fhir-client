@@ -1,10 +1,8 @@
-import sys,json
+import json
 from fhirpy import SyncFHIRClient
-from json import dump
 from tabulate import tabulate
 import requests
 
-resources = ["Patient", "Observation", "Appointment","Procedure","Practitioner"]
 contentType = "application/fhir+json"
 
 # 1-Count Number of Resources
@@ -23,7 +21,10 @@ def CountResource(resource,url,api_key):
         
     data=req.json()
     #count number of element entry
-    count = len(data['entry'])
+    try:
+        count = len(data['entry'])
+    except:
+        return 0
     return count
 
 # Count Number of Resources against patient
@@ -43,7 +44,11 @@ def CountResourcePatient(resource,patientId,url,api_key):
         
     data=req.json()
     #count number of element entry
-    count = len(data['entry'])
+    try:
+        count = len(data['entry'])
+    except:
+        return 0
+
     return count
 
 #Get Table header based on resource
@@ -64,8 +69,6 @@ def GetTableHeader(resource):
         header = ["ID","Code","Details","ClinicalStatus","VerificationStatus"]    
     elif resource == "Practitioner":
         header = ["ID","Name","Gender"]     
-
-        #AllergyIntolerance,DiagnosticReport,Claim
 
     return header
 
@@ -267,6 +270,7 @@ def GetResourceHTML(resource,url,api_key):
     
     rows = GetTableData(resource,data,2)
     return rows
+
 def ListResources(url,api_key,opt):
 # #--Counting all the resources ----------------------------------------------------
     headers = {"Content-Type":contentType,"x-api-key":api_key}
@@ -289,17 +293,3 @@ def ListResources(url,api_key,opt):
             s = json.dumps(data2)
             if s.find('entry') != -1:
                 print (item['type'] +":"+str(len(data2['entry'])))
-            #       else:   
-            #           print (item['type'] +": 0")
-            # #########################################################################################
-
-# id = GetResourceHTML("Patient","https://r4.smarthealthit.org","0")
-# print(id)
-
-#cclient = SyncFHIRClient(url = "https://r4.smarthealthit.org", extra_headers={"Content-Type":contentType})
-#data = cclient.resources('Observation').search(patient="fa064acf-b7f1-4279-83d3-7a94686da7ba").fetch_all()
-#print(data)
-
-
-#sc =  GetPatientResourcesHTML("Observation","fa064acf-b7f1-4279-83d3-7a94686da7ba","https://r4.smarthealthit.org","")
-#print(sc)

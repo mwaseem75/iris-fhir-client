@@ -104,34 +104,29 @@ FROM dc.FhirServer where id = :currentserver
 								<div class="quick-actions-scroll scrollbar-outer">
 									<div class="quick-actions-items">
 										<div class="row m-0">
-											<a class="col-6 col-md-4 p-0" href="/csp/datasets/index.csp">
+											<a class="col-6 col-md-4 p-0" href="/csp/fhirclient/index.csp">
 												<div class="quick-actions-item">
 													<i class="flaticon-file-1"></i>
 													<span class="text">Dashboard</span>
 												</div>
 											</a>
-											<a class="col-6 col-md-4 p-0" href="/csp/datasets/datasets.csp">
-												<div class="quick-actions-item">
-													<i class="flaticon-pen"></i>
-													<span class="text">View DataSet</span>
-												</div>
-											</a>
-											<a class="col-6 col-md-4 p-0" href="/csp/sys/%25CSP.Portal.Home.zen?$NAMESPACE=DATASETS">
+									
+											<a class="col-6 col-md-4 p-0" href="/csp/sys/%25CSP.Portal.Home.zen">
 												<div class="quick-actions-item">
 													<i class="flaticon-database"></i>
 													<span class="text">Management Portal</span>
 												</div>
 											</a>
-											<a class="col-6 col-md-4 p-0" href="/csp/sys/exp/%25CSP.UI.Portal.SQL.Home.zen?$NAMESPACE=DATASETS">
+											<a class="col-6 col-md-4 p-0" href="https://www.hl7.org/fhir/">
 												<div class="quick-actions-item">
 													<i class="flaticon-pen"></i>
-													<span class="text">DataSets SQL</span>
+													<span class="text">FHIR Official Website</span>
 												</div>
 											</a>
-											<a class="col-6 col-md-4 p-0" href="https://irisdocs.intersystems.com/iris20212/csp/docbook/DocBook.UI.Page.cls?KEY=RSQL_loaddata">
+											<a class="col-6 col-md-4 p-0" href="https://pypi.org/project/fhirpy/">
 												<div class="quick-actions-item">
 													<i class="flaticon-pen"></i>
-													<span class="text">LOAD DATA (SQL)</span>
+													<span class="text">FHIR Client Docs</span>
 												</div>
 											</a>
 											

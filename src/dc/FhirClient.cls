@@ -143,7 +143,7 @@ ClassMethod SetFhirServer(serverid As %Integer)
 	Set ^ActiveFhirServer = serverid
 }
 
-// 1-Count Resource, Pass "ALL" in case of counting all the resources
+// Count Resource, Pass "ALL" in case of counting all the resources
 
 ClassMethod CountResource(resource As %String) As %Integer
 {
@@ -174,6 +174,8 @@ ClassMethod CountResource(resource As %String) As %Integer
   	return count
 }
 
+// Count Patient Resources
+
 ClassMethod CountResourcePatient(resource As %String, patientid As %String) As %Integer
 {
 	//Get Active Server data based on Global Variable 
@@ -203,8 +205,6 @@ ClassMethod CountResourcePatient(resource As %String, patientid As %String) As %
   	return count
 }
 
-// CountResourcePatient("Encounter","fa064acf-b7f1-4279-83d3-7a94686da7ba","https://r4.smarthealthit.org","")
-
 // Method invoked from CSP Application to get Resource HTML
 
 ClassMethod GetResourceHTML(resource As %String) As %Status
@@ -228,7 +228,7 @@ ClassMethod GetResourceHTML(resource As %String) As %Status
   	return data
 }
 
-// 2- Get Resource List 
+// Get Resource List 
 
 ClassMethod GetResource(resource As %String) As %Status
 {
@@ -249,7 +249,7 @@ ClassMethod GetResource(resource As %String) As %Status
   	Quit $$$OK
 }
 
-// 2- Get Patint Resources List 
+//  Get Patint Resources List 
 
 ClassMethod GetPatientResources(resource As %String, patientId As %Integer) As %Status
 {
@@ -270,6 +270,8 @@ ClassMethod GetPatientResources(resource As %String, patientId As %Integer) As %
   	Quit $$$OK
 }
 
+// Get patient data to be used in csp application
+
 ClassMethod GetPatientResourcesHTML(resource As %String, patientId As %Integer) As %Status
 {
 	//Get Active Server data based on Global Variable 
@@ -287,79 +289,6 @@ ClassMethod GetPatientResourcesHTML(resource As %String, patientId As %Integer) 
   		Quit "Not able to get server Info.."
   	}
   	return data
-}
-
-// Get Resources List
-
-ClassMethod SaveOrg() [ Language = python ]
-{
-	
-	from fhirpy import SyncFHIRClient
-		
-	client = SyncFHIRClient(url = "http://localhost:52773/csp/healthshare/samples/fhir/r4", extra_headers={"x-api-key":"CDqtU2GjQUaICOC65Ilgv1LHQIEDr4Vn12nnlmMY"})
-	organization = client.resource(
-        'Organization',
-        name='beda.software',
-        active=False
-    );
-	organization.save()
-}
-
-// Create New Resource
-
-ClassMethod CreateResource(resource As %String) [ Language = python ]
-{
-	import os,sys
-	from fhirpy import SyncFHIRClient
-	from json import dump
-
-	client = SyncFHIRClient(url = "http://localhost:52773/csp/healthshare/samples/fhir/r4", extra_headers={"Content-Type":"application/fhir+json","x-api-key":"CDqtU2GjQUaICOC65Ilgv1LHQIEDr4Vn12nnlmMY"})
-	patient = client.resource(resource)
-	patient['name'] = [
-    {
-        'given': ['John'],
-        'family': 'Thompson',
-        'use': 'official',
-        'prefix': ['Mr.']
-    }
-	]  
-	patient['birthDate'] = '1985-05-05'
-	patient.save()
-}
-
-ClassMethod CreateObservation(resource As %String) [ Language = python ]
-{
-	import os,sys
-	from fhirpy import SyncFHIRClient
-	from json import dump
-
-	client = SyncFHIRClient(url = "http://localhost:52773/csp/healthshare/samples/fhir/r4", extra_headers={"Content-Type":"application/fhir+json","x-api-key":"CDqtU2GjQUaICOC65Ilgv1LHQIEDr4Vn12nnlmMY"})
-	observation = client.resource(
-    'Observation',
-    status='preliminary',
-    category=[{
-        'coding': [{
-            'system': 'http://hl7.org/fhir/observation-category',
-            'code': 'vital-signs'
-        }]
-    }],
-    code={
-        'coding': [{
-            'system': 'http://loinc.org',
-            'code': '8310-5'
-        }]
-    })
-	observation['effectiveDateTime'] = '2018-10-20'
-	observation['valueQuantity'] = {
-    'system': 'http://unitsofmeasure.org',
-    'value': 96.8,
-    'code': 'degF'
-	}
-	
-	patient = client.resources('Patient').search(name=['John', 'Thompson']).first()
-	observation['subject'] = patient.to_reference()
-	observation.save()
-	dump(observation, sys.stdout, indent=2)
 }
 
 // Function to get tables header row based on resource
@@ -380,7 +309,7 @@ ClassMethod GetHeaderRow(id As %Integer) As %String
 	{
 		//Observation
 	
-		SET hrow = "<th>ID</th><th>Category</th><th>Codes</th><th>UOM</th><th>Date</th>"
+		SET hrow = "<th>ID</th><th>Category</th><th>Codes</th><th>Value</th><th>UOM</th><th>Date</th>"
 	}
 
     RETURN hrow
