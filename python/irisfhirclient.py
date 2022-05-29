@@ -26,6 +26,25 @@ def CountResource(resource,url,api_key):
     count = len(data['entry'])
     return count
 
+# Count Number of Resources against patient
+def CountResourcePatient(resource,patientId,url,api_key):
+    #Init headers
+    headers={"Content-Type":contentType,"x-api-key":api_key}
+    #Add / at the end of endpoint if not added
+    if url[-1]!="/":
+        url=url+"/"
+    try:
+        #Get Request 
+        url = url+resource+'?subject=Patient/'+patientId        
+        req = requests.get(url,headers=headers)  
+    except:
+        #in case of exception return 0
+        return 0
+        
+    data=req.json()
+    #count number of element entry
+    count = len(data['entry'])
+    return count
 
 #Get Table header based on resource
 def GetTableHeader(resource):
@@ -232,8 +251,6 @@ def GetPatientResources(resource,patientId,url,api_key):
 
 #Get Resource HTML Rows data
 def GetResourceHTML(resource,url,api_key):
-    #Get Connection
- 
     data = ""
     if url[-1]!="/":
         url=url+"/"
@@ -273,3 +290,11 @@ def ListResources(url,api_key,opt):
 
 # id = GetResourceHTML("Patient","https://r4.smarthealthit.org","0")
 # print(id)
+
+#cclient = SyncFHIRClient(url = "https://r4.smarthealthit.org", extra_headers={"Content-Type":contentType})
+#data = cclient.resources('Observation').search(patient="fa064acf-b7f1-4279-83d3-7a94686da7ba").fetch_all()
+#print(data)
+
+
+#sc = CountResourcePatient("Encounter","fa064acf-b7f1-4279-83d3-7a94686da7ba","https://r4.smarthealthit.org","")
+#print(sc)

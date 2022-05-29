@@ -174,6 +174,37 @@ ClassMethod CountResource(resource As %String) As %Integer
   	return count
 }
 
+ClassMethod CountResourcePatient(resource As %String, patientid As %String) As %Integer
+{
+	//Get Active Server data based on Global Variable 
+	Set obj = ##class(dc.FhirServer).%OpenId(^ActiveFhirServer)
+	//If Url and ApiKey is defined
+	if $isobject(obj)  
+	{  
+	    
+	  try {
+  		  //Importing python file 
+          Set irisfhirclient = ##class(%SYS.Python).Import("irisfhirclient")
+          
+		} 
+	  Catch err {
+			Write "Error While importing irisfhirclient.py file" 	
+			return 0  	
+				}  
+	  //invoking Method from python file
+	  Set count = irisfhirclient.CountResourcePatient(resource,patientid,obj.Endpoint,obj.ApiKey)
+	  return count
+	}
+	//Active Server data is not defined
+  	else
+  	{ 
+  		Quit "Not able to get server Info.."
+  	}
+  	return count
+}
+
+// CountResourcePatient("Encounter","fa064acf-b7f1-4279-83d3-7a94686da7ba","https://r4.smarthealthit.org","")
+
 // Method invoked from CSP Application to get Resource HTML
 
 ClassMethod GetResourceHTML(resource As %String) As %Status
