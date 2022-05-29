@@ -3,7 +3,7 @@ InterSystems FHIR Client
 Connect to any Open FHIR Server and get Resources information from FHIR Server, Both from terminal and form website. 
 
 ## Application Layout
-![image](https://user-images.githubusercontent.com/18219467/149624925-2d779d04-9391-4856-a7a2-c2907d14a70d.png)
+![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/18219467/170888223-51e31519-92af-446f-acae-0633df885dbe.gif)
 
 
 ## Features
