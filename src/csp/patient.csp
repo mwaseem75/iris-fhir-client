@@ -44,82 +44,19 @@
             <nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
                
                     <ul class="nav nav-pills nav-primary">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="/csp/datasets/index.csp">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="/csp/datasets/datasets.csp">View DataSets</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active"
-                                href="/csp/sys/%25CSP.Portal.Home.zen?$NAMESPACE=DATASETS">Management Portal</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active"
-                                href="/csp/sys/exp/%25CSP.UI.Portal.SQL.Home.zen?$NAMESPACE=DATASETS">DataSets SQL</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active"
-                                href="https://irisdocs.intersystems.com/iris20212/csp/docbook/DocBook.UI.Page.cls?KEY=RSQL_loaddata">Load
-                                Data Docs</a>
-                        </li>
-                    </ul>
-
-                    <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-                        <li class="nav-item dropdown hidden-caret">
-                            <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
-                                <i class="fas fa-layer-group"></i>
-                            </a>
-                            <div class="dropdown-menu quick-actions quick-actions-info animated fadeIn">
-                                <div class="quick-actions-header">
-                                    <span class="title mb-1">Quick Actions</span>
-                                    <span class="subtitle op-8">Shortcuts</span>
-                                </div>
-                                <div class="quick-actions-scroll scrollbar-outer">
-                                    <div class="quick-actions-items">
-                                        <div class="row m-0">
-                                            <a class="col-6 col-md-4 p-0" href="/csp/datasets/index.csp">
-                                                <div class="quick-actions-item">
-                                                    <i class="flaticon-file-1"></i>
-                                                    <span class="text">Dashboard</span>
-                                                </div>
-                                            </a>
-                                            <a class="col-6 col-md-4 p-0" href="/csp/datasets/datasets.csp">
-                                                <div class="quick-actions-item">
-                                                    <i class="flaticon-pen"></i>
-                                                    <span class="text">View DataSet</span>
-                                                </div>
-                                            </a>
-                                            <a class="col-6 col-md-4 p-0"
-                                                href="/csp/sys/%25CSP.Portal.Home.zen?$NAMESPACE=DATASETS">
-                                                <div class="quick-actions-item">
-                                                    <i class="flaticon-database"></i>
-                                                    <span class="text">Management Portal</span>
-                                                </div>
-                                            </a>
-                                            <a class="col-6 col-md-4 p-0"
-                                                href="/csp/sys/exp/%25CSP.UI.Portal.SQL.Home.zen?$NAMESPACE=DATASETS">
-                                                <div class="quick-actions-item">
-                                                    <i class="flaticon-pen"></i>
-                                                    <span class="text">DataSets SQL</span>
-                                                </div>
-                                            </a>
-                                            <a class="col-6 col-md-4 p-0"
-                                                href="https://irisdocs.intersystems.com/iris20212/csp/docbook/DocBook.UI.Page.cls?KEY=RSQL_loaddata">
-                                                <div class="quick-actions-item">
-                                                    <i class="flaticon-pen"></i>
-                                                    <span class="text">LOAD DATA (SQL)</span>
-                                                </div>
-                                            </a>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-
-                    </ul>
-             
+                       		<li class="nav-item">
+							<a class="nav-link active" href="/csp/fhirclient/index.csp">Dashboard</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="/csp/sys/%25CSP.Portal.Home.zen">Management Portal</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="https://www.hl7.org/fhir/">FHIR Official website</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="https://pypi.org/project/fhirpy/">FHIR Client Docs</a>
+						</li>		
+                    </ul>                              
             </nav>
             <!-- End Navbar -->
   

@@ -21,4 +21,4 @@ RUN pip3 install tabulate
 
 RUN iris start IRIS \
 	&& iris session IRIS < iris.script \
-    && iris stop IRIS  quietly
+    && iris stop IRIS quietly

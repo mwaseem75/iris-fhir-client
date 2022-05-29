@@ -122,7 +122,84 @@ def GetTableData(resource,data,opt):
                 rowval.get('gender')           
                 ]
                 rows.append(row)             
-                                                                                         
+    if opt == 2: #Get data for HTML
+        rows = ""
+        strr = ""
+        str2= ""
+        if resource == "Patient":
+            for rowval in data:
+                rows = rows + "<tr>"
+                strr = "fhirclient\patient.csp?pid="+str(rowval.get('id'))
+                strr = "\csp\\"+ strr     
+                str2 = '<A HREF="'+strr+'"'+'>'+str(rowval.get('id'))+'</A>'
+                rows = rows + "<td>"+str2+"</td><td>"+str(rowval.get_by_path('name.0.family'))+"</td><td>"+str(rowval.get_by_path('name.0.given.0'))+"</td><td>"+str(rowval.get_by_path('birthDate'))+"</td><td>"+str(rowval.get_by_path('gender'))+"</td></tr>"
+                
+        elif resource == "Observation":
+            for rowval in data:
+                row = [rowval.get('id'),
+                rowval.get_by_path('category.0.coding.0.code'),
+                rowval.get_by_path('code.coding.0.code'),
+                rowval.get_by_path('valueQuantity.value'),
+                rowval.get_by_path('valueQuantity.code'),
+                rowval.get('effectiveDateTime'),
+                rowval.get_by_path('subject.reference')
+                ,]
+                rows.append(row)    
+        elif resource == 'Procedure':        
+            for rowval in data:
+                row = [rowval.get('id'),
+                rowval.get_by_path('code.coding.0.code'),
+                rowval.get_by_path('code.coding.0.display'),
+                rowval.get_by_path('performedPeriod.start'),
+                rowval.get_by_path('performedPeriod.end'),
+                rowval.get_by_path('status')           
+                ]
+                rows.append(row)    
+        elif resource == 'Immunization':        
+            for rowval in data:
+                row = [rowval.get('id'),
+                rowval.get_by_path('vaccineCode.coding.0.code'),
+                rowval.get_by_path('vaccineCode.coding.0.display'),
+                rowval.get('occurrenceDateTime'),
+                rowval.get_by_path('encounter.reference'),
+                rowval.get_by_path('status')           
+                ]
+                rows.append(row) 
+        elif resource == 'Encounter':        
+            for rowval in data:
+                row = [rowval.get('id'),
+                rowval.get_by_path('class.code'),
+                rowval.get_by_path('period.start'),
+                rowval.get_by_path('period.end'),
+                rowval.get_by_path('serviceProvider.reference'),
+                rowval.get_by_path('status')           
+                ]
+                rows.append(row)  
+        elif resource == 'Organization':        
+            for rowval in data:
+                row = [rowval.get('id'),
+                rowval.get_by_path('type.0.coding.0.code'),
+                rowval.get_by_path('type.0.coding.0.display'),
+                rowval.get('name')           
+                ]
+                rows.append(row)     
+        elif resource == 'Condition':        
+            for rowval in data:
+                row = [rowval.get('id'),
+                rowval.get_by_path('code.coding.0.code'),
+                rowval.get_by_path('code.coding.0.display'),
+                rowval.get_by_path('clinicalStatus.coding.0.code'),           
+                rowval.get_by_path('verificationStatus.coding.0.code')           
+                ]
+                rows.append(row)     
+        elif resource == 'Practitioner':        
+            for rowval in data:
+                row = [rowval.get('id'),
+                rowval.get_by_path('name.0.prefix.0')+' '+rowval.get_by_path('name.0.family')+' '+rowval.get_by_path('name.0.given.0'),
+                rowval.get('gender')           
+                ]
+                rows.append(row)                                                                                       
+    
     return rows
 
 
@@ -156,6 +233,7 @@ def GetPatientResources(resource,patientId,url,api_key):
 #Get Resource HTML Rows data
 def GetResourceHTML(resource,url,api_key):
     #Get Connection
+ 
     data = ""
     if url[-1]!="/":
         url=url+"/"
@@ -165,10 +243,8 @@ def GetResourceHTML(resource,url,api_key):
     except:
         print("Connection Error")    
     
-    rows = GetTableData(resource,data,1)
-    rows = tabulate(rows, tablefmt='html')
+    rows = GetTableData(resource,data,2)
     return rows
-
 def ListResources(url,api_key,opt):
 # #--Counting all the resources ----------------------------------------------------
     headers = {"Content-Type":contentType,"x-api-key":api_key}

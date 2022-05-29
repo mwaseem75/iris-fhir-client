@@ -61,19 +61,16 @@ FROM dc.FhirServer
 				<div class="container-fluid">
 					<ul class="nav nav-pills nav-primary">
 						<li class="nav-item">
-							<a class="nav-link active" href="/csp/datasets/index.csp">Dashboard</a>
-						</li>
-							<li class="nav-item">
-							<a class="nav-link active" href="/csp/datasets/datasets.csp">View DataSets</a>
+							<a class="nav-link active" href="/csp/fhirclient/index.csp">Dashboard</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active" href="/csp/sys/%25CSP.Portal.Home.zen?$NAMESPACE=DATASETS">Management Portal</a>
+							<a class="nav-link active" href="/csp/sys/%25CSP.Portal.Home.zen">Management Portal</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active" href="/csp/sys/exp/%25CSP.UI.Portal.SQL.Home.zen?$NAMESPACE=DATASETS">DataSets SQL</a>
+							<a class="nav-link active" href="https://www.hl7.org/fhir/">FHIR Official website</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active" href="https://irisdocs.intersystems.com/iris20212/csp/docbook/DocBook.UI.Page.cls?KEY=RSQL_loaddata">Load Data Docs</a>
+							<a class="nav-link active" href="https://pypi.org/project/fhirpy/">FHIR Client Docs</a>
 						</li>			
 
 						
@@ -137,9 +134,9 @@ FROM dc.FhirServer
 		</div>
 		
 		<!-- Main Panel -->
-		<div class="container-fluid">
+		
 			<div class="content">
-			 <div class="page-inner">
+		
 				
 				<!-- Cards -->
 			 <div class="col-md-12">
@@ -154,27 +151,26 @@ FROM dc.FhirServer
                 <h3 class="widget-user-username">InterSystem Services FHIR Services</h3>
                 <h5 class="widget-user-desc">Lead Developer</h5>
                 </div>
-               <div class = "col-md-4">
-             
-    <form class="form-inline my-2 my-lg-0">
-    <span class="navbar-text">FHIR Server </span>
-	<select class="form-control" id="sel" onchange='handleClick();'>
-	<csp:while condition="query.Next()">
+               <div class = "col-md-4">             
+					<form class="form-inline my-2 my-lg-0">
+					<span class="navbar-text" style="padding-right: .5rem;">FHIR Server </span>
+					<select class="form-control" id="sel" onchange='handleClick();'>
+					<csp:while condition="query.Next()">
 
-	<script language="Cache" runat="Server">
-								Set aa = (..EscapeHTML(query.GetData(1)))
-							</script>
+					<script language="Cache" runat="Server">
+												Set aa = (..EscapeHTML(query.GetData(1)))
+											</script>
 
-	<csp:if condition= "currentserver = aa">		
-		<option value=#(..EscapeHTML(query.GetData(1)))# selected >#(..EscapeHTML(query.GetData(2)))#</option>
-	<CSP:ELSE>
-		<option value=#(..EscapeHTML(query.GetData(1)))#>#(..EscapeHTML(query.GetData(2)))#</option>
-	</csp:if>		
-	</csp:while>
-	</select>
-    </form>
+					<csp:if condition= "currentserver = aa">		
+						<option value=#(..EscapeHTML(query.GetData(1)))# selected >#(..EscapeHTML(query.GetData(2)))#</option>
+					<CSP:ELSE>
+						<option value=#(..EscapeHTML(query.GetData(1)))#>#(..EscapeHTML(query.GetData(2)))#</option>
+					</csp:if>		
+					</csp:while>
+					</select>
+					</form>
 
-            </div>
+     
         </div>
      
               </div>
@@ -230,7 +226,7 @@ FROM dc.FhirServer
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-success">
+            <div class="small-box bg-info">
               <div class="inner">
             
 				<h3>#(..CountResource("Practitioner"))#</h3>
@@ -243,7 +239,7 @@ FROM dc.FhirServer
             </div>
           </div>
 		</div>
-		</div>				
+				
 					
 						
 			<div class="row">					
@@ -257,7 +253,7 @@ FROM dc.FhirServer
               </div>
               <!-- /.card-header -->
               <div class="card-body p-0">
-               	<div class="card-header">
+               
 									<script language="Cache" runat="Server">									
 									    Set ColNames = ..GetHeaderRow(1)
 									</script>
@@ -271,24 +267,21 @@ FROM dc.FhirServer
 												</tr>
 											</thead>
 											<tbody>
-											   
+											   #(..GetResourceHTML("Patient"))#	
 											</tbody>
 										</table>
 									</div>
-				 </div>
+				
                 <!-- /.table-responsive -->
               </div>
               <!-- /.card-body -->
-              <div class="card-footer clearfix">
-                <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>
-                <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a>
-              </div>
-              <!-- /.card-footer -->
+            
+            
             </div>
             <!-- /.card -->
           </div>
           <!-- /.col -->
-            <!-- PRODUCT LIST -->
+          
             <div class="col-lg-4 col-4">		
             <div class="card">
               <div class="card-header bg-info">
@@ -323,10 +316,7 @@ FROM dc.FhirServer
                 </ul>
               </div>
               <!-- /.card-body -->
-              <div class="card-footer text-center">
-                <a href="javascript:void(0)" class="uppercase">View All Products</a>
-              </div>
-              <!-- /.card-footer -->
+     	</div>	
             </div>	
             </div>	
             </div>	

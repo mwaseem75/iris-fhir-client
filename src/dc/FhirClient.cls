@@ -186,6 +186,8 @@ ClassMethod GetResourceHTML(resource As %String) As %Status
 	  //Call Embedded Python Function to get Number of Resources
 	  Set irisfhirclient = ##class(%SYS.Python).Import("irisfhirclient")
 	  Set data = irisfhirclient.GetResourceHTML(resource,obj.Endpoint,obj.ApiKey) 
+	  
+
 	}
 	//Active Server data is not defined
   	else
@@ -321,7 +323,7 @@ ClassMethod GetHeaderRow(id As %Integer) As %String
 	}
 	else 
 	{
-		//Patients Header
+		//Server Header
 		SET hrow = "<th>ID</th><th>Server Name</th><th>Status</th>"
 	}
 
