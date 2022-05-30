@@ -8,11 +8,11 @@ on:
 
 env:
   # Change this section according to your needs
-  IMAGE_NAME:   iris-fhir-client-image
-  SERVICE:     iris-fhir-client
-  DOMAIN_NAME:  iris-fhir-client.demo.community.intersystems.com
+  IMAGE_NAME:   irisfhirclient-image
+  SERVICE:      irisfhirclient
+  DOMAIN_NAME:  irisfhirclient.demo.community.intersystems.com
 # Leave this section untouched
-  PROJECT_ID:   iris-fhir-client
+  PROJECT_ID:   irisfhirclient
   CLUSTER_NAME: demo
   GITHUB_SHA:   ${{ github.sha }}
   GCR_LOCATION: eu.gcr.io
@@ -37,9 +37,11 @@ jobs:
       run: gcloud auth configure-docker
 
 
-  - name: Build and Push image
+    - name: Build and Push image
       run: |
-        docker buildx build -t ${GCR_LOCATION}/${PROJECT_ID}/${IMAGE_NAME}:${GITHUB_SHA} --push .
+        docker build -t ${GCR_LOCATION}/${PROJECT_ID}/${IMAGE_NAME}:${GITHUB_SHA} .
+        docker push ${GCR_LOCATION}/${PROJECT_ID}/${IMAGE_NAME}:${GITHUB_SHA}
+
     - name: Deploy to Cloud Run
       run: |
         echo "[INFO] Set google project..."
