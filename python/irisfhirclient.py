@@ -45,7 +45,10 @@ def CountResourcePatient(resource,patientId,url,api_key):
         #in case of exception return 0
         return 0
         
-    data=req.json()
+    try:
+        data=req.json()
+    except:
+        return 0    
     #count number of element entry
     try:
         count = len(data['entry'])
@@ -300,5 +303,5 @@ def ListResources(url,api_key,opt):
 
 #sc =  GetPatientResources("Practitioner","1","https://r4.smarthealthit.org","")
 #do ##class(dc.FhirClient).GetPatientResources("Encounter","1") 
-count = CountResource("Practiotioner","http://localhost:52773/csp/healthshare/samples/fhir/r4/","")
-print(count)           
+#count = CountResource("Practiotioner","http://localhost:52773/csp/healthshare/samples/fhir/r4/","")
+#print(count)           
