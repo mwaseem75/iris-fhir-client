@@ -1,16 +1,16 @@
 ## Summary
 InterSystems FHIR Client to connect any open FHIR Server by using embedded python with the help of [**fhirpy**](https://pypi.org/project/fhirpy/) Library.  
-Get Resource details by terminal and by using CSP web application.
+Get Resource information by terminal and by using CSP web application.
 
 ## Application Layout
 ![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/18219467/170888223-51e31519-92af-446f-acae-0633df885dbe.gif)
 
 
 ## Features
-* Connect to any open FHIR Server
+* Register and Connect to any open FHIR Server
 * InterSystem FHIR Accelerator Service and SmartHealthIT Open FHIR Server are registered by default and ready to use
-* Get Resources information
-* Get Resources details by Patient
+* Get Resources information by providing resource
+* Get Resources details by all or by Patient
 * List Resource details from command prompt and from web interface
 * Programatically add any open source FHIR server
 
@@ -47,7 +47,7 @@ zpm "install iris-fhir-client"
 ## Repo Contents   
 * Dockerfile, docker-compose.yml, and Installer.cls to create container
 * iris.script, contains script to execute during container initialization 
-* /src with source files 
+* /src with source files of classes and CSP application 
 * /python with python source files 
 * /.vscode/settings.json for automatic server connections when opened in VS Code.
 
@@ -61,12 +61,13 @@ zpm "install iris-fhir-client"
 ```
 docker-compose exec iris iris session iris
 ```
-###### To list down registered server
+###### To list down registered server use ServerList() of dc.FhirClient class
 ```
 do ##class(dc.FhirClient).ServerList()
 ```
 ![image](https://user-images.githubusercontent.com/18219467/170888825-7d655866-3a8b-4322-9b64-1ccf0b1ffbf4.png)
-###### To Register New Server use RegisterServer class method
+
+###### To Register New Server use RegisterServer() function of dc.FhirClient class
 ###### class(dc.FhirClient).RegsterServer("Server Name","Endpoint","ApiKey"[optional],"EndpointOAuth"[optional]
 To Register New Server use RegisterServer class method
 ```
@@ -75,18 +76,18 @@ do ##class(dc.FhirClient).RegisterServer("INTERSYSTEMS FHIR Server","http://loca
 ![image](https://user-images.githubusercontent.com/18219467/170890315-48ed8172-4c1a-4c22-9794-dad2e6c0d277.png)
 
 
-###### To Activate Other server, call below method by passing server ID
+###### To Activate server, call below method by passing server ID
 ```
 do ##class(dc.FhirClient).SetFhirServer(2)
 ```
 ## Get Resources from the FHIR Servers
-###### To Retrieve all the resouces for the current server user below command
+###### To Retrieve all the resouces for the current server use ListResources() method of dc.FhirClient class
 ```
 do ##class(dc.FhirClient).ListResources()
 ```
 ![image](https://user-images.githubusercontent.com/18219467/170890855-891bf5eb-a724-4297-8bcb-821637a146f5.png)
 
-###### In order to display number of recordes of any resources user below command
+###### In order to display number of recordes of any resources use CountResource() method by passing Resource of dc.FhirClient
 ###### Below command will get counter of Patient Resource against active FHIR Server
 ```
 set count = ##class(dc.FhirClient).CountResource("Patient")
@@ -94,14 +95,14 @@ write count
 ```
 
 
-###### To Retrieve all the created Resources along with there count just pass 1 to ListResource() function
+###### To Retrieve all the created Resources along with their count just pass 1 to ListResource() function
 ```
 do ##class(dc.FhirClient).ListResources(1)
 ```
 ![image](https://user-images.githubusercontent.com/18219467/170890718-1dacba2c-4d2d-4830-8606-be0542230afb.png)
 
 
-###### To get resource list use below command
+###### To get details of the resource use GetResource() by passing Resource of dc.FhirClient class
 ###### Below command will retrieve all the Patients from the active FHIR Server
 ```
 do ##class(dc.FhirClient).GetResource("Patient")
