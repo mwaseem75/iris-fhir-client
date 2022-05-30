@@ -5,7 +5,7 @@ import requests
 
 contentType = "application/fhir+json"
 
-# 1-Count Number of Resources
+#Count Number of Resources
 def CountResource(resource,url,api_key):
     #Init headers
     headers={"Content-Type":contentType,"x-api-key":api_key}
