@@ -19,7 +19,10 @@ def CountResource(resource,url,api_key):
         #in case of exception return 0
         return 0
         
-    data=req.json()
+    try:
+        data=req.json()
+    except:
+        return 0    
     #count number of element entry
     try:
         count = len(data['entry'])
@@ -240,7 +243,8 @@ def GetPatientResources(resource,patientId,url,api_key):
     try:
         data = cclient.resources(resource).search(patient=patientId).fetch()
     except:
-        print("Connection Error")    
+        print("Not able to get Resource Information") 
+        return    
     header = GetTableHeader(resource)
     rows = GetTableData(resource,data,1)
     #Print Resources
@@ -293,3 +297,8 @@ def ListResources(url,api_key,opt):
     else:
         for item in data['rest'][0]['resource']: 
             print(item['type'])
+
+#sc =  GetPatientResources("Practitioner","1","https://r4.smarthealthit.org","")
+#do ##class(dc.FhirClient).GetPatientResources("Encounter","1") 
+count = CountResource("Practiotioner","http://localhost:52773/csp/healthshare/samples/fhir/r4/","")
+print(count)           
