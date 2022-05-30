@@ -75,7 +75,8 @@ def GetTableHeader(resource):
         header = ["ID","Code","Details","ClinicalStatus","VerificationStatus"]    
     elif resource == "Practitioner":
         header = ["ID","Name","Gender"]     
-
+    else:
+        header = "NA"
     return header
 
 def GetTableData(resource,data,opt):
@@ -235,9 +236,14 @@ def GetResource(resource,url,api_key):
         print("Connection Error")    
           
     header = GetTableHeader(resource)
-    rows = GetTableData(resource,data,1)
-    #Print Resources
-    print(tabulate(rows,headers = header))
+    if header == "NA" and len(data) > 0:
+        print(data)
+    elif header == "NA" and len(data) < 1:
+        print("No data found") 
+    else:    
+        rows = GetTableData(resource,data,1)
+        #Print Resources
+        print(tabulate(rows,headers = header))
     
 #3-Print resource agaisnt Patient
 def GetPatientResources(resource,patientId,url,api_key):
@@ -249,6 +255,8 @@ def GetPatientResources(resource,patientId,url,api_key):
         print("Not able to get Resource Information") 
         return    
     header = GetTableHeader(resource)
+    if header == "NA":
+        print(data)
     rows = GetTableData(resource,data,1)
     #Print Resources
     print(tabulate(rows,headers = header))
@@ -301,7 +309,3 @@ def ListResources(url,api_key,opt):
         for item in data['rest'][0]['resource']: 
             print(item['type'])
 
-#sc =  GetPatientResources("Practitioner","1","https://r4.smarthealthit.org","")
-#do ##class(dc.FhirClient).GetPatientResources("Encounter","1") 
-#count = CountResource("Practiotioner","http://localhost:52773/csp/healthshare/samples/fhir/r4/","")
-#print(count)           
