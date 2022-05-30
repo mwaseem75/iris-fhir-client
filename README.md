@@ -127,6 +127,11 @@ do ##class(dc.FhirClient).GetPatientResources("Encounter","1")
 ```
 ![image](https://user-images.githubusercontent.com/18219467/170956695-ec3a396a-580c-41dc-b9f1-d5465a4a3653.png)
 
+## View FHIR Server information from CSP Web application
+Navigate to [http://localhost:55037/csp/fhirclient/index.csp](http://localhost:55037/csp/fhirclient/index.csp)
+###### Index Page will show active server Patients,Observations,Practitioners and Encounters count along with Patient and Registered Servers details
+![170881284-b18aebca-e6a2-4a6e-ad20-a537c13ff51c](https://user-images.githubusercontent.com/18219467/170974585-621ce757-7382-4b0e-8505-40b141ada4c3.png)
+
 
 ## Other information
 Template used in web application is from [Bootstrap 4 Admin Dashboard](https://github.com/themekita/Atlantis-Lite) and it is free to use to develop non-commercial applications.
