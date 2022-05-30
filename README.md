@@ -79,11 +79,20 @@ do ##class(dc.FhirClient).RegisterServer("INTERSYSTEMS FHIR Server","http://loca
 ```
 do ##class(dc.FhirClient).SetFhirServer(2)
 ```
+## Get Resources from the FHIR Servers
 ###### To Retrieve all the resouces for the current server user below command
 ```
 do ##class(dc.FhirClient).ListResources()
 ```
 ![image](https://user-images.githubusercontent.com/18219467/170890855-891bf5eb-a724-4297-8bcb-821637a146f5.png)
+
+###### In order to display number of recordes of any resources user below command
+###### Below command will get counter of Patient Resource against active FHIR Server
+```
+set count = ##class(dc.FhirClient).CountResource("Patient")
+write count
+```
+
 
 ###### To Retrieve all the created Resources along with there count just pass 1 to ListResource() function
 ```
@@ -93,15 +102,29 @@ do ##class(dc.FhirClient).ListResources(1)
 
 
 ###### To get resource list use below command
+###### Below command will retrieve all the Patients from the active FHIR Server
 ```
 do ##class(dc.FhirClient).GetResource("Patient")
 ```
 ![image](https://user-images.githubusercontent.com/18219467/170890728-7fb7d8a3-4c33-4084-8f54-6ca772b60a41.png)
-
+###### Below command will retrieve all the Observations from the active FHIR Server
 ```
 do ##class(dc.FhirClient).GetResource("Observation")
 ```
 ![image](https://user-images.githubusercontent.com/18219467/170890999-9548988e-40e7-49c1-ad7f-f95d45f62b50.png)
+
+## Get Resources for particular patient from the FHIR Servers
+###### Below command will retrieve Observations detail against Patinet ID 1 from the active FHIR Server
+```
+do ##class(dc.FhirClient).GetPatientResources("Observation","1")
+```
+![image](https://user-images.githubusercontent.com/18219467/170956427-4b46797d-45ce-49af-996d-465a2239d73c.png)
+
+###### Below command will retrieve detail of Encounters against Patinet ID 1 from the active FHIR Server
+```
+do ##class(dc.FhirClient).GetPatientResources("Encounter","1")
+```
+![image](https://user-images.githubusercontent.com/18219467/170956695-ec3a396a-580c-41dc-b9f1-d5465a4a3653.png)
 
 
 ## Other information
