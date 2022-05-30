@@ -132,6 +132,15 @@ Navigate to [http://localhost:55037/csp/fhirclient/index.csp](http://localhost:5
 ###### Index Page will show active server Patients,Observations,Practitioners and Encounters count along with Patient and Registered Servers details
 ![170881284-b18aebca-e6a2-4a6e-ad20-a537c13ff51c](https://user-images.githubusercontent.com/18219467/170974585-621ce757-7382-4b0e-8505-40b141ada4c3.png)
 
+###### Index page will display FHIR Server List with active server selected. Select other server from the list to view details of selected server
+![image](https://user-images.githubusercontent.com/18219467/170976217-70b63f48-981a-4b76-9f9a-282f5f86ff59.png)
+
+###### Hover to Patient ID and select to get details of Patient Resources
+![image](https://user-images.githubusercontent.com/18219467/170976661-290c9f44-e11b-4fec-9cdb-bccb069de4ed.png)
+
+###### This page will display count of some of Patient Resources along with Patient Observations details
+![170881340-a9cd0c77-bf24-4e8e-85f7-84e04b527b49](https://user-images.githubusercontent.com/18219467/170976982-66eeb068-248f-474f-ad8c-e39c8cd2faea.png)
+
 
 ## Other information
 Template used in web application is from [Bootstrap 4 Admin Dashboard](https://github.com/themekita/Atlantis-Lite) and it is free to use to develop non-commercial applications.
