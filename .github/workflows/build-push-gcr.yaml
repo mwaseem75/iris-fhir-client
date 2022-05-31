@@ -12,7 +12,7 @@ env:
   SERVICE:      irisfhirclient
   DOMAIN_NAME:  irisfhirclient.demo.community.intersystems.com
 # Leave this section untouched
-  PROJECT_ID:   irisfhirclient
+  PROJECT_ID:   iris-community-demos
   CLUSTER_NAME: demo
   GITHUB_SHA:   ${{ github.sha }}
   GCR_LOCATION: eu.gcr.io
@@ -92,3 +92,4 @@ jobs:
         gcloud container clusters get-credentials ${CLUSTER_NAME} --region ${REGION} --project ${PROJECT_ID}
         kubectl version
         kubectl patch configmap config-domainmapping -n knative-serving -p '{"data":{"autoTLS":"Enabled"}}'
+        
