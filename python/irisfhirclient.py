@@ -79,7 +79,7 @@ def GetTableHeader(resource):
         header = "NA"
     return header
     
-#Function to get data in rows format
+# Function to get data in rows format
 def GetTableData(resource,data,opt):
     rows = []
     if opt == 1: #Get Rows Data
