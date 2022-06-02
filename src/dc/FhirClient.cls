@@ -21,7 +21,7 @@ ClassMethod Init() As %Integer
 		set sts = obj.%Save()
 		if sts '= 1
 		{
-			write "Error while creating server ID1"
+			Quit "Error while creating server ID1"
 		}
 	} 
 	//if server id 1 is not already created then create server with ID 1
@@ -35,9 +35,10 @@ ClassMethod Init() As %Integer
 		set sts = obj.%Save()
 		if sts '= 1
 		{
-			write "Error while creating server ID2"
+			Quit "Error while creating server ID2"
 		}
 	}
+	Quit $$$OK
 }
 
 // Resigter server by using FhirServer persistent Class
