@@ -104,7 +104,17 @@ do ##class(dc.FhirClient).ListResources(1)
 ![image](https://user-images.githubusercontent.com/18219467/170890718-1dacba2c-4d2d-4830-8606-be0542230afb.png)
 
 
-###### To get details of the resource use GetResource() by passing Resource of dc.FhirClient class
+## To get details of the resource use GetResource() by passing Resource of dc.FhirClient class
+###### Currently list of following resources is available
+* Patient
+* Observation
+* Procedure
+* Immunization
+* Encounter
+* Organization
+* Condition
+* Practitioner
+
 ###### Below command will retrieve all the Patients from the active FHIR Server
 ```
 do ##class(dc.FhirClient).GetResource("Patient")
@@ -117,6 +127,14 @@ do ##class(dc.FhirClient).GetResource("Observation")
 ![image](https://user-images.githubusercontent.com/18219467/170890999-9548988e-40e7-49c1-ad7f-f95d45f62b50.png)
 
 ## Get Resources for particular patient from the FHIR Servers
+###### Currently list of following resources against the patient is available
+* Observation
+* Procedure
+* Immunization
+* Encounter
+* Organization
+* Condition
+* Practitioner
 ###### Below command will retrieve Observations detail against Patinet ID 1 from the active FHIR Server
 ```
 do ##class(dc.FhirClient).GetPatientResources("Observation","1")
