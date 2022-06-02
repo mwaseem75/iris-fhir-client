@@ -195,7 +195,9 @@ Patient ID 8111 is created
 ## Create Patient Observation Resource
 ###### Let us create Observation against our newly created Patient Resource
 ###### below CreateObservatoin() function of dc.FhirClient can be use to Create Patient Observatoins
-###### ClassMethod CreateObservation(patientId As %String, loincCode As %String, ObrCategory As %String, ObrValue As %Integer, ObrUOM As %String, effectiveDate As %String)
+```
+ClassMethod CreateObservation(patientId As %String, loincCode As %String, ObrCategory As %String, ObrValue As %Integer, ObrUOM As %String, effectiveDate As %String)
+```
 ###### Parametres 
 * patientId is the Id of Patient
 * LioncCode is Lionc Code, Detail can be found [**here**](https://loinc.org/fhir/)
