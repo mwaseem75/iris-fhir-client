@@ -9,7 +9,8 @@ Get Resource information by terminal and by using CSP web application.
 https://irisfhirclient.demo.community.intersystems.com/csp/fhirclient/index.csp by using SuperUser | SYS
 
 ## Features
-* Registered any Open FHIR Servers, List Down Server Details and Connect to any FHIR Server
+* Registered any Open FHIR Servers
+* List Down Server Details and Connect to any FHIR Server
 * InterSystem FHIR Accelerator Service and SmartHealthIT Open FHIR Server are registered by default and ready to use
 * Get Resources information by providing resource from active server
 * Get Resources for particular patient from the FHIR Servers
@@ -107,7 +108,8 @@ do ##class(dc.FhirClient).ListResources(1)
 ![image](https://user-images.githubusercontent.com/18219467/170890718-1dacba2c-4d2d-4830-8606-be0542230afb.png)
 
 
-## To get details of the resource use GetResource() by passing Resource of dc.FhirClient class
+## Get Resources information by providing resource from active server 
+###### To get details of the resource use GetResource() by passing Resource of dc.FhirClient class
 ###### Currently list of following resources is available
 * Patient
 * Observation
