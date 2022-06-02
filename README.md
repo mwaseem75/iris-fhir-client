@@ -1,6 +1,6 @@
 ## Summary
 InterSystems FHIR Client to connect any open FHIR Server by using embedded python with the help of [**fhirpy**](https://pypi.org/project/fhirpy/) Library.  
-Get Resource information by terminal and by using CSP web application.
+Get Resource information by terminal and by using CSP web application. 
 
 ## Application Layout
 ![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/18219467/170888223-51e31519-92af-446f-acae-0633df885dbe.gif)
@@ -9,13 +9,15 @@ Get Resource information by terminal and by using CSP web application.
 https://irisfhirclient.demo.community.intersystems.com/csp/fhirclient/index.csp by using SuperUser | SYS
 
 ## Features
-* Register and Connect to any open FHIR Server
+* Registered any Open FHIR Servers
+* List Down Server Details and Connect to any FHIR Server
 * InterSystem FHIR Accelerator Service and SmartHealthIT Open FHIR Server are registered by default and ready to use
-* Get Resources information by providing resource
-* Get Resources details by all or by Patient
-* List Resource details from command prompt and from web interface
+* Get Resources information by providing resource from active server
+* Get Resources for particular patient from the FHIR Servers
 * Search in Patient Resource
-* Create Patient and Patient Observation Resource
+* Create Patient Resource
+* Create Patient Observation Resource
+* View FHIR Server information from CSP Web application
 
 
 ## Recommendation 
@@ -106,7 +108,8 @@ do ##class(dc.FhirClient).ListResources(1)
 ![image](https://user-images.githubusercontent.com/18219467/170890718-1dacba2c-4d2d-4830-8606-be0542230afb.png)
 
 
-## To get details of the resource use GetResource() by passing Resource of dc.FhirClient class
+## Get Resources information by providing resource from active server 
+###### To get details of the resource use GetResource() by passing Resource of dc.FhirClient class
 ###### Currently list of following resources is available
 * Patient
 * Observation
@@ -150,16 +153,20 @@ do ##class(dc.FhirClient).GetPatientResources("Encounter","1")
 ![image](https://user-images.githubusercontent.com/18219467/170956695-ec3a396a-580c-41dc-b9f1-d5465a4a3653.png)
 
 ## Search in Patient Resource
+Patient Resource search parameter detaisl can be found [**here**](https://www.hl7.org/fhir/patient.html#search)
+Below command will search agaisnt Patient Id 2395
 ```
 do ##class(dc.FhirClient).GetResource("Patient","_id","2395")
 ```
 ![image](https://user-images.githubusercontent.com/18219467/171736498-64e21522-c270-44a4-9135-edb99062c8b6.png)
 
-Now search by name
+Below command will search Patient given Name and family Name contaning "Don"
 ```
 do ##class(dc.FhirClient).GetResource("Patient","name","Don")
 ```
 ![image](https://user-images.githubusercontent.com/18219467/171736755-365dfcc5-8043-4a9f-9cb3-6d5e4fd1c04b.png)
+
+Below command will search all the male patients
 ```
 do ##class(dc.FhirClient).GetResource("Patient","gender","male")
 ```
@@ -170,7 +177,9 @@ do ##class(dc.FhirClient).GetResource("Patient","gender","male")
 
 ## Create Patient Resource
 ###### below CreatePatient() function of dc.FhirClient can be use to Create Patient Resource
-###### ClassMethod CreatePatient(givenName As %String, familyName As %String, birthDate As %String,gender As %String)
+```
+ClassMethod CreatePatient(givenName As %String, familyName As %String, birthDate As %String,gender As %String)
+```
 ###### only giveName and failyName are required parameters for creating Patient Resource as ID will be created authmatically.
 ###### our function requires giveName,failyName,birthDate and gender to create Patient Resource
 ###### below command will create Patient
@@ -178,38 +187,45 @@ do ##class(dc.FhirClient).GetResource("Patient","gender","male")
 do ##class(dc.FhirClient).CreatePatient("PatientGN","PatientFN","2000-06-01","male)
 ```
 ![image](https://user-images.githubusercontent.com/18219467/171737063-423401ef-0d59-4ce9-ac1d-af9f5c75c9b7.png)
+
 Let's search the newly created resource by it's name
 ```
 do ##class(dc.FhirClient).CreatePatient("PatientGN","PatientFN","2000-06-01","male)
 ```
 ![image](https://user-images.githubusercontent.com/18219467/171737199-eeef2391-24df-4b1f-a22a-9f75f6cd32fa.png)
+
 Patient ID 8111 is created
 
 
 ## Create Patient Observation Resource
 ###### Let us create Observation against our newly created Patient Resource
 ###### below CreateObservatoin() function of dc.FhirClient can be use to Create Patient Observatoins
-###### ClassMethod CreateObservation(patientId As %String, loincCode As %String, ObrCategory As %String, ObrValue As %Integer, ObrUOM As %String, effectiveDate As %String)
-###### Parametres - patientId is the Id of Patient
-                    LioncCode is Lionc Code, Detail can be found [**here**](https://loinc.org/fhir/)
-                    ObrCategory is Observation Category, Detail can be found [**here**](https://www.hl7.org/fhir/valueset-observation-category.html)
-                    ObrValue is Observatoin Value
-                    obrUnit is Observation Unit
-                    EffectiveDate
+```
+ClassMethod CreateObservation(patientId As %String, loincCode As %String, ObrCategory As %String, ObrValue As %Integer, ObrUOM As %String, effectiveDate As %String)
+```
+###### Parametres 
+* patientId is the Id of Patient
+* LioncCode is Lionc Code, Detail can be found [**here**](https://loinc.org/fhir/)
+* ObrCategory is Observation Category, Detail can be found [**here**](https://www.hl7.org/fhir/valueset-observation-category.html)
+* ObrValue is Observatoin Value
+* ObrUOM is Observation Unit
+* EffectiveDate
 
 ###### below command will create Patient Vital Sign Observation
 ```
 do ##class(dc.FhirClient).CreateObservation("8111","8310-5","vital-signs",96.8,"degF","2022-01-22")
 ```
 ![image](https://user-images.githubusercontent.com/18219467/171738074-2a0dda54-6215-46b0-a3aa-6a2fcb27bb85.png)
+
+
 Let's List down patient observations
 ```
 do ##class(dc.FhirClient).GetPatientResources("Observation","8111")
 ```
 ![image](https://user-images.githubusercontent.com/18219467/171737199-eeef2391-24df-4b1f-a22a-9f75f6cd32fa.png)
+
+
 Patient ID 8111 is created
-
-
 
 
 
