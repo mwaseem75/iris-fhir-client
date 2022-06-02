@@ -14,6 +14,7 @@ https://irisfhirclient.demo.community.intersystems.com/csp/fhirclient/index.csp 
 * Get Resources information by providing resource
 * Get Resources details by all or by Patient
 * List Resource details from command prompt and from web interface
+* Create Patient and Patient Observation Resource
 * Programatically add any open source FHIR server
 
 ## Recommendation 
