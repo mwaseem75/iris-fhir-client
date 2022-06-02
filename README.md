@@ -168,7 +168,7 @@ do ##class(dc.FhirClient).GetResource("Patient","gender","male")
 
 
 
-## Create Patient and Patient Observation Resource
+## Create Patient Resource
 ###### below CreatePatient() function of dc.FhirClient can be use to Create Patient Resource
 ###### ClassMethod CreatePatient(givenName As %String, familyName As %String, birthDate As %String,gender As %String)
 ###### only giveName and failyName are required parameters for creating Patient Resource as ID will be created authmatically.
@@ -177,16 +177,41 @@ do ##class(dc.FhirClient).GetResource("Patient","gender","male")
 ```
 do ##class(dc.FhirClient).CreatePatient("PatientGN","PatientFN","2000-06-01","male)
 ```
+![image](https://user-images.githubusercontent.com/18219467/171737063-423401ef-0d59-4ce9-ac1d-af9f5c75c9b7.png)
+Let's search the newly created resource by it's name
+```
+do ##class(dc.FhirClient).CreatePatient("PatientGN","PatientFN","2000-06-01","male)
+```
+![image](https://user-images.githubusercontent.com/18219467/171737199-eeef2391-24df-4b1f-a22a-9f75f6cd32fa.png)
+Patient ID 8111 is created
 
 
-
-
-
+## Create Patient Observation Resource
+###### Let us create Observation against our newly created Patient Resource
+###### below CreateObservatoin() function of dc.FhirClient can be use to Create Patient Observatoins
+###### ClassMethod CreateObservation(patientId As %String, loincCode As %String, ObrCategory As %String, ObrValue As %Integer, ObrUOM As %String, effectiveDate As %String)
 ###### Parametres - patientId is the Id of Patient
                     LioncCode is Lionc Code, Detail can be found [**here**](https://loinc.org/fhir/)
                     ObrCategory is Observation Category, Detail can be found [**here**](https://www.hl7.org/fhir/valueset-observation-category.html)
                     ObrValue is Observatoin Value
                     obrUnit is Observation Unit
+                    EffectiveDate
+
+###### below command will create Patient Vital Sign Observation
+```
+do ##class(dc.FhirClient).CreateObservation("8111","8310-5","vital-signs",96.8,"degF","2022-01-22")
+```
+![image](https://user-images.githubusercontent.com/18219467/171738074-2a0dda54-6215-46b0-a3aa-6a2fcb27bb85.png)
+Let's List down patient observations
+```
+do ##class(dc.FhirClient).GetPatientResources("Observation","8111")
+```
+![image](https://user-images.githubusercontent.com/18219467/171737199-eeef2391-24df-4b1f-a22a-9f75f6cd32fa.png)
+Patient ID 8111 is created
+
+
+
+
 
 
 ## View FHIR Server information from CSP Web application
