@@ -14,8 +14,9 @@ https://irisfhirclient.demo.community.intersystems.com/csp/fhirclient/index.csp 
 * Get Resources information by providing resource
 * Get Resources details by all or by Patient
 * List Resource details from command prompt and from web interface
+* Search in Patient Resource
 * Create Patient and Patient Observation Resource
-* Programatically add any open source FHIR server
+
 
 ## Recommendation 
  * Read related documentations [HL7 FHIR ](https://www.hl7.org/fhir/)
@@ -147,6 +148,23 @@ do ##class(dc.FhirClient).GetPatientResources("Observation","1")
 do ##class(dc.FhirClient).GetPatientResources("Encounter","1")
 ```
 ![image](https://user-images.githubusercontent.com/18219467/170956695-ec3a396a-580c-41dc-b9f1-d5465a4a3653.png)
+
+## Search in Patient Resource
+
+
+
+
+## Create Patient and Patient Observation Resource
+###### below CreatePatient() function of dc.FhirClient can be use to Create Patient Resource
+###### ClassMethod CreatePatient(givenName As %String, familyName As %String, birthDate As %String,gender As %String)
+###### only giveName and failyName are required parameters for creating Patient Resource as ID will be created authmatically.
+###### our function requires giveName,failyName,birthDate and gender to create Patient Resource
+###### below command will create Patient
+```
+do ##class(dc.FhirClient).CreatePatient("PatientGN","PatientFN","2000-06-01","male)
+```
+
+
 
 ## View FHIR Server information from CSP Web application
 Navigate to [http://localhost:55037/csp/fhirclient/index.csp](http://localhost:55037/csp/fhirclient/index.csp)
