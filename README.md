@@ -150,6 +150,20 @@ do ##class(dc.FhirClient).GetPatientResources("Encounter","1")
 ![image](https://user-images.githubusercontent.com/18219467/170956695-ec3a396a-580c-41dc-b9f1-d5465a4a3653.png)
 
 ## Search in Patient Resource
+```
+do ##class(dc.FhirClient).GetResource("Patient","_id","2395")
+```
+![image](https://user-images.githubusercontent.com/18219467/171736498-64e21522-c270-44a4-9135-edb99062c8b6.png)
+
+Now search by name
+```
+do ##class(dc.FhirClient).GetResource("Patient","name","Don")
+```
+![image](https://user-images.githubusercontent.com/18219467/171736755-365dfcc5-8043-4a9f-9cb3-6d5e4fd1c04b.png)
+```
+do ##class(dc.FhirClient).GetResource("Patient","gender","male")
+```
+![image](https://user-images.githubusercontent.com/18219467/171736915-63a21dd0-d448-426a-bf0f-4022e8c2d115.png)
 
 
 
@@ -164,6 +178,15 @@ do ##class(dc.FhirClient).GetPatientResources("Encounter","1")
 do ##class(dc.FhirClient).CreatePatient("PatientGN","PatientFN","2000-06-01","male)
 ```
 
+
+
+
+
+###### Parametres - patientId is the Id of Patient
+                    LioncCode is Lionc Code, Detail can be found [**here**](https://loinc.org/fhir/)
+                    ObrCategory is Observation Category, Detail can be found [**here**](https://www.hl7.org/fhir/valueset-observation-category.html)
+                    ObrValue is Observatoin Value
+                    obrUnit is Observation Unit
 
 
 ## View FHIR Server information from CSP Web application
