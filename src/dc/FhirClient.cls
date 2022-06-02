@@ -21,8 +21,7 @@ ClassMethod Init() As %Integer
 		set sts = obj.%Save()
 		if sts '= 1
 		{
-			Quit "Error while creating server ID1"
-			
+			write "Error while creating server ID1"
 		}
 	} 
 	//if server id 1 is not already created then create server with ID 1
@@ -36,10 +35,9 @@ ClassMethod Init() As %Integer
 		set sts = obj.%Save()
 		if sts '= 1
 		{
-			Quit  "Error while creating server ID2"
+			write "Error while creating server ID2"
 		}
 	}
-	Quit $$$OK
 }
 
 // Resigter server by using FhirServer persistent Class
@@ -348,6 +346,47 @@ ClassMethod GetHeaderRow(id As %Integer) As %String
 	}
 
     RETURN hrow
+}
+
+// Function to create Patient resource
+
+ClassMethod CreatePatient(givenName As %String, familyName As %String, prefix As %String, birthDate As %String)
+{
+	//Get Active Server data based on Global Variable 
+	Set obj = ##class(dc.FhirServer).%OpenId(^ActiveFhirServer)
+	//If Url and ApiKey is defined
+	if $isobject(obj)  
+	{  
+	//Call Embedded Python Function to get Number of Resources
+	Set irisfhirclient = ##class(%SYS.Python).Import("irisfhirclient")
+	set data = irisfhirclient.CreatePatient(givenName,familyName,prefix,birthDate,obj.Endpoint,obj.ApiKey) 
+	}
+	//Active Server data is not defined
+	else
+	{ 
+	Quit "Not able to get server Info.."
+	}
+}
+
+// Function to create Patient observations
+
+ClassMethod CreateObservation(patientId As %String, code As %String, ObrCategory As %String, ObrValue As %Integer, ObrCode As %String, effectiveDate As %String)
+{
+	
+	//Get Active Server data based on Global Variable 
+	Set obj = ##class(dc.FhirServer).%OpenId(^ActiveFhirServer)
+	//If Url and ApiKey is defined
+	if $isobject(obj)  
+	{  
+	//Call Embedded Python Function to get Number of Resources
+	Set irisfhirclient = ##class(%SYS.Python).Import("irisfhirclient")
+	set data = irisfhirclient.CreateObservation(patientId,code,ObrCategory,ObrValue,ObrCode,effectiveDate,obj.Endpoint,obj.ApiKey) 
+	}
+	//Active Server data is not defined
+	else
+	{ 
+	Quit "Not able to get server Info.."
+	}
 }
 
 }
