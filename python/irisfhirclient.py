@@ -1,6 +1,7 @@
 import json
 from fhirpy import SyncFHIRClient
 from tabulate import tabulate
+from fhirpy.base.searchset import Raw
 import requests
 
 contentType = "application/fhir+json"
@@ -228,13 +229,19 @@ def GetTableData(resource,data,opt):
 
 
 #2-Print patient resource from terminal
-def GetResource(resource,url,api_key):
+def GetResource(resource,searchFor,searchVal,url,api_key):
     #Get Connection
-    cclient = SyncFHIRClient(url = url, extra_headers={"Content-Type":contentType,"x-api-key":api_key})
+    client = SyncFHIRClient(url = url, extra_headers={"Content-Type":contentType,"x-api-key":api_key})
+    data = ""
     try:
-        data = cclient.resources(resource).fetch()
-    except:
-        print("Connection Error")    
+        if len(searchVal) > 0 and resource == 'Patient':
+            data = client.resources(resource).search(Raw(**{searchFor:searchVal})).fetch()  
+                                                
+        else:
+            data = client.resources(resource).fetch()           
+            
+    except Exception as e:
+        print("Error :" + str(e))    
           
     header = GetTableHeader(resource)
     if header == "NA" and len(data) > 0:
@@ -311,7 +318,7 @@ def ListResources(url,api_key,opt):
             print(item['type'])
             
 #Function to create Patient Resource
-def CreatePatient(givenName,familyName,prefix,birthDate,url,api_key):
+def CreatePatient(givenName,familyName,birthDate,gender,url,api_key):
 
     headers = {"Content-Type":contentType,"x-api-key":api_key}
     client = SyncFHIRClient(url = url, extra_headers=headers)
@@ -321,12 +328,12 @@ def CreatePatient(givenName,familyName,prefix,birthDate,url,api_key):
         {
             'given': [givenName],
             'family': familyName,
-            'use': 'official',
-            'prefix': [prefix]
+            'use': 'official'
         }
     ]
 
     patient['birthDate'] = birthDate
+    patient['gender'] = gender
     try:
         patient.save()
     except Exception as e:
@@ -336,7 +343,7 @@ def CreatePatient(givenName,familyName,prefix,birthDate,url,api_key):
     print("Patient Created Successfully")    
     
 #Function to create Patient Observation
-def CreateObservation(patientId,loincCode,ObrCategory,ObrValue,ObrCode,effectiveDate,url,api_key):
+def CreateObservation(patientId,loincCode,ObrCategory,ObrValue,ObrUOM,effectiveDate,url,api_key):
     
     headers = {"Content-Type":contentType,"x-api-key":api_key}
     client = SyncFHIRClient(url = url, extra_headers=headers)
@@ -360,11 +367,11 @@ def CreateObservation(patientId,loincCode,ObrCategory,ObrValue,ObrCode,effective
     observation['valueQuantity'] = {
     'system': 'http://unitsofmeasure.org',
     'value': ObrValue,
-    'code': ObrCode
+    'code': ObrUOM
 	}
 	
     #find the patient
-    patient = client.resources('Patient').search(id=patientId).first()
+    patient = client.resources('Patient').search(_id=patientId).first()
     observation['subject'] = patient.to_reference()
     
     try:
@@ -378,3 +385,4 @@ def CreateObservation(patientId,loincCode,ObrCategory,ObrValue,ObrCode,effective
     
     
            
+#GetResource("Patient",'_id','1',"http://localhost:52773/csp/healthshare/samples/fhir/r4","api")

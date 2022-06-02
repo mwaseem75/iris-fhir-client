@@ -36,7 +36,7 @@ ClassMethod Init() As %Integer
 		set sts = obj.%Save()
 		if sts '= 1
 		{
-			Quit  "Error while creating server ID2"
+			Quit "Error while creating server ID2"
 		}
 	}
 	Quit $$$OK
@@ -246,7 +246,7 @@ ClassMethod GetResourceHTML(resource As %String) As %Status
 
 // Get Resource List 
 
-ClassMethod GetResource(resource As %String) As %Status
+ClassMethod GetResource(resource As %String, searchParm = "", searchVal = "") As %Status
 {
 	//Get Active Server data based on Global Variable 
 	Set obj = ##class(dc.FhirServer).%OpenId(^ActiveFhirServer)
@@ -255,7 +255,7 @@ ClassMethod GetResource(resource As %String) As %Status
 	{  
 	  //Call Embedded Python Function to get Number of Resources
 	  Set irisfhirclient = ##class(%SYS.Python).Import("irisfhirclient")
-	  do irisfhirclient.GetResource(resource,obj.Endpoint,obj.ApiKey) 
+	  do irisfhirclient.GetResource(resource,searchParm,searchVal,obj.Endpoint,obj.ApiKey) 
 	}
 	//Active Server data is not defined
   	else
@@ -352,7 +352,7 @@ ClassMethod GetHeaderRow(id As %Integer) As %String
 
 // Function to create Patient resource
 
-ClassMethod CreatePatient(givenName As %String, familyName As %String, prefix As %String, birthDate As %String)
+ClassMethod CreatePatient(givenName As %String, familyName As %String, birthDate As %String, gender As %String)
 {
 	//Get Active Server data based on Global Variable 
 	Set obj = ##class(dc.FhirServer).%OpenId(^ActiveFhirServer)
@@ -361,7 +361,7 @@ ClassMethod CreatePatient(givenName As %String, familyName As %String, prefix As
 	{  
 	//Call Embedded Python Function to get Number of Resources
 	Set irisfhirclient = ##class(%SYS.Python).Import("irisfhirclient")
-	set data = irisfhirclient.CreatePatient(givenName,familyName,prefix,birthDate,obj.Endpoint,obj.ApiKey) 
+	set data = irisfhirclient.CreatePatient(givenName,familyName,birthDate,gender,obj.Endpoint,obj.ApiKey) 
 	}
 	//Active Server data is not defined
 	else
@@ -372,7 +372,7 @@ ClassMethod CreatePatient(givenName As %String, familyName As %String, prefix As
 
 // Function to create Patient observations
 
-ClassMethod CreateObservation(patientId As %String, code As %String, ObrCategory As %String, ObrValue As %Integer, ObrCode As %String, effectiveDate As %String)
+ClassMethod CreateObservation(patientId As %String, loincCode As %String, ObrCategory As %String, ObrValue As %Integer, ObrUOM As %String, effectiveDate As %String)
 {
 	
 	//Get Active Server data based on Global Variable 
@@ -382,7 +382,7 @@ ClassMethod CreateObservation(patientId As %String, code As %String, ObrCategory
 	{  
 	//Call Embedded Python Function to get Number of Resources
 	Set irisfhirclient = ##class(%SYS.Python).Import("irisfhirclient")
-	set data = irisfhirclient.CreateObservation(patientId,code,ObrCategory,ObrValue,ObrCode,effectiveDate,obj.Endpoint,obj.ApiKey) 
+	set data = irisfhirclient.CreateObservation(patientId,loincCode,ObrCategory,ObrValue,ObrUOM,effectiveDate,obj.Endpoint,obj.ApiKey) 
 	}
 	//Active Server data is not defined
 	else
