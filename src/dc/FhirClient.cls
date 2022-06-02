@@ -22,6 +22,7 @@ ClassMethod Init() As %Integer
 		if sts '= 1
 		{
 			Quit "Error while creating server ID1"
+			
 		}
 	} 
 	//if server id 1 is not already created then create server with ID 1
@@ -35,7 +36,7 @@ ClassMethod Init() As %Integer
 		set sts = obj.%Save()
 		if sts '= 1
 		{
-			Quit "Error while creating server ID2"
+			Quit  "Error while creating server ID2"
 		}
 	}
 	Quit $$$OK
