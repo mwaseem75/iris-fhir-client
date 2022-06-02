@@ -1,6 +1,6 @@
 ## Summary
 InterSystems FHIR Client to connect any open FHIR Server by using embedded python with the help of [**fhirpy**](https://pypi.org/project/fhirpy/) Library.  
-Get Resource information by terminal and by using CSP web application.
+Get Resource information by terminal and by using CSP web application. 
 
 ## Application Layout
 ![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/18219467/170888223-51e31519-92af-446f-acae-0633df885dbe.gif)
@@ -9,13 +9,14 @@ Get Resource information by terminal and by using CSP web application.
 https://irisfhirclient.demo.community.intersystems.com/csp/fhirclient/index.csp by using SuperUser | SYS
 
 ## Features
-* Register and Connect to any open FHIR Server
+* Registered any Open FHIR Servers, List Down Server Details and Connect to any FHIR Server
 * InterSystem FHIR Accelerator Service and SmartHealthIT Open FHIR Server are registered by default and ready to use
-* Get Resources information by providing resource
-* Get Resources details by all or by Patient
-* List Resource details from command prompt and from web interface
+* Get Resources information by providing resource from active server
+* Get Resources for particular patient from the FHIR Servers
 * Search in Patient Resource
-* Create Patient and Patient Observation Resource
+* Create Patient Resource
+* Create Patient Observation Resource
+* View FHIR Server information from CSP Web application
 
 
 ## Recommendation 
