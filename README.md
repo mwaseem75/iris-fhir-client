@@ -153,16 +153,20 @@ do ##class(dc.FhirClient).GetPatientResources("Encounter","1")
 ![image](https://user-images.githubusercontent.com/18219467/170956695-ec3a396a-580c-41dc-b9f1-d5465a4a3653.png)
 
 ## Search in Patient Resource
+Patient Resource search parameter detaisl can be found [**here**](https://www.hl7.org/fhir/patient.html#search)
+Below command will search agaisnt Patient Id 2395
 ```
 do ##class(dc.FhirClient).GetResource("Patient","_id","2395")
 ```
 ![image](https://user-images.githubusercontent.com/18219467/171736498-64e21522-c270-44a4-9135-edb99062c8b6.png)
 
-Now search by name
+Below command will search Patient given Name and family Name contaning "Don"
 ```
 do ##class(dc.FhirClient).GetResource("Patient","name","Don")
 ```
 ![image](https://user-images.githubusercontent.com/18219467/171736755-365dfcc5-8043-4a9f-9cb3-6d5e4fd1c04b.png)
+
+Below command will search all the male patients
 ```
 do ##class(dc.FhirClient).GetResource("Patient","gender","male")
 ```
@@ -183,6 +187,7 @@ ClassMethod CreatePatient(givenName As %String, familyName As %String, birthDate
 do ##class(dc.FhirClient).CreatePatient("PatientGN","PatientFN","2000-06-01","male)
 ```
 ![image](https://user-images.githubusercontent.com/18219467/171737063-423401ef-0d59-4ce9-ac1d-af9f5c75c9b7.png)
+
 Let's search the newly created resource by it's name
 ```
 do ##class(dc.FhirClient).CreatePatient("PatientGN","PatientFN","2000-06-01","male)
@@ -202,23 +207,25 @@ ClassMethod CreateObservation(patientId As %String, loincCode As %String, ObrCat
 * patientId is the Id of Patient
 * LioncCode is Lionc Code, Detail can be found [**here**](https://loinc.org/fhir/)
 * ObrCategory is Observation Category, Detail can be found [**here**](https://www.hl7.org/fhir/valueset-observation-category.html)
- * ObrValue is Observatoin Value
- * ObrUOM is Observation Unit
- * EffectiveDate
+* ObrValue is Observatoin Value
+* ObrUOM is Observation Unit
+* EffectiveDate
 
 ###### below command will create Patient Vital Sign Observation
 ```
 do ##class(dc.FhirClient).CreateObservation("8111","8310-5","vital-signs",96.8,"degF","2022-01-22")
 ```
 ![image](https://user-images.githubusercontent.com/18219467/171738074-2a0dda54-6215-46b0-a3aa-6a2fcb27bb85.png)
+
+
 Let's List down patient observations
 ```
 do ##class(dc.FhirClient).GetPatientResources("Observation","8111")
 ```
 ![image](https://user-images.githubusercontent.com/18219467/171737199-eeef2391-24df-4b1f-a22a-9f75f6cd32fa.png)
+
+
 Patient ID 8111 is created
-
-
 
 
 
