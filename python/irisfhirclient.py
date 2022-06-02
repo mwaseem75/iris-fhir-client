@@ -79,7 +79,7 @@ def GetTableHeader(resource):
         header = "NA"
     return header
     
-# Function to get data in rows format
+#Function to get data in rows format
 def GetTableData(resource,data,opt):
     rows = []
     if opt == 1: #Get Rows Data
@@ -309,4 +309,72 @@ def ListResources(url,api_key,opt):
     else:
         for item in data['rest'][0]['resource']: 
             print(item['type'])
+            
+#Function to create Patient Resource
+def CreatePatient(givenName,familyName,prefix,birthDate,url,api_key):
 
+    headers = {"Content-Type":contentType,"x-api-key":api_key}
+    client = SyncFHIRClient(url = url, extra_headers=headers)
+	
+    patient = client.resource("Patient")
+    patient['name'] = [
+        {
+            'given': [givenName],
+            'family': familyName,
+            'use': 'official',
+            'prefix': [prefix]
+        }
+    ]
+
+    patient['birthDate'] = birthDate
+    try:
+        patient.save()
+    except Exception as e:
+        print("Error while creating Patient:" +str(e))       
+        return
+    
+    print("Patient Created Successfully")    
+    
+#Function to create Patient Observation
+def CreateObservation(patientId,loincCode,ObrCategory,ObrValue,ObrCode,effectiveDate,url,api_key):
+    
+    headers = {"Content-Type":contentType,"x-api-key":api_key}
+    client = SyncFHIRClient(url = url, extra_headers=headers)
+    observation = client.resource(
+    'Observation',
+    status='preliminary',
+    category=[{
+        'coding': [{
+            'system': 'http://hl7.org/fhir/observation-category',
+            'code': ObrCategory
+        }]
+    }],
+    code={
+        'coding': [{
+            'system': 'http://loinc.org',
+            'code': loincCode
+        }]
+    })
+    observation['effectiveDateTime'] = effectiveDate
+       
+    observation['valueQuantity'] = {
+    'system': 'http://unitsofmeasure.org',
+    'value': ObrValue,
+    'code': ObrCode
+	}
+	
+    #find the patient
+    patient = client.resources('Patient').search(id=patientId).first()
+    observation['subject'] = patient.to_reference()
+    
+    try:
+        observation.save()
+    except Exception as e:
+        print("Error while creating observation :"+ str(e))       
+        return
+        
+    
+    print("Patient Observation Created Successfully")     
+    
+    
+           
