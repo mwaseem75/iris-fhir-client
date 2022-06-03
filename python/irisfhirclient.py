@@ -383,6 +383,5 @@ def CreateObservation(patientId,loincCode,ObrCategory,ObrValue,ObrUOM,effectiveD
     
     print("Patient Observation Created Successfully")     
     
-    
-           
-#GetResource("Patient",'_id','1',"http://localhost:52773/csp/healthshare/samples/fhir/r4","api")
+  
+        

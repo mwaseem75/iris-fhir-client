@@ -21,6 +21,7 @@ ClassMethod Init() As %Integer
 		set sts = obj.%Save()
 		if sts '= 1
 		{
+			
 			Quit "Error while creating server ID1"
 			
 		}
