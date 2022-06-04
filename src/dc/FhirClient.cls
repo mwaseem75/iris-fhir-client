@@ -149,7 +149,7 @@ ClassMethod GetServerList() As %String
 
 ClassMethod SetFhirServer(serverid As %Integer)
 {
-	Set obj = ##class(dc.FhirServer).%OpenId(^ActiveFhirServer)
+	Set obj = ##class(dc.FhirServer).%OpenId(serverid)
 	//If Server is already register then activate it
 	if $isobject(obj)  
 	{
