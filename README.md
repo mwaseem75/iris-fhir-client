@@ -224,7 +224,7 @@ Let's List down patient observations
 ```
 do ##class(dc.FhirClient).GetPatientResources("Observation","8111")
 ```
-![image](https://user-images.githubusercontent.com/18219467/171737199-eeef2391-24df-4b1f-a22a-9f75f6cd32fa.png)
+![image](https://user-images.githubusercontent.com/18219467/172003634-3f8c9ef6-76c2-4af0-97ac-e4431750e2e1.png)
 
 
 Patient ID 8111 is created
