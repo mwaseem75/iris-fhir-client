@@ -1,6 +1,6 @@
 ## Summary
-InterSystems FHIR Client to connect any open FHIR Server by using embedded python with the help of [**fhirpy**](https://pypi.org/project/fhirpy/) Library.  
-Get Resource information by terminal and by using CSP web application. 
+InterSystems FHIR Client to connect any open FHIR Server and get resources information either by terminal or by using CSP Web application. Application is using functionality of [**embedded python**](https://docs.intersystems.com/irisforhealthlatest/csp/docbook/DocBook.UI.Page.cls?KEY=AFL_epython) by using [**fhirpy**](https://pypi.org/project/fhirpy/) (FHIR client for python Library)
+
 
 ## Application Layout
 ![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/18219467/170888223-51e31519-92af-446f-acae-0633df885dbe.gif)
