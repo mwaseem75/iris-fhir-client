@@ -8,6 +8,9 @@ InterSystems FHIR Client to connect any open FHIR Server and get resources infor
 ## Online Demo
 https://irisfhirclient.demo.community.intersystems.com/csp/fhirclient/index.csp by using SuperUser | SYS
 
+## Video on YouTube
+https://youtu.be/xaRoIcuDD_M
+
 ## Features
 * Registered any Open FHIR Servers
 * List Down Server Details and Connect to any FHIR Server
