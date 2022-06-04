@@ -183,8 +183,7 @@ do ##class(dc.FhirClient).GetResource("Patient","gender","male")
 ```
 ClassMethod CreatePatient(givenName As %String, familyName As %String, birthDate As %String,gender As %String)
 ```
-###### only giveName and failyName are required parameters for creating Patient Resource as ID will be created authmatically.
-###### our function requires giveName,failyName,birthDate and gender to create Patient Resource
+###### function requires giveName,failyName,birthDate and gender to create Patient Resource
 ###### below command will create Patient
 ```
 do ##class(dc.FhirClient).CreatePatient("PatientGN","PatientFN","2000-06-01","male")
