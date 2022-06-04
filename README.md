@@ -51,7 +51,7 @@ docker-compose up -d
 zpm "install iris-fhir-client"
 ```
 ## Repo Contents   
-* Dockerfile, docker-compose.yml, and Installer.cls to create container
+* Dockerfile, docker-compose.yml, and module.xml files
 * iris.script, contains script to execute during container initialization 
 * /src with source files of classes and CSP application 
 * /python with python source files 
