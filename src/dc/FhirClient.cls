@@ -154,11 +154,11 @@ ClassMethod SetFhirServer(serverid As %Integer)
 	if $isobject(obj)  
 	{
 		Set ^ActiveFhirServer = serverid
-		Write "Server id "+serverid+" Activated Successfully"
+		Write "Server id Activated Successfully"
 	}
 	ELSE
 	{
-		Write "FHIR Server with id "+serverid+" Not registered!"
+		Write "FHIR Server Not registered!"
 	}
 }
 
