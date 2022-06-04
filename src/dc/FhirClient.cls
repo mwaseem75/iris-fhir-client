@@ -62,11 +62,12 @@ ClassMethod RegisterServer(ServerName As %String, Endpoint As %String, ApiKey As
 	if sts = 1
 	{
 			write "FHIR Server registered successfully"
+			Quit $$$OK
 			
 	}
 	else
 	{
-			write "Error while registring FHIR Server"
+			Quit "Error while registring FHIR Server"
 	}
 }
 
@@ -108,6 +109,7 @@ ClassMethod ServerList() As %Integer
                                                 
                         }
                  }
+	Quit $$$OK
 }
 
 // Get Server List. Used in CSP application
