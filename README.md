@@ -80,7 +80,7 @@ do ##class(dc.FhirClient).ServerList()
 ###### class(dc.FhirClient).RegsterServer("Server Name","Endpoint","ApiKey"[optional],"EndpointOAuth"[optional]
 To Register New Server use RegisterServer class method
 ```
-do ##class(dc.FhirClient).RegisterServer("INTERSYSTEMS FHIR Server","http://localhost:52773/csp/healthshare/samples/fhir/r4/","","")
+do ##class(dc.FhirClient).RegisterServer("INTERSYSTEMS FHIR Server","http://localhost:52773/csp/healthshare/samples/fhir/r4/"," "," ")
 ```
 ![image](https://user-images.githubusercontent.com/18219467/171025900-e973c396-52da-4e24-8083-c7f5f701919c.png)
 
