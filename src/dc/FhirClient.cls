@@ -77,7 +77,7 @@ ClassMethod ServerList() As %Integer
 {
 
 	//Print Servier List
-	SET qry = "SELECT ID, ServerName, Endpoint FROM dc.FhirServer"
+	SET qry = "SELECT ID, ServerName, Endpoint,ApiKey FROM dc.FhirServer"
 	SET tStatement = ##class(%SQL.Statement).%New()
 	SET qStatus = tStatement.%Prepare(.qry)
     IF qStatus =1 {
