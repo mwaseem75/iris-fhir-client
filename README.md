@@ -227,7 +227,7 @@ do ##class(dc.FhirClient).GetPatientResources("Observation","8111")
 ![image](https://user-images.githubusercontent.com/18219467/172003634-3f8c9ef6-76c2-4af0-97ac-e4431750e2e1.png)
 
 
-Patient ID 8111 is created
+Observation ID 8114 is created
 
 
 
