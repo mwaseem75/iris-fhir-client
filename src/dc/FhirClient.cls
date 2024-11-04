@@ -9,7 +9,9 @@ ClassMethod Init() As %Integer
 	{
 		Set ^ActiveFhirServer = 1
 	}
+	//Commented coz FHIR server at could is not working. 4/11/24
 	//if server id 1 is not already created then create server with ID 1
+	/*
 	Set obj = ##class(dc.FhirServer).%OpenId(1)
 	if $isobject(obj) = 0
 	{
@@ -26,8 +28,9 @@ ClassMethod Init() As %Integer
 			
 		}
 	} 
+	*/
 	//if server id 1 is not already created then create server with ID 1
-	Set obj = ##class(dc.FhirServer).%OpenId(2)
+	Set obj = ##class(dc.FhirServer).%OpenId(1)
 	if $isobject(obj) = 0
 	{
 		set obj = ##class(dc.FhirServer).%New()
