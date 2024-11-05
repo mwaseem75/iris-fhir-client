@@ -9,6 +9,7 @@ contentType = "application/fhir+json"
 #Count Number of Resources
 def CountResource(resource,url,api_key):
     #Init headers
+    api_key = api_key.strip()
     headers={"Content-Type":contentType,"x-api-key":api_key}
     #Add / at the end of endpoint if not added
     if url[-1]!="/":
@@ -34,6 +35,7 @@ def CountResource(resource,url,api_key):
 # Count Number of Resources against patient
 def CountResourcePatient(resource,patientId,url,api_key):
     #Init headers
+    api_key = api_key.strip()
     headers={"Content-Type":contentType,"x-api-key":api_key}
     #Add / at the end of endpoint if not added
     if url[-1]!="/":
@@ -231,6 +233,7 @@ def GetTableData(resource,data,opt):
 #2-Print patient resource from terminal
 def GetResource(resource,searchFor,searchVal,url,api_key):
     #Get Connection
+    api_key = api_key.strip()
     client = SyncFHIRClient(url = url, extra_headers={"Content-Type":contentType,"x-api-key":api_key})
     data = ""
     try:
@@ -256,6 +259,7 @@ def GetResource(resource,searchFor,searchVal,url,api_key):
 #3-Print resource agaisnt Patient
 def GetPatientResources(resource,patientId,url,api_key):
      #Get Connection
+    api_key = api_key.strip()
     cclient = SyncFHIRClient(url = url, extra_headers={"Content-Type":contentType,"x-api-key":api_key})
     try:
         data = cclient.resources(resource).search(patient=patientId).fetch()
@@ -272,6 +276,7 @@ def GetPatientResources(resource,patientId,url,api_key):
 #3-Print resource agaisnt Patient
 def GetPatientResourcesHTML(resource,patientId,url,api_key):
      #Get Connection
+    api_key = api_key.strip()
     cclient = SyncFHIRClient(url = url, extra_headers={"Content-Type":contentType,"x-api-key":api_key})
     try:
         data = cclient.resources(resource).search(patient=patientId).fetch()
@@ -285,6 +290,7 @@ def GetResourceHTML(resource,url,api_key):
     data = ""
     if url[-1]!="/":
         url=url+"/"
+    api_key = api_key.strip()     
     cclient = SyncFHIRClient(url = url, extra_headers={"Content-Type":contentType,"x-api-key":api_key})
     try:
         data = cclient.resources(resource).fetch()
@@ -296,10 +302,16 @@ def GetResourceHTML(resource,url,api_key):
 
 def ListResources(url,api_key,opt):
 # #--Counting all the resources ----------------------------------------------------
+    api_key = api_key.strip()
     headers = {"Content-Type":contentType,"x-api-key":api_key}
+    
     if url[-1]!="/":
         url=url+"/"
-    x = requests.get(url+'metadata',headers=headers)
+    try:
+        x = requests.get(url+'metadata',headers=headers)
+    except Exception as e: 
+        print(e)  
+    
     data = x.json()
     # # # print (len(data['rest'][0]['resource']))
       

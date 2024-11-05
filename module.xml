@@ -3,7 +3,7 @@
   <Document name="iris-fhir-client.ZPM">
     <Module>
       <Name>iris-fhir-client</Name>
-      <Version>1.0.3</Version>
+      <Version>1.0.4</Version>
       <Description>IRIS FHIR Client to connect with any open FHIR Server</Description>
       <Packaging>module</Packaging>
       <SourcesRoot>src</SourcesRoot>

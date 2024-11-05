@@ -273,6 +273,7 @@ ClassMethod GetResource(resource As %String, searchParm = "", searchVal = "") As
 
 ClassMethod ListResources(opt As %Integer = 0) As %Status
 {
+		
 	//Get Active Server data based on Global Variable 
 	Set obj = ##class(dc.FhirServer).%OpenId(^ActiveFhirServer)
 	//If Url and ApiKey is defined
@@ -280,7 +281,15 @@ ClassMethod ListResources(opt As %Integer = 0) As %Status
 	{  
 	  //Call Embedded Python Function to get Number of Resources
 	  Set irisfhirclient = ##class(%SYS.Python).Import("irisfhirclient")
-	  do irisfhirclient.ListResources(obj.Endpoint,obj.ApiKey,opt) 
+	  
+	  
+	  TRY {
+      do irisfhirclient.ListResources(obj.Endpoint,obj.ApiKey,opt)      
+ 		}		
+ 	  CATCH exception {
+		write exception.Name _ " "_exception.Data       	
+      }
+		  
 	}
 	//Active Server data is not defined
   	else
